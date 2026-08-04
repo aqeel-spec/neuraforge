@@ -126,11 +126,11 @@ function AgentBootup({ name = "Agent" }: { name?: string }) {
   const steps = ["Initializing...", "Loading model...", "Connecting...", "Ready ✓"];
 
   useEffect(() => {
-    if (step < steps.length - 1) {
+    if (step < 3) {
       const timer = setTimeout(() => setStep(s => s + 1), 800);
       return () => clearTimeout(timer);
     }
-  }, [step, steps.length]);
+  }, [step]);
 
   return (
     <div className="w-full max-w-xs rounded-xl border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 p-5 space-y-4">
