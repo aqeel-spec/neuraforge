@@ -11,6 +11,7 @@ import { ImageZoom } from "@neuraforge-ui/components/src/interactive/image-zoom"
 import { CursorFollow } from "@neuraforge-ui/components/src/interactive/cursor-follow";
 import { MusicPlayer, VideoPlayer } from "@neuraforge-ui/components/src/interactive/liquid-glass";
 import { MouseEffectCard } from "@neuraforge-ui/components/src/interactive/mouse-effect-card";
+import { SpotlightCards } from "@neuraforge-ui/components/src/interactive/spotlight-cards";
 
 export default function InteractivePage() {
   const [islandExpanded, setIslandExpanded] = useState(false);
@@ -190,6 +191,27 @@ export default function InteractivePage() {
             primaryCtaText="Get Started"
             secondaryCtaText="View Components"
             footerText="MCP-Ready • WCAG 2.2 AA • MIT Licensed"
+          />
+        </div>
+      </ComponentPreview>
+
+      {/* Spotlight Cards */}
+      <ComponentPreview
+        title="Spotlight Cards"
+        description="Feature grid with magnetic 3D tilt, aurora glow, shimmer sweep, and focus-dim siblings on hover."
+      >
+        <div className="w-full py-2">
+          <SpotlightCards
+            eyebrow="Why NeuraForge"
+            heading="Built for the AI era"
+            items={[
+              { icon: <svg className="w-[17px] h-[17px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.9}><path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" /></svg>, title: "MCP Native", description: "AI agents query components directly — no hallucinated markup, every artifact verified.", color: "#a78bfa" },
+              { icon: <svg className="w-[17px] h-[17px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.9}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" /></svg>, title: "Accessible", description: "WCAG 2.2 AA compliant. Keyboard navigable, screen reader friendly, reduced-motion safe.", color: "#34d399" },
+              { icon: <svg className="w-[17px] h-[17px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.9}><path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" /></svg>, title: "Performant", description: "Every component under 5kB tree-shaken. No runtime CSS-in-JS overhead.", color: "#f59e0b" },
+              { icon: <svg className="w-[17px] h-[17px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.9}><path strokeLinecap="round" strokeLinejoin="round" d="M7.864 4.243A7.5 7.5 0 0119.5 10.5c0 2.92-.556 5.709-1.568 8.268M5.742 6.364A7.465 7.465 0 004.5 10.5a7.464 7.464 0 01-1.15 3.993m1.989 3.559A11.209 11.209 0 008.25 10.5a3.75 3.75 0 117.5 0c0 .527-.021 1.049-.064 1.565M12 10.5a14.94 14.94 0 01-3.6 9.75m6.633-4.596a18.666 18.666 0 01-2.485 5.33" /></svg>, title: "Integrity", description: "SHA-256 checksum verified. Same artifact every time, no supply chain risk.", color: "#60a5fa" },
+              { icon: <svg className="w-[17px] h-[17px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.9}><path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" /></svg>, title: "TypeScript", description: "Strict typed props, exported interfaces, full IntelliSense support.", color: "#38bdf8" },
+              { icon: <svg className="w-[17px] h-[17px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.9}><path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /><path strokeLinecap="round" strokeLinejoin="round" d="M9 9.563C9 9.252 9.252 9 9.563 9h4.874c.311 0 .563.252.563.563v4.874c0 .311-.252.563-.563.563H9.564A.562.562 0 019 14.437V9.564z" /></svg>, title: "Self-Hostable", description: "Docker compose up. No account, no license key, no internet required.", color: "#f472b6" },
+            ]}
           />
         </div>
       </ComponentPreview>
