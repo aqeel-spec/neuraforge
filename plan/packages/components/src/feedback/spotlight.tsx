@@ -1,3 +1,5 @@
+'use client';
+
 import { type ReactNode, type RefObject, useCallback, useEffect, useState } from "react";
 
 export interface SpotlightProps {

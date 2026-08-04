@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo } from "react";
 import type { HTMLAttributes } from "react";
 import { classes, focusRing } from "./shared.js";

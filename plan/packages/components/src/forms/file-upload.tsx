@@ -1,3 +1,5 @@
+'use client';
+
 import { useId, useRef, useState, useCallback } from "react";
 import type { ChangeEvent, DragEvent, KeyboardEvent } from "react";
 

@@ -1,3 +1,5 @@
+'use client';
+
 import { Children, type ReactNode, useMemo } from "react";
 import { classes } from "./shared.js";
 

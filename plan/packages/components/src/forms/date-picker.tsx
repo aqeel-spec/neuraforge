@@ -1,3 +1,5 @@
+'use client';
+
 import { useId, useRef, useState, useCallback, useEffect } from "react";
 import type { KeyboardEvent, MouseEvent } from "react";
 

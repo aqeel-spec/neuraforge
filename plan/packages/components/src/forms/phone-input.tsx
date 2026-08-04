@@ -1,3 +1,5 @@
+'use client';
+
 import { useCallback, useId, useState } from "react";
 import type { ChangeEvent } from "react";
 

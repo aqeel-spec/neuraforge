@@ -1,3 +1,5 @@
+'use client';
+
 import type { HTMLAttributes, ReactNode } from "react";
 
 // `title` is omitted from the inherited DOM attributes because the component's `title` is

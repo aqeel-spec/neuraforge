@@ -1,3 +1,5 @@
+'use client';
+
 import { useCallback, useRef, useState } from "react";
 import type { KeyboardEvent, ReactNode } from "react";
 import { classes, focusRing } from "./shared.js";

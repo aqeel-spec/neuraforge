@@ -1,3 +1,5 @@
+'use client';
+
 import { classes, focusRing } from "./shared.js";
 
 export interface Segment {

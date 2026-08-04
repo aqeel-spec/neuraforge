@@ -1,3 +1,5 @@
+'use client';
+
 import { type ReactNode, useCallback, useRef, useState } from "react";
 import { classes } from "./shared.js";
 

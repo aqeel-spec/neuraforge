@@ -1,3 +1,5 @@
+'use client';
+
 import type { HTMLAttributes, ReactNode } from "react";
 
 export type BannerVariant = "info" | "warning" | "error" | "success";

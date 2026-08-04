@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useRef, useState } from "react";
 import type { ElementType, ReactNode } from "react";
 import { classes } from "./shared.js";

@@ -1,3 +1,5 @@
+'use client';
+
 import { useId, useState } from "react";
 import type { ChangeEvent, FormEvent } from "react";
 
