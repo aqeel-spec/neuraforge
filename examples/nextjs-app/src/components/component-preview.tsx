@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useCallback, useEffect } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { Eye, Code2, Copy, Check, Monitor, Tablet, Smartphone, GripVertical } from "lucide-react";
@@ -58,10 +58,11 @@ export function ComponentPreview({
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Sync device presets with width
-  useEffect(() => {
-    setWidth(deviceWidths[device]);
-  }, [device]);
+  // Device preset click handler — sets both device and width together
+  const selectDevice = useCallback((size: DeviceSize) => {
+    setDevice(size);
+    setWidth(deviceWidths[size]);
+  }, []);
 
   // Draggable resize handler
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
@@ -71,14 +72,10 @@ export function ComponentPreview({
     const startX = e.clientX;
     const startWidth = containerRef.current?.offsetWidth || 800;
 
-    const handleMouseMove = (e: MouseEvent) => {
-      const diff = e.clientX - startX;
-      const newWidth = Math.max(320, startWidth + diff * 2); // *2 because centered
+    const handleMouseMove = (ev: MouseEvent) => {
+      const diff = ev.clientX - startX;
+      const newWidth = Math.max(320, Math.min(1400, startWidth + diff * 2));
       setWidth(newWidth);
-      // Update device indicator
-      if (newWidth <= 400) setDevice("mobile");
-      else if (newWidth <= 800) setDevice("tablet");
-      else setDevice("desktop");
     };
 
     const handleMouseUp = () => {
@@ -133,7 +130,7 @@ export function ComponentPreview({
               return (
                 <button
                   key={size}
-                  onClick={() => setDevice(size)}
+                  onClick={() => selectDevice(size)}
                   className={cn(
                     "p-1.5 rounded-md transition-all duration-150",
                     device === size
