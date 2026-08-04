@@ -171,29 +171,15 @@ export function ComponentPreview({
             {/* Preview Area */}
             <div
               className={cn(
-                "flex items-center justify-center p-4 overflow-x-auto",
+                "flex items-center justify-center p-6 overflow-x-auto",
                 expandable ? "min-h-[300px]" : "min-h-[180px]"
               )}
-              style={{
-                backgroundImage: "radial-gradient(circle, hsl(var(--border)) 0.5px, transparent 0.5px)",
-                backgroundSize: "20px 20px",
-              }}
             >
               <div
-                className="device-frame"
-                style={{ width: deviceWidths[device], maxWidth: "100%" }}
+                className="device-frame w-full"
+                style={{ maxWidth: deviceWidths[device] }}
               >
-                <div
-                  className={cn(
-                    "w-full mx-auto bg-[hsl(var(--background))] rounded-xl p-5 border border-[hsl(var(--border))]/50",
-                    "shadow-[0_2px_8px_rgba(0,0,0,0.06),0_0_0_1px_rgba(0,0,0,0.02)]",
-                    expandable && "overflow-visible"
-                  )}
-                >
-                  <div className="w-full">
-                    {children}
-                  </div>
-                </div>
+                {children}
               </div>
             </div>
           </motion.div>
