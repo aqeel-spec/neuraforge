@@ -145,42 +145,14 @@ export function ComponentPreview({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
           >
-            {/* Device Frame Toolbar */}
-            <div className="flex items-center justify-center gap-1 px-6 py-3 border-b border-[hsl(var(--border))]/40 bg-[hsl(var(--muted))]/30">
-              {(Object.keys(deviceWidths) as DeviceSize[]).map((size) => {
-                const { icon: Icon, label } = deviceLabels[size];
-                return (
-                  <button
-                    key={size}
-                    onClick={() => setDevice(size)}
-                    className={cn(
-                      "inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-[11px] font-medium transition-all duration-200",
-                      device === size
-                        ? "bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] shadow-sm"
-                        : "text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] hover:bg-[hsl(var(--muted))]"
-                    )}
-                    aria-label={`Preview at ${label} size`}
-                  >
-                    <Icon className="h-3.5 w-3.5" />
-                    <span className="hidden sm:inline">{label}</span>
-                  </button>
-                );
-              })}
-            </div>
-
             {/* Preview Area */}
             <div
               className={cn(
-                "flex items-center justify-center p-6 overflow-x-auto",
-                expandable ? "min-h-[300px]" : "min-h-[180px]"
+                "w-full p-6",
+                expandable ? "min-h-[300px]" : "min-h-[120px]"
               )}
             >
-              <div
-                className="device-frame w-full"
-                style={{ maxWidth: deviceWidths[device] }}
-              >
-                {children}
-              </div>
+              {children}
             </div>
           </motion.div>
         ) : (
