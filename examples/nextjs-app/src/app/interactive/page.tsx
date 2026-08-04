@@ -61,13 +61,13 @@ function TiltCard() {
         rotateY.set((nx - 0.5) * 20);
       }}
       onMouseLeave={() => { rotateX.set(0); rotateY.set(0); }}
-      className="w-72 h-44 rounded-2xl bg-gradient-to-br from-zinc-900 to-zinc-800 border border-zinc-700 p-6 flex flex-col justify-between shadow-2xl"
+      className="w-72 h-44 rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 p-6 flex flex-col justify-between shadow-xl"
     >
       <div className="flex items-center gap-2">
         <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-400 to-indigo-500" />
-        <span className="text-white font-semibold">3D Tilt</span>
+        <span className="text-slate-900 dark:text-white font-semibold">3D Tilt</span>
       </div>
-      <p className="text-zinc-400 text-sm">Move cursor to tilt in 3D with perspective</p>
+      <p className="text-slate-500 dark:text-zinc-400 text-sm">Move cursor to tilt in 3D with perspective</p>
     </motion.div>
   );
 }
@@ -79,7 +79,7 @@ function GlowCursor() {
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-48 rounded-2xl bg-zinc-950 border border-zinc-800 overflow-hidden cursor-none"
+      className="relative w-full h-48 rounded-2xl bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 overflow-hidden cursor-none"
       onMouseMove={(e) => {
         const rect = containerRef.current?.getBoundingClientRect();
         if (!rect) return;
@@ -91,14 +91,14 @@ function GlowCursor() {
         style={{
           left: pos.x - 80,
           top: pos.y - 80,
-          background: 'radial-gradient(circle, rgba(139,92,246,0.4) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(139,92,246,0.3) 0%, transparent 70%)',
         }}
       />
       <div
-        className="absolute w-4 h-4 rounded-full bg-violet-400 pointer-events-none shadow-lg shadow-violet-500/50 transition-all duration-75"
+        className="absolute w-4 h-4 rounded-full bg-violet-500 pointer-events-none shadow-lg shadow-violet-500/50 transition-all duration-75"
         style={{ left: pos.x - 8, top: pos.y - 8 }}
       />
-      <p className="absolute inset-0 flex items-center justify-center text-zinc-500 text-sm">Glow follows cursor</p>
+      <p className="absolute inset-0 flex items-center justify-center text-slate-400 dark:text-zinc-500 text-sm">Glow follows cursor</p>
     </div>
   );
 }
@@ -111,7 +111,7 @@ function TrailEffect() {
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-48 rounded-2xl bg-zinc-950 border border-zinc-800 overflow-hidden"
+      className="relative w-full h-48 rounded-2xl bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 overflow-hidden"
       onMouseMove={(e) => {
         const rect = containerRef.current?.getBoundingClientRect();
         if (!rect) return;
@@ -133,7 +133,7 @@ function TrailEffect() {
           onAnimationComplete={() => setTrails(prev => prev.filter(p => p.id !== t.id))}
         />
       ))}
-      <p className="absolute inset-0 flex items-center justify-center text-zinc-500 text-sm">Move to create trail</p>
+      <p className="absolute inset-0 flex items-center justify-center text-slate-400 dark:text-zinc-500 text-sm">Move to create trail</p>
     </div>
   );
 }
@@ -146,7 +146,7 @@ function RippleEffect() {
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-48 rounded-2xl bg-zinc-950 border border-zinc-800 overflow-hidden cursor-pointer"
+      className="relative w-full h-48 rounded-2xl bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 overflow-hidden cursor-pointer"
       onClick={(e) => {
         const rect = containerRef.current?.getBoundingClientRect();
         if (!rect) return;
@@ -163,12 +163,12 @@ function RippleEffect() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
             onAnimationComplete={() => setRipples(prev => prev.filter(p => p.id !== r.id))}
-            className="absolute rounded-full border-2 border-violet-400 pointer-events-none"
+            className="absolute rounded-full border-2 border-violet-500 pointer-events-none"
             style={{ left: r.x - 100, top: r.y - 100 }}
           />
         ))}
       </AnimatePresence>
-      <p className="absolute inset-0 flex items-center justify-center text-zinc-500 text-sm">Click anywhere for ripple</p>
+      <p className="absolute inset-0 flex items-center justify-center text-slate-400 dark:text-zinc-500 text-sm">Click anywhere for ripple</p>
     </div>
   );
 }
@@ -181,7 +181,7 @@ function ParticleExplosion() {
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-48 rounded-2xl bg-zinc-950 border border-zinc-800 overflow-hidden cursor-pointer"
+      className="relative w-full h-48 rounded-2xl bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 overflow-hidden cursor-pointer"
       onClick={(e) => {
         const rect = containerRef.current?.getBoundingClientRect();
         if (!rect) return;
@@ -209,7 +209,7 @@ function ParticleExplosion() {
           className="absolute w-2 h-2 rounded-full bg-gradient-to-br from-amber-400 to-rose-500"
         />
       ))}
-      <p className="absolute inset-0 flex items-center justify-center text-zinc-500 text-sm">Click for particle burst</p>
+      <p className="absolute inset-0 flex items-center justify-center text-slate-400 dark:text-zinc-500 text-sm">Click for particle burst</p>
     </div>
   );
 }
@@ -222,7 +222,7 @@ function GravityDots() {
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-48 rounded-2xl bg-zinc-950 border border-zinc-800 overflow-hidden"
+      className="relative w-full h-48 rounded-2xl bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 overflow-hidden"
       onMouseMove={(e) => {
         const rect = containerRef.current?.getBoundingClientRect();
         if (!rect) return;
@@ -248,7 +248,7 @@ function GravityDots() {
           />
         );
       })}
-      <p className="absolute inset-0 flex items-center justify-center text-zinc-600 text-sm pointer-events-none">Dots attracted to cursor</p>
+      <p className="absolute inset-0 flex items-center justify-center text-slate-400 dark:text-zinc-500 text-sm pointer-events-none">Dots attracted to cursor</p>
     </div>
   );
 }
