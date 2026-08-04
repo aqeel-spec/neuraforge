@@ -10,16 +10,16 @@ import { ComponentPreview } from "@/components/component-preview";
 function AgentAvatar({ name = "AI", status = "idle", size = "md" }: { name?: string; status?: "idle" | "thinking" | "speaking" | "error"; size?: "sm" | "md" | "lg" }) {
   const sizes = { sm: "w-10 h-10 text-xs", md: "w-14 h-14 text-sm", lg: "w-20 h-20 text-base" };
   const rings = {
-    idle: "ring-emerald-400 shadow-emerald-400/20",
-    thinking: "ring-amber-400 shadow-amber-400/30 animate-pulse",
-    speaking: "ring-blue-400 shadow-blue-400/30 animate-[ping_1.5s_ease-in-out_infinite]",
-    error: "ring-red-400 shadow-red-400/30",
+    idle: "ring-2 ring-emerald-400 shadow-emerald-400/20",
+    thinking: "ring-2 ring-amber-400 shadow-amber-400/30 animate-pulse",
+    speaking: "ring-2 ring-blue-400 shadow-blue-400/30",
+    error: "ring-2 ring-red-400 shadow-red-400/30",
   };
   const initials = name.slice(0, 2).toUpperCase();
 
   return (
     <div className="flex flex-col items-center gap-2">
-      <div className={`${sizes[size]} rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center font-bold text-white ring-3 shadow-lg ${rings[status]} transition-all`}>
+      <div className={`${sizes[size]} rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center font-bold text-white shadow-lg ${rings[status]} transition-all`}>
         {initials}
       </div>
       <span className="text-[10px] font-medium text-slate-500 capitalize">{status}</span>
@@ -46,20 +46,24 @@ function SiriOrb({ active = false, size = "md" }: { active?: boolean; size?: "sm
             }, transparent)`,
             filter: `blur(${4 + i * 3}px)`,
           }}
-          animate={active ? {
-            scale: [1, 1.2 + i * 0.1, 1],
-            opacity: [0.8, 1, 0.8],
-            rotate: [0, 120 * (i + 1), 360],
-          } : { scale: 1, opacity: 0.5 }}
-          transition={{ duration: 3 + i, repeat: Infinity, ease: "easeInOut" }}
+          animate={active ? "active" : "idle"}
+          variants={{
+            active: { scale: [1, 1.2 + i * 0.1, 1], opacity: [0.8, 1, 0.8] },
+            idle: { scale: 1, opacity: 0.4 },
+          }}
+          transition={{ duration: 3 + i, repeat: active ? Infinity : 0, ease: "easeInOut" }}
         />
       ))}
       {/* Core */}
       <motion.div
         className="relative rounded-full bg-gradient-to-br from-violet-400 via-indigo-500 to-cyan-400 shadow-2xl shadow-violet-500/40"
         style={{ width: s * 0.35, height: s * 0.35 }}
-        animate={active ? { scale: [1, 1.1, 1] } : { scale: 1 }}
-        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        animate={active ? "active" : "idle"}
+        variants={{
+          active: { scale: [1, 1.1, 1] },
+          idle: { scale: 1 },
+        }}
+        transition={{ duration: 2, repeat: active ? Infinity : 0, ease: "easeInOut" }}
       />
     </div>
   );
