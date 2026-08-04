@@ -1,0 +1,7 @@
+node_modules
+coverage
+dist
+.kiro
+package-lock.json
+NeuraForge-Startup-Plan.md
+NeuraForge-UI-Pro-Addendum.md

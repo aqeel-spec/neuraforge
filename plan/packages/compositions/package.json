@@ -1,0 +1,18 @@
+{
+  "name": "@neuraforge/compositions",
+  "version": "0.0.0",
+  "description": "Deterministic curated page and section compositions",
+  "type": "module",
+  "license": "MIT",
+  "repository": "https://github.com/neuraforge/ui.git",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@neuraforge/schemas": "0.0.0",
+    "@neuraforge/catalog-core": "0.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

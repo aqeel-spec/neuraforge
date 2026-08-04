@@ -1,0 +1,20 @@
+{
+  "name": "@neuraforge/public-api",
+  "version": "0.0.0",
+  "description": "Unauthenticated exact-version Registry read API",
+  "type": "module",
+  "license": "MIT",
+  "repository": "https://github.com/neuraforge/ui.git",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@neuraforge/catalog-core": "0.0.0",
+    "@neuraforge/mcp-core": "0.0.0",
+    "@neuraforge/registry-builder": "0.0.0",
+    "@neuraforge/schemas": "0.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

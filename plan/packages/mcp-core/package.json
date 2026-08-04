@@ -1,0 +1,19 @@
+{
+  "name": "@neuraforge/mcp-core",
+  "version": "0.0.0",
+  "description": "Public side-effect-free MCP operation core",
+  "type": "module",
+  "license": "MIT",
+  "repository": "https://github.com/neuraforge/ui.git",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@neuraforge/catalog-core": "0.0.0",
+    "@neuraforge/schemas": "0.0.0",
+    "@neuraforge/tokens": "0.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

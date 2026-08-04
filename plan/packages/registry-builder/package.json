@@ -1,0 +1,22 @@
+{
+  "name": "@neuraforge/registry-builder",
+  "version": "0.0.0",
+  "description": "Immutable public Registry and release-bundle builder",
+  "type": "module",
+  "license": "MIT",
+  "repository": "https://github.com/neuraforge/ui.git",
+  "exports": {
+    ".": "./src/index.ts",
+    "./testing": "./src/__tests__/fixtures.ts"
+  },
+  "dependencies": {
+    "@neuraforge/catalog-core": "0.0.0",
+    "@neuraforge/components": "0.0.0",
+    "@neuraforge/mcp-core": "0.0.0",
+    "@neuraforge/schemas": "0.0.0",
+    "@neuraforge/tokens": "0.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

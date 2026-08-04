@@ -1,0 +1,22 @@
+{
+  "name": "@neuraforge/components",
+  "version": "0.0.0",
+  "description": "Editable public React and Tailwind component source",
+  "type": "module",
+  "license": "MIT",
+  "repository": "https://github.com/neuraforge/ui.git",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@neuraforge/schemas": "0.0.0",
+    "@neuraforge/catalog-core": "0.0.0"
+  },
+  "peerDependencies": {
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

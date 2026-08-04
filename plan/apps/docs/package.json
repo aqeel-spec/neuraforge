@@ -1,0 +1,23 @@
+{
+  "name": "@neuraforge/docs",
+  "version": "0.0.0",
+  "type": "module",
+  "license": "MIT",
+  "private": true,
+  "repository": "https://github.com/neuraforge/ui.git",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@neuraforge/schemas": "0.0.0",
+    "@neuraforge/components": "0.0.0",
+    "@neuraforge/motion": "0.0.0",
+    "@neuraforge/three-d": "0.0.0",
+    "@neuraforge/compositions": "0.0.0"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "@neuraforge/schemas",
+  "version": "0.0.0",
+  "description": "Versioned public schemas and generated types",
+  "type": "module",
+  "license": "MIT",
+  "repository": "https://github.com/neuraforge/ui.git",
+  "exports": {
+    ".": "./src/index.ts",
+    "./v1/common.schema.json": "./schemas/v1/common.schema.json"
+  },
+  "scripts": {
+    "generate": "node scripts/generate-types.mjs",
+    "generate:check": "node scripts/generate-types.mjs --check"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

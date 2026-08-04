@@ -1,0 +1,455 @@
+{
+  "$id": "urn:neuraforge:schema:common:v1",
+  "title": "NeuraForge Common Contracts v1",
+  "description": "Closed common contracts shared by Registry, API, CLI, MCP, release, and self-host adapters.",
+  "definitions": {
+    "JsonValue": {
+      "anyOf": [
+        { "type": "null" },
+        { "type": "boolean" },
+        { "type": "number" },
+        { "type": "string" },
+        { "type": "array", "items": { "$ref": "#/definitions/JsonValue" } },
+        {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/definitions/JsonValue" }
+        }
+      ]
+    },
+    "SemanticVersion": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?(?:\\+[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?$"
+    },
+    "ArtifactKind": {
+      "type": "string",
+      "enum": [
+        "component",
+        "token-set",
+        "motion-preset",
+        "animated-component",
+        "three-d-component",
+        "composition"
+      ]
+    },
+    "AccessClassification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "visibility",
+        "entitlement",
+        "paymentRequired",
+        "licenseKeyRequired",
+        "privateVariant",
+        "paidOnlyVariant"
+      ],
+      "properties": {
+        "visibility": { "const": "public" },
+        "entitlement": { "const": "none" },
+        "paymentRequired": { "const": false },
+        "licenseKeyRequired": { "const": false },
+        "privateVariant": { "const": false },
+        "paidOnlyVariant": { "const": false }
+      }
+    },
+    "ArtifactRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "stableId", "version"],
+      "properties": {
+        "kind": { "$ref": "#/definitions/ArtifactKind" },
+        "stableId": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)*/[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "version": { "$ref": "#/definitions/SemanticVersion" }
+      }
+    },
+    "Checksum": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "canonicalization", "digest"],
+      "properties": {
+        "algorithm": { "const": "sha256" },
+        "canonicalization": { "const": "neuraforge-canonical-v1" },
+        "digest": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
+    },
+    "FileRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "origin", "mediaType", "size", "checksum"],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^(?!/)(?!.*\\\\)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+        },
+        "origin": { "type": "string", "enum": ["original", "generated"] },
+        "mediaType": { "type": "string", "minLength": 1 },
+        "size": { "type": "integer", "minimum": 0 },
+        "checksum": { "$ref": "#/definitions/Checksum" }
+      }
+    },
+    "LicenseProvenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "version",
+        "source",
+        "copyright",
+        "spdxIdentifier",
+        "licenseTextPath",
+        "attribution",
+        "redistributionObligations",
+        "reviewStatus"
+      ],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "version": { "type": "string", "minLength": 1 },
+        "source": { "type": "string", "format": "uri" },
+        "copyright": { "type": "string", "minLength": 1 },
+        "spdxIdentifier": { "type": "string", "minLength": 1 },
+        "licenseTextPath": { "type": "string", "minLength": 1 },
+        "attribution": { "type": "string" },
+        "redistributionObligations": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "reviewStatus": {
+          "type": "string",
+          "enum": ["pending", "approved", "rejected"]
+        }
+      }
+    },
+    "DependencyInventoryItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "version",
+        "relationship",
+        "materialType",
+        "source",
+        "checksum",
+        "provenance"
+      ],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "version": { "type": "string", "minLength": 1 },
+        "relationship": { "type": "string", "enum": ["direct", "transitive"] },
+        "materialType": {
+          "type": "string",
+          "enum": ["dependency", "asset", "font", "example"]
+        },
+        "source": { "type": "string", "format": "uri" },
+        "checksum": { "$ref": "#/definitions/Checksum" },
+        "provenance": { "$ref": "#/definitions/LicenseProvenance" }
+      }
+    },
+    "CompatibilityConstraint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["targetType", "name", "version", "status"],
+      "properties": {
+        "targetType": {
+          "type": "string",
+          "enum": ["runtime", "framework", "tool", "browser", "operating-system", "public-surface"]
+        },
+        "name": { "type": "string", "minLength": 1 },
+        "version": { "type": "string", "minLength": 1 },
+        "status": { "type": "string", "enum": ["compatible", "incompatible"] },
+        "evidenceRef": { "type": "string", "minLength": 1 }
+      }
+    },
+    "CompatibilityMatrixEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "browser",
+        "browserVersion",
+        "operatingEnvironment",
+        "publicSurface",
+        "result",
+        "testedAt"
+      ],
+      "properties": {
+        "browser": { "type": "string", "minLength": 1 },
+        "browserVersion": { "type": "string", "minLength": 1 },
+        "operatingEnvironment": { "type": "string", "minLength": 1 },
+        "publicSurface": { "type": "string", "minLength": 1 },
+        "result": { "type": "string", "enum": ["passed", "failed", "not-applicable"] },
+        "testedAt": { "type": "string", "format": "date-time" },
+        "evidenceRef": { "type": "string", "minLength": 1 }
+      }
+    },
+    "BuildInstruction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["capability", "sourceLocation", "command"],
+      "properties": {
+        "capability": {
+          "type": "string",
+          "enum": ["registry", "public-api", "mcp-server", "documentation-site"]
+        },
+        "sourceLocation": { "type": "string", "minLength": 1 },
+        "command": { "type": "string", "minLength": 1 }
+      }
+    },
+    "ArtifactReleaseEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ref", "checksum", "access"],
+      "properties": {
+        "ref": { "$ref": "#/definitions/ArtifactRef" },
+        "checksum": { "$ref": "#/definitions/Checksum" },
+        "access": { "$ref": "#/definitions/AccessClassification" }
+      }
+    },
+    "QualityEnvironment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["operatingSystem", "runtime", "tools", "prerequisites", "fixtures"],
+      "properties": {
+        "operatingSystem": { "type": "string", "minLength": 1 },
+        "runtime": { "type": "string", "minLength": 1 },
+        "tools": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": { "type": "string", "minLength": 1 }
+        },
+        "prerequisites": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "fixtures": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        }
+      }
+    },
+    "QualityEvidenceReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["uri", "checksum"],
+      "properties": {
+        "uri": { "type": "string", "format": "uri-reference" },
+        "checksum": { "$ref": "#/definitions/Checksum" }
+      }
+    },
+    "QualityGateResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "checkId",
+        "checkType",
+        "scope",
+        "required",
+        "status",
+        "command",
+        "environment",
+        "evidence",
+        "recordedAt"
+      ],
+      "properties": {
+        "checkId": { "type": "string", "minLength": 1 },
+        "checkType": {
+          "type": "string",
+          "enum": [
+            "formatting",
+            "static-analysis",
+            "unit",
+            "integration",
+            "property",
+            "accessibility",
+            "security",
+            "package",
+            "documentation",
+            "compatibility",
+            "license",
+            "provenance",
+            "bundle-size",
+            "runtime-performance"
+          ]
+        },
+        "scope": { "type": "string", "minLength": 1 },
+        "required": { "type": "boolean" },
+        "status": { "type": "string", "enum": ["passed", "failed", "unavailable", "malformed"] },
+        "command": { "type": "string", "minLength": 1 },
+        "environment": { "$ref": "#/definitions/QualityEnvironment" },
+        "evidence": { "$ref": "#/definitions/QualityEvidenceReference" },
+        "recordedAt": { "type": "string", "format": "date-time" },
+        "exceptionRef": { "type": "string", "minLength": 1 }
+      }
+    },
+    "PerformanceRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifact",
+        "metric",
+        "scenario",
+        "environment",
+        "result",
+        "threshold",
+        "unit",
+        "command",
+        "status"
+      ],
+      "properties": {
+        "artifact": { "$ref": "#/definitions/ArtifactRef" },
+        "metric": { "type": "string", "minLength": 1 },
+        "scenario": { "type": "string", "minLength": 1 },
+        "environment": { "$ref": "#/definitions/QualityEnvironment" },
+        "result": { "type": "number" },
+        "threshold": { "type": "number" },
+        "unit": { "type": "string", "minLength": 1 },
+        "command": { "type": "string", "minLength": 1 },
+        "status": { "type": "string", "enum": ["passed", "failed"] }
+      }
+    },
+    "ReleaseApproval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["approvedBy", "approvedAt"],
+      "properties": {
+        "approvedBy": { "type": "string", "minLength": 1 },
+        "approvedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "ReleaseManifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "releaseVersion",
+        "status",
+        "registryVersion",
+        "licenseTextPath",
+        "copyrightNotices",
+        "thirdPartyNoticesPath",
+        "buildInstructions",
+        "artifacts",
+        "productionInventory",
+        "qualityEvidenceRefs",
+        "compatibilityMatrix"
+      ],
+      "properties": {
+        "schemaVersion": { "const": "1.0.0" },
+        "releaseVersion": { "$ref": "#/definitions/SemanticVersion" },
+        "status": {
+          "type": "string",
+          "enum": ["candidate", "rejected", "experimental", "approved", "stable", "published"]
+        },
+        "registryVersion": { "$ref": "#/definitions/SemanticVersion" },
+        "licenseTextPath": { "type": "string", "minLength": 1 },
+        "copyrightNotices": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "thirdPartyNoticesPath": { "type": "string", "minLength": 1 },
+        "buildInstructions": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/BuildInstruction" },
+          "minItems": 1
+        },
+        "artifacts": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/ArtifactReleaseEntry" },
+          "minItems": 1
+        },
+        "productionInventory": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/DependencyInventoryItem" }
+        },
+        "qualityEvidenceRefs": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "compatibilityMatrix": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/CompatibilityMatrixEntry" }
+        },
+        "approval": { "$ref": "#/definitions/ReleaseApproval" },
+        "publishedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "FieldError": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "path", "constraint", "guidance"],
+      "properties": {
+        "code": { "type": "string", "minLength": 1 },
+        "path": { "type": "string", "minLength": 1 },
+        "constraint": { "type": "string", "minLength": 1 },
+        "guidance": { "type": "string", "minLength": 1 }
+      }
+    },
+    "ErrorResource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind"],
+      "properties": {
+        "kind": { "type": "string", "minLength": 1 },
+        "id": { "type": "string", "minLength": 1 },
+        "version": { "type": "string", "minLength": 1 },
+        "source": { "type": "string", "minLength": 1 }
+      }
+    },
+    "OperationError": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "category", "message", "retryable", "requestId"],
+      "properties": {
+        "code": { "type": "string", "minLength": 1 },
+        "category": {
+          "type": "string",
+          "enum": [
+            "validation",
+            "not_found",
+            "conflict",
+            "integrity",
+            "availability",
+            "quota",
+            "subscription",
+            "partial_result",
+            "policy",
+            "internal"
+          ]
+        },
+        "operation": { "type": "string", "minLength": 1 },
+        "message": { "type": "string", "minLength": 1 },
+        "retryable": { "type": "boolean" },
+        "fields": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/FieldError" },
+          "minItems": 1
+        },
+        "resource": { "$ref": "#/definitions/ErrorResource" },
+        "alternatives": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/ArtifactRef" }
+        },
+        "details": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/definitions/JsonValue" }
+        },
+        "requestId": { "type": "string", "minLength": 1 }
+      }
+    },
+    "ErrorEnvelope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["error"],
+      "properties": {
+        "error": { "$ref": "#/definitions/OperationError" }
+      }
+    }
+  }
+}

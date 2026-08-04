@@ -1,0 +1,54 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+out/
+.next/
+.astro/
+
+# TypeScript
+*.tsbuildinfo
+tsc_out.txt
+tsc_errors.txt
+
+# Coverage
+coverage/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Package managers
+*.tgz
+.npm/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Docker
+.docker/
+
+# Turbo
+.turbo/
+
+# Misc
+*.bak
+*.tmp

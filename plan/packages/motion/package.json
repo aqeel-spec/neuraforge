@@ -1,0 +1,23 @@
+{
+  "name": "@neuraforge/motion",
+  "version": "0.0.0",
+  "description": "Public Framer Motion presets and animated component schemas",
+  "type": "module",
+  "license": "MIT",
+  "repository": "https://github.com/neuraforge/ui.git",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@neuraforge/schemas": "0.0.0",
+    "@neuraforge/catalog-core": "0.0.0"
+  },
+  "peerDependencies": {
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "framer-motion": "11.15.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
