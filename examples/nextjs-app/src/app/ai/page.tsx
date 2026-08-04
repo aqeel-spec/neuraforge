@@ -43,19 +43,19 @@ export default function AiComponentsPage() {
 
       {/* AI Loader */}
       <motion.div variants={fadeUp}>
-        <ComponentPreview id="ai-loader" title="AiLoader" description="Animated loading indicators for AI processing states">
-          <div className="flex items-center gap-8">
-            <div className="flex flex-col items-center gap-2">
-              <AiLoader variant="dots" />
-              <span className="text-xs text-[hsl(var(--muted-foreground))]">dots</span>
+        <ComponentPreview id="ai-loader" title="AiLoader" description="Premium animated loading indicators for AI processing states">
+          <div className="flex items-center gap-12">
+            <div className="flex flex-col items-center gap-3">
+              <AiLoader variant="wave" size="lg" />
+              <span className="text-xs font-medium text-[hsl(var(--muted-foreground))]">wave</span>
             </div>
-            <div className="flex flex-col items-center gap-2">
-              <AiLoader variant="pulse" />
-              <span className="text-xs text-[hsl(var(--muted-foreground))]">pulse</span>
+            <div className="flex flex-col items-center gap-3">
+              <AiLoader variant="neural" size="lg" />
+              <span className="text-xs font-medium text-[hsl(var(--muted-foreground))]">neural</span>
             </div>
-            <div className="flex flex-col items-center gap-2">
-              <AiLoader variant="orbit" />
-              <span className="text-xs text-[hsl(var(--muted-foreground))]">orbit</span>
+            <div className="flex flex-col items-center gap-3">
+              <AiLoader variant="stream" size="lg" />
+              <span className="text-xs font-medium text-[hsl(var(--muted-foreground))]">stream</span>
             </div>
           </div>
         </ComponentPreview>

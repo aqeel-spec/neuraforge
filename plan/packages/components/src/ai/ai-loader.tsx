@@ -1,157 +1,196 @@
 'use client';
 
+import { useId, useMemo } from 'react';
 import { motion } from 'framer-motion';
 
 export interface AiLoaderProps {
-  variant?: 'dots' | 'pulse' | 'orbit';
+  variant?: 'wave' | 'neural' | 'stream';
   size?: 'sm' | 'md' | 'lg';
   label?: string;
   className?: string;
 }
 
-const sizes = {
-  sm: { wrapper: 'w-16 h-10', dot: 6, pulse: 32, orbit: 40 },
-  md: { wrapper: 'w-20 h-14', dot: 8, pulse: 48, orbit: 56 },
-  lg: { wrapper: 'w-28 h-20', dot: 10, pulse: 64, orbit: 72 },
-} as const;
+const sizes = { sm: 48, md: 64, lg: 96 } as const;
 
-function DotsVariant({ size }: { size: 'sm' | 'md' | 'lg' }) {
-  const s = sizes[size];
+function WaveVariant({ size }: { size: number }) {
+  const bars = 7;
+  const barWidth = size * 0.08;
+  const gap = size * 0.04;
+  const totalWidth = bars * barWidth + (bars - 1) * gap;
+  const maxH = size * 0.85;
+  const minH = size * 0.2;
+
   return (
-    <div className="flex items-center gap-2">
-      {[0, 1, 2].map((i) => (
-        <motion.div
+    <svg width={totalWidth} height={size} viewBox={`0 0 ${totalWidth} ${size}`} aria-hidden="true">
+      <defs>
+        <linearGradient id="nf-wave-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#8b5cf6" />
+          <stop offset="50%" stopColor="#6366f1" />
+          <stop offset="100%" stopColor="#06b6d4" />
+        </linearGradient>
+        <filter id="nf-wave-glow">
+          <feGaussianBlur stdDeviation="2" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
+      {Array.from({ length: bars }).map((_, i) => (
+        <motion.rect
           key={i}
-          className="rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 dark:from-violet-400 dark:to-indigo-500 shadow-lg shadow-violet-500/25"
-          style={{ width: s.dot, height: s.dot }}
+          x={i * (barWidth + gap)}
+          rx={barWidth / 2}
+          ry={barWidth / 2}
+          width={barWidth}
+          fill="url(#nf-wave-grad)"
+          filter="url(#nf-wave-glow)"
           animate={{
-            y: [0, -12, 0],
-            scale: [1, 1.3, 1],
+            height: [minH, maxH, minH],
+            y: [size - minH, size - maxH, size - minH],
+          }}
+          transition={{
+            duration: 1.2,
+            repeat: Infinity,
+            ease: 'easeInOut',
+            delay: i * 0.12,
+          }}
+        />
+      ))}
+    </svg>
+  );
+}
+
+function NeuralVariant({ size }: { size: number }) {
+  const nodes = useMemo(() => [
+    { x: size * 0.5, y: size * 0.12 },
+    { x: size * 0.15, y: size * 0.4 },
+    { x: size * 0.85, y: size * 0.4 },
+    { x: size * 0.25, y: size * 0.78 },
+    { x: size * 0.75, y: size * 0.78 },
+    { x: size * 0.5, y: size * 0.55 },
+  ], [size]);
+
+  const connections: [number, number][] = [
+    [0, 1], [0, 2], [0, 5], [1, 3], [1, 5], [2, 4], [2, 5], [3, 5], [4, 5],
+  ];
+
+  return (
+    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} aria-hidden="true">
+      <defs>
+        <filter id="nf-neural-glow">
+          <feGaussianBlur stdDeviation="3" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+        <radialGradient id="nf-node-grad">
+          <stop offset="0%" stopColor="#a78bfa" />
+          <stop offset="100%" stopColor="#6366f1" />
+        </radialGradient>
+      </defs>
+      {connections.map(([a, b], i) => (
+        <motion.line
+          key={`l-${i}`}
+          x1={nodes[a]!.x}
+          y1={nodes[a]!.y}
+          x2={nodes[b]!.x}
+          y2={nodes[b]!.y}
+          stroke="#8b5cf6"
+          strokeWidth={1.5}
+          animate={{ strokeOpacity: [0.2, 0.7, 0.2] }}
+          transition={{ duration: 2, repeat: Infinity, delay: i * 0.15 }}
+        />
+      ))}
+      {nodes.map((node, i) => (
+        <motion.circle
+          key={`n-${i}`}
+          cx={node.x}
+          cy={node.y}
+          fill="url(#nf-node-grad)"
+          filter="url(#nf-neural-glow)"
+          animate={{
+            r: [size * 0.05, size * 0.07, size * 0.05],
             opacity: [0.7, 1, 0.7],
           }}
           transition={{
-            duration: 0.8,
+            duration: 1.6,
             repeat: Infinity,
-            delay: i * 0.2,
-            ease: [0.45, 0, 0.55, 1],
+            ease: 'easeInOut',
+            delay: i * 0.25,
           }}
         />
       ))}
-    </div>
+    </svg>
   );
 }
 
-function PulseVariant({ size }: { size: 'sm' | 'md' | 'lg' }) {
-  const s = sizes[size];
+function StreamVariant({ size }: { size: number }) {
+  const particles = 12;
+  const height = size * 0.5;
+  const width = size * 2;
+  const colors = ['#8b5cf6', '#6366f1', '#06b6d4'];
+
   return (
-    <div className="relative flex items-center justify-center" style={{ width: s.pulse, height: s.pulse }}>
-      {/* Outer ripple rings */}
-      {[0, 1, 2].map((i) => (
-        <motion.div
-          key={i}
-          className="absolute inset-0 rounded-full border-2 border-violet-500/40 dark:border-violet-400/40"
-          animate={{
-            scale: [1, 2.2],
-            opacity: [0.6, 0],
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            delay: i * 0.6,
-            ease: 'easeOut',
-          }}
-        />
-      ))}
-      {/* Core orb */}
-      <motion.div
-        className="relative rounded-full bg-gradient-to-br from-violet-500 via-indigo-500 to-purple-600 dark:from-violet-400 dark:via-indigo-400 dark:to-purple-500 shadow-xl shadow-violet-500/40"
-        style={{ width: s.pulse * 0.5, height: s.pulse * 0.5 }}
-        animate={{
-          scale: [1, 1.15, 1],
-          boxShadow: [
-            '0 0 0 0 rgba(139, 92, 246, 0.4)',
-            '0 0 20px 4px rgba(139, 92, 246, 0.3)',
-            '0 0 0 0 rgba(139, 92, 246, 0.4)',
-          ],
-        }}
-        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-      />
-    </div>
+    <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} aria-hidden="true">
+      <defs>
+        <linearGradient id="nf-stream-fade" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="white" stopOpacity="0" />
+          <stop offset="15%" stopColor="white" stopOpacity="1" />
+          <stop offset="85%" stopColor="white" stopOpacity="1" />
+          <stop offset="100%" stopColor="white" stopOpacity="0" />
+        </linearGradient>
+        <mask id="nf-stream-mask">
+          <rect width={width} height={height} fill="url(#nf-stream-fade)" />
+        </mask>
+      </defs>
+      <g mask="url(#nf-stream-mask)">
+        {Array.from({ length: particles }).map((_, i) => {
+          const y = (height / (particles + 1)) * (i + 1);
+          const r = 1.5 + (i % 3);
+          return (
+            <motion.circle
+              key={i}
+              cy={y}
+              r={r}
+              fill={colors[i % 3]}
+              opacity={0.85}
+              animate={{ cx: [-10, width + 10] }}
+              transition={{
+                duration: 2 + (i % 4) * 0.4,
+                repeat: Infinity,
+                ease: 'linear',
+                delay: i * 0.18,
+              }}
+            />
+          );
+        })}
+      </g>
+    </svg>
   );
 }
 
-function OrbitVariant({ size }: { size: 'sm' | 'md' | 'lg' }) {
-  const s = sizes[size];
-  const radius = s.orbit * 0.38;
-  return (
-    <div className="relative flex items-center justify-center" style={{ width: s.orbit, height: s.orbit }}>
-      {/* Center dot */}
-      <div className="absolute w-2 h-2 rounded-full bg-violet-500 dark:bg-violet-400 shadow-md shadow-violet-500/50" />
-      {/* Orbit track */}
-      <div
-        className="absolute rounded-full border border-violet-500/20 dark:border-violet-400/20"
-        style={{ width: radius * 2, height: radius * 2 }}
-      />
-      {/* Orbiting particles */}
-      {[0, 1, 2, 3].map((i) => (
-        <motion.div
-          key={i}
-          className="absolute rounded-full shadow-md"
-          style={{
-            width: s.dot * 0.8,
-            height: s.dot * 0.8,
-            background: i % 2 === 0
-              ? 'linear-gradient(135deg, #8b5cf6, #6366f1)'
-              : 'linear-gradient(135deg, #a78bfa, #818cf8)',
-            boxShadow: '0 0 8px rgba(139, 92, 246, 0.5)',
-          }}
-          animate={{
-            x: [
-              Math.cos((i * Math.PI) / 2) * radius,
-              Math.cos((i * Math.PI) / 2 + Math.PI / 2) * radius,
-              Math.cos((i * Math.PI) / 2 + Math.PI) * radius,
-              Math.cos((i * Math.PI) / 2 + (3 * Math.PI) / 2) * radius,
-              Math.cos((i * Math.PI) / 2 + 2 * Math.PI) * radius,
-            ],
-            y: [
-              Math.sin((i * Math.PI) / 2) * radius,
-              Math.sin((i * Math.PI) / 2 + Math.PI / 2) * radius,
-              Math.sin((i * Math.PI) / 2 + Math.PI) * radius,
-              Math.sin((i * Math.PI) / 2 + (3 * Math.PI) / 2) * radius,
-              Math.sin((i * Math.PI) / 2 + 2 * Math.PI) * radius,
-            ],
-            scale: [1, 1.2, 1, 0.8, 1],
-          }}
-          transition={{
-            duration: 2.4,
-            repeat: Infinity,
-            ease: 'linear',
-            delay: i * 0.15,
-          }}
-        />
-      ))}
-    </div>
-  );
-}
+export function AiLoader({ variant = 'wave', size = 'md', label, className = '' }: AiLoaderProps) {
+  const id = useId();
+  const px = sizes[size];
 
-export const AiLoader = ({
-  variant = 'dots',
-  size = 'md',
-  label = 'AI is thinking',
-  className = '',
-}: AiLoaderProps) => {
   return (
     <div
       role="status"
-      aria-label={label}
-      className={`inline-flex items-center justify-center ${sizes[size].wrapper} ${className}`}
+      aria-label={label ?? 'Loading'}
+      className={`inline-flex flex-col items-center justify-center gap-2 ${className}`}
+      style={{ minHeight: px }}
     >
-      {variant === 'dots' && <DotsVariant size={size} />}
-      {variant === 'pulse' && <PulseVariant size={size} />}
-      {variant === 'orbit' && <OrbitVariant size={size} />}
-      <span className="sr-only">{label}</span>
+      {variant === 'wave' && <WaveVariant size={px} />}
+      {variant === 'neural' && <NeuralVariant size={px} />}
+      {variant === 'stream' && <StreamVariant size={px} />}
+      {label && (
+        <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{label}</span>
+      )}
+      <span className="sr-only" id={id}>{label ?? 'Loading'}</span>
     </div>
   );
-};
+}
 
 export default AiLoader;

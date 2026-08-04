@@ -67,7 +67,7 @@ export const AiBubbleChat: React.FC<AiBubbleChatProps> = ({
             animate={{ opacity: 1 }}
             className="flex justify-start"
           >
-            <AiLoader variant="dots" size="sm" label="Assistant is thinking" />
+            <AiLoader variant="wave" size="sm" label="Assistant is thinking" />
           </motion.div>
         )}
         <div ref={messagesEndRef} />
