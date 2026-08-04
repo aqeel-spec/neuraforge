@@ -52,7 +52,7 @@ export function ComponentPreview({
   className,
   expandable = false,
 }: ComponentPreviewProps) {
-  const [activeTab, setActiveTab] = useState<"preview" | "code">(code ? "code" : "preview");
+  const [activeTab, setActiveTab] = useState<"preview" | "code">("preview");
   const [device, setDevice] = useState<DeviceSize>("desktop");
   const [packageManager, setPackageManager] = useState<PackageManager>("npm");
   const [copied, setCopied] = useState(false);
@@ -94,25 +94,6 @@ export function ComponentPreview({
         {code && (
           <div className="flex items-center rounded-lg bg-[hsl(var(--muted))]/60 p-[3px] ml-4 shrink-0 border border-[hsl(var(--border))]/40">
             <button
-              onClick={() => setActiveTab("code")}
-              className={cn(
-                "relative inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-[11px] font-medium transition-all duration-200",
-                activeTab === "code"
-                  ? "text-[hsl(var(--foreground))]"
-                  : "text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))]"
-              )}
-            >
-              {activeTab === "code" && (
-                <motion.div
-                  layoutId={`tab-${id || title}`}
-                  className="absolute inset-0 bg-white rounded-md shadow-sm border border-[hsl(var(--border))]/40"
-                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                />
-              )}
-              <Code2 className="h-3 w-3 relative z-10" />
-              <span className="relative z-10">Code</span>
-            </button>
-            <button
               onClick={() => setActiveTab("preview")}
               className={cn(
                 "relative inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-[11px] font-medium transition-all duration-200",
@@ -130,6 +111,25 @@ export function ComponentPreview({
               )}
               <Eye className="h-3 w-3 relative z-10" />
               <span className="relative z-10">Preview</span>
+            </button>
+            <button
+              onClick={() => setActiveTab("code")}
+              className={cn(
+                "relative inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-[11px] font-medium transition-all duration-200",
+                activeTab === "code"
+                  ? "text-[hsl(var(--foreground))]"
+                  : "text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))]"
+              )}
+            >
+              {activeTab === "code" && (
+                <motion.div
+                  layoutId={`tab-${id || title}`}
+                  className="absolute inset-0 bg-white rounded-md shadow-sm border border-[hsl(var(--border))]/40"
+                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                />
+              )}
+              <Code2 className="h-3 w-3 relative z-10" />
+              <span className="relative z-10">Code</span>
             </button>
           </div>
         )}
