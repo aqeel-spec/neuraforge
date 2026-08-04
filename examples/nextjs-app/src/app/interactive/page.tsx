@@ -10,6 +10,7 @@ import { Flip } from "@neuraforge-ui/components/src/interactive/flip";
 import { ImageZoom } from "@neuraforge-ui/components/src/interactive/image-zoom";
 import { CursorFollow } from "@neuraforge-ui/components/src/interactive/cursor-follow";
 import { MusicPlayer, VideoPlayer } from "@neuraforge-ui/components/src/interactive/liquid-glass";
+import { MouseEffectCard } from "@neuraforge-ui/components/src/interactive/mouse-effect-card";
 
 export default function InteractivePage() {
   const [islandExpanded, setIslandExpanded] = useState(false);
@@ -171,6 +172,24 @@ export default function InteractivePage() {
           <VideoPlayer
             title="NeuraForge UI Walkthrough"
             poster="https://placehold.co/640x360/1e1b4b/c4b5fd?text=NeuraForge+Demo"
+          />
+        </div>
+      </ComponentPreview>
+
+      {/* Mouse Effect Card */}
+      <ComponentPreview
+        title="Mouse Effect Card"
+        description="Interactive dot pattern card that responds to cursor movement with repulsion physics and spring animations."
+      >
+        <div className="flex justify-center py-4">
+          <MouseEffectCard
+            title="NeuraForge"
+            subtitle="200+ components for AI-powered interfaces. MCP-native, accessible, and MIT licensed."
+            topText="AI-Native Library"
+            topSubtext="Built for coding agents"
+            primaryCtaText="Get Started"
+            secondaryCtaText="View Components"
+            footerText="MCP-Ready • WCAG 2.2 AA • MIT Licensed"
           />
         </div>
       </ComponentPreview>
