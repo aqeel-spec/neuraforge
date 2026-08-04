@@ -18,6 +18,7 @@ const AiTaskList = dynamic(() => import("@neuraforge-ui/components/src/ai/ai-tas
 const AiSources = dynamic(() => import("@neuraforge-ui/components/src/ai/ai-sources").then(m => m.AiSources ? { default: m.AiSources } : m), { ssr: false });
 const AiReasoning = dynamic(() => import("@neuraforge-ui/components/src/ai/ai-reasoning").then(m => m.AiReasoning ? { default: m.AiReasoning } : m), { ssr: false });
 const AiBranch = dynamic(() => import("@neuraforge-ui/components/src/ai/ai-branch").then(m => m.AiBranch ? { default: m.AiBranch } : m), { ssr: false });
+const AiBubbleChat = dynamic(() => import("@neuraforge-ui/components/src/ai/ai-bubble-chat").then(m => m.AiBubbleChat ? { default: m.AiBubbleChat } : m), { ssr: false });
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -39,6 +40,25 @@ export default function AiComponentsPage() {
         <p className="text-[hsl(var(--muted-foreground))] mt-2 text-[15px] leading-relaxed max-w-2xl">
           13 purpose-built components for AI chat interfaces, reasoning chains, tool calls, and agent workflows.
         </p>
+      </motion.div>
+
+      {/* AI Bubble Chat - Full Chat Interface */}
+      <motion.div variants={fadeUp}>
+        <ComponentPreview id="ai-bubble-chat" title="AiBubbleChat" description="Full chat interface — drop-in AI chat model for any app. Supports messages, loading states, and empty states.">
+          <div className="w-full">
+            <AiBubbleChat
+              title="NeuraForge AI"
+              subtitle="Online"
+              messages={[
+                { id: "1", role: "user", content: "How do I add a pricing section to my app?", timestamp: "2:34 PM" },
+                { id: "2", role: "assistant", content: "I'll help you add a pricing section! Here's what I recommend:\n\n1. Install the PricingGradient block\n2. Configure your plans (Free, Pro, Enterprise)\n3. Add it to your landing page\n\nWant me to generate the code?", timestamp: "2:34 PM" },
+                { id: "3", role: "user", content: "Yes, generate it for me", timestamp: "2:35 PM" },
+                { id: "4", role: "assistant", content: "Here's your pricing section with 3 plans, gradient borders, and a highlighted 'Pro' tier. I've included proper accessibility labels and responsive grid layout.", timestamp: "2:35 PM" },
+              ]}
+              placeholder="Ask about components..."
+            />
+          </div>
+        </ComponentPreview>
       </motion.div>
 
       {/* AI Loader */}
@@ -88,10 +108,14 @@ export default function AiComponentsPage() {
 
       {/* AI Context Meter */}
       <motion.div variants={fadeUp}>
-        <ComponentPreview id="ai-context-meter" title="AiContextMeter" description="Token/context usage visualization">
-          <div className="w-full max-w-md space-y-4">
-            <AiContextMeter used={6500} total={10000} label="Context usage" showPercentage />
-            <AiContextMeter used={9200} total={10000} label="Near limit" showPercentage warningThreshold={80} />
+        <ComponentPreview id="ai-context-meter" title="AiContextMeter" description="Token/context window usage — bar and radial variants with status indicators">
+          <div className="w-full space-y-8">
+            <AiContextMeter used={6500} total={10000} label="Context Window" showPercentage variant="bar" />
+            <AiContextMeter used={8500} total={10000} label="Session Tokens" showPercentage variant="bar" warningThreshold={70} dangerThreshold={85} />
+            <div className="flex gap-8 flex-wrap">
+              <AiContextMeter used={4200} total={10000} variant="radial" label="GPT-4 Turbo" />
+              <AiContextMeter used={9100} total={10000} variant="radial" label="Claude 3.5" dangerThreshold={85} />
+            </div>
           </div>
         </ComponentPreview>
       </motion.div>
