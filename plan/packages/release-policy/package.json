@@ -1,6 +1,6 @@
 {
   "name": "@neuraforge-ui/release-policy",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Public quality-gate and release policy evaluation",
   "type": "module",
   "license": "MIT",

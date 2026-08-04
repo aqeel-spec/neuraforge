@@ -1,6 +1,6 @@
 {
   "name": "@neuraforge-ui/components",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Editable public React and Tailwind component source",
   "type": "module",
   "license": "MIT",

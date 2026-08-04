@@ -1,6 +1,6 @@
 {
   "name": "@neuraforge-ui/registry-builder",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Immutable public Registry and release-bundle builder",
   "type": "module",
   "license": "MIT",

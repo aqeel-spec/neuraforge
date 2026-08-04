@@ -1,6 +1,6 @@
 {
   "name": "@neuraforge-ui/public-api",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Unauthenticated exact-version Registry read API",
   "type": "module",
   "license": "MIT",

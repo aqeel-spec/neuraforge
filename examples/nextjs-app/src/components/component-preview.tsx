@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
-import { Eye, Code2, Copy, Check } from "lucide-react";
+import { Eye, Code2, Copy, Check, Monitor, Tablet, Smartphone } from "lucide-react";
 
 interface ComponentPreviewProps {
   id?: string;
@@ -11,9 +11,35 @@ interface ComponentPreviewProps {
   description?: string;
   children: React.ReactNode;
   code?: string;
+  install?: string; // package name, defaults to @neuraforge-ui/components
   className?: string;
-  /** Set to true for components with dropdowns/popups that need extra space */
   expandable?: boolean;
+}
+
+type DeviceSize = "desktop" | "tablet" | "mobile";
+type PackageManager = "npm" | "pnpm" | "bun";
+
+const deviceWidths: Record<DeviceSize, string> = {
+  desktop: "100%",
+  tablet: "768px",
+  mobile: "375px",
+};
+
+const deviceLabels: Record<DeviceSize, { icon: typeof Monitor; label: string }> = {
+  desktop: { icon: Monitor, label: "Desktop" },
+  tablet: { icon: Tablet, label: "Tablet" },
+  mobile: { icon: Smartphone, label: "Mobile" },
+};
+
+function getInstallCommand(pm: PackageManager, pkg: string): string {
+  switch (pm) {
+    case "npm":
+      return `npm install ${pkg}`;
+    case "pnpm":
+      return `pnpm add ${pkg}`;
+    case "bun":
+      return `bun add ${pkg}`;
+  }
 }
 
 export function ComponentPreview({
@@ -22,11 +48,15 @@ export function ComponentPreview({
   description,
   children,
   code,
+  install = "@neuraforge-ui/components",
   className,
   expandable = false,
 }: ComponentPreviewProps) {
   const [activeTab, setActiveTab] = useState<"preview" | "code">("preview");
+  const [device, setDevice] = useState<DeviceSize>("desktop");
+  const [packageManager, setPackageManager] = useState<PackageManager>("npm");
   const [copied, setCopied] = useState(false);
+  const [copiedInstall, setCopiedInstall] = useState(false);
 
   const copyCode = async () => {
     if (code) {
@@ -36,26 +66,33 @@ export function ComponentPreview({
     }
   };
 
+  const copyInstall = async () => {
+    const cmd = getInstallCommand(packageManager, install);
+    await navigator.clipboard.writeText(cmd);
+    setCopiedInstall(true);
+    setTimeout(() => setCopiedInstall(false), 2000);
+  };
+
   return (
     <div
       id={id}
       className={cn(
-        "rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] scroll-mt-24 transition-all duration-300",
-        "hover:border-[hsl(var(--border))]/80 hover:shadow-[0_2px_12px_-4px_rgba(0,0,0,0.08)]",
-        "target:ring-2 target:ring-[hsl(var(--primary))]/30 target:border-[hsl(var(--primary))]/40",
+        "rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] scroll-mt-24 transition-all duration-300",
+        "hover:shadow-[0_4px_24px_-8px_rgba(0,0,0,0.06)] hover:border-[hsl(var(--border))]/60",
+        "target:ring-2 target:ring-[hsl(var(--primary))]/20 target:border-[hsl(var(--primary))]/30",
         className
       )}
     >
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-[hsl(var(--border))] px-5 py-3.5 bg-[hsl(var(--muted))]/20">
+      <div className="flex items-center justify-between px-6 py-4 border-b border-[hsl(var(--border))]/60">
         <div className="min-w-0 flex-1">
-          <h3 className="text-[13px] font-semibold text-[hsl(var(--foreground))] tracking-tight">{title}</h3>
+          <h3 className="text-[14px] font-semibold text-[hsl(var(--foreground))]">{title}</h3>
           {description && (
-            <p className="text-[11px] text-[hsl(var(--muted-foreground))] mt-0.5 leading-relaxed">{description}</p>
+            <p className="text-[12px] text-[hsl(var(--muted-foreground))] mt-0.5">{description}</p>
           )}
         </div>
         {code && (
-          <div className="flex items-center gap-0.5 rounded-lg bg-[hsl(var(--muted))] p-[3px] ml-4 shrink-0">
+          <div className="flex items-center rounded-lg bg-[hsl(var(--muted))]/60 p-[3px] ml-4 shrink-0 border border-[hsl(var(--border))]/40">
             <button
               onClick={() => setActiveTab("preview")}
               className={cn(
@@ -67,9 +104,9 @@ export function ComponentPreview({
             >
               {activeTab === "preview" && (
                 <motion.div
-                  layoutId={`tab-bg-${id || title}`}
-                  className="absolute inset-0 bg-[hsl(var(--background))] rounded-md shadow-sm"
-                  transition={{ type: "spring", stiffness: 500, damping: 35 }}
+                  layoutId={`tab-${id || title}`}
+                  className="absolute inset-0 bg-white rounded-md shadow-sm border border-[hsl(var(--border))]/40"
+                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 />
               )}
               <Eye className="h-3 w-3 relative z-10" />
@@ -86,9 +123,9 @@ export function ComponentPreview({
             >
               {activeTab === "code" && (
                 <motion.div
-                  layoutId={`tab-bg-${id || title}`}
-                  className="absolute inset-0 bg-[hsl(var(--background))] rounded-md shadow-sm"
-                  transition={{ type: "spring", stiffness: 500, damping: 35 }}
+                  layoutId={`tab-${id || title}`}
+                  className="absolute inset-0 bg-white rounded-md shadow-sm border border-[hsl(var(--border))]/40"
+                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 />
               )}
               <Code2 className="h-3 w-3 relative z-10" />
@@ -99,52 +136,154 @@ export function ComponentPreview({
       </div>
 
       {/* Content */}
-      {activeTab === "preview" ? (
-        <div
-          className={cn(
-            "relative p-6",
-            expandable ? "min-h-[280px]" : "min-h-[140px]"
-          )}
-          style={{ 
-            backgroundImage: "radial-gradient(hsl(var(--border)) 0.5px, transparent 0.5px)",
-            backgroundSize: "16px 16px" 
-          }}
-        >
-          <div
-            className={cn(
-              "relative bg-[hsl(var(--background))] rounded-lg p-6 border border-[hsl(var(--border))]/60 shadow-sm",
-              expandable && "overflow-visible min-h-[200px]"
-            )}
+      <AnimatePresence mode="wait">
+        {activeTab === "preview" ? (
+          <motion.div
+            key="preview"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
           >
-            {children}
-          </div>
-        </div>
-      ) : (
-        <div className="relative">
-          {/* Copy button */}
-          <div className="absolute right-4 top-4 z-10">
-            <button
-              onClick={copyCode}
-              className="inline-flex items-center gap-1.5 rounded-lg bg-zinc-800 px-3 py-1.5 text-[11px] font-medium text-zinc-300 hover:bg-zinc-700 hover:text-white border border-zinc-700/50 transition-all duration-200 shadow-lg"
-            >
-              {copied ? (
-                <span className="inline-flex items-center gap-1">
-                  <Check className="h-3 w-3 text-emerald-400" />
-                  <span className="text-emerald-400">Copied!</span>
-                </span>
-              ) : (
-                <span className="inline-flex items-center gap-1">
-                  <Copy className="h-3 w-3" />
-                  Copy
-                </span>
+            {/* Device Frame Toolbar */}
+            <div className="flex items-center justify-center gap-1 px-6 py-3 border-b border-[hsl(var(--border))]/40 bg-[hsl(var(--muted))]/30">
+              {(Object.keys(deviceWidths) as DeviceSize[]).map((size) => {
+                const { icon: Icon, label } = deviceLabels[size];
+                return (
+                  <button
+                    key={size}
+                    onClick={() => setDevice(size)}
+                    className={cn(
+                      "inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-[11px] font-medium transition-all duration-200",
+                      device === size
+                        ? "bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] shadow-sm"
+                        : "text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] hover:bg-[hsl(var(--muted))]"
+                    )}
+                    aria-label={`Preview at ${label} size`}
+                  >
+                    <Icon className="h-3.5 w-3.5" />
+                    <span className="hidden sm:inline">{label}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Preview Area */}
+            <div
+              className={cn(
+                "flex items-center justify-center p-8 overflow-x-auto",
+                expandable ? "min-h-[300px]" : "min-h-[180px]"
               )}
-            </button>
-          </div>
-          <pre className="code-block m-0 rounded-none rounded-b-xl border-0 border-t border-zinc-800/50 py-5 px-5 max-h-[360px] overflow-y-auto">
-            <code className="text-[12.5px] leading-[1.8]">{code}</code>
-          </pre>
-        </div>
-      )}
+              style={{
+                backgroundImage: "radial-gradient(circle, hsl(var(--border)) 0.5px, transparent 0.5px)",
+                backgroundSize: "20px 20px",
+              }}
+            >
+              <div
+                className="device-frame"
+                style={{ width: deviceWidths[device], maxWidth: "100%" }}
+              >
+                <div
+                  className={cn(
+                    "w-full mx-auto bg-[hsl(var(--background))] rounded-xl p-8 border border-[hsl(var(--border))]/50",
+                    "shadow-[0_2px_8px_rgba(0,0,0,0.06),0_0_0_1px_rgba(0,0,0,0.02)]",
+                    expandable && "overflow-visible"
+                  )}
+                >
+                  <div className="w-full max-w-lg mx-auto">
+                    {children}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        ) : (
+          <motion.div
+            key="code"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            {/* Package Manager Install Tabs */}
+            <div className="border-b border-[hsl(var(--border))]/60 bg-[hsl(var(--muted))]/20">
+              <div className="px-6 pt-4 pb-0">
+                <div className="flex items-center gap-4 mb-3">
+                  <span className="text-[11px] font-semibold uppercase tracking-wider text-[hsl(var(--muted-foreground))]">
+                    Install
+                  </span>
+                  <div className="flex items-center rounded-md bg-[hsl(var(--muted))]/60 p-[2px] border border-[hsl(var(--border))]/40">
+                    {(["npm", "pnpm", "bun"] as PackageManager[]).map((pm) => (
+                      <button
+                        key={pm}
+                        onClick={() => setPackageManager(pm)}
+                        className={cn(
+                          "relative rounded-[4px] px-2.5 py-1 text-[11px] font-medium transition-all duration-200",
+                          packageManager === pm
+                            ? "bg-white text-[hsl(var(--foreground))] shadow-sm border border-[hsl(var(--border))]/40"
+                            : "text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))]"
+                        )}
+                      >
+                        {pm}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div className="relative group">
+                  <pre className="code-block m-0 rounded-lg border border-zinc-800/80 py-3 px-4 text-[12px]">
+                    <code>{getInstallCommand(packageManager, install)}</code>
+                  </pre>
+                  <button
+                    onClick={copyInstall}
+                    className={cn(
+                      "absolute right-2 top-1/2 -translate-y-1/2 inline-flex items-center gap-1 rounded-md px-2 py-1 text-[10px] font-medium transition-all duration-200 opacity-0 group-hover:opacity-100",
+                      copiedInstall
+                        ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
+                        : "bg-zinc-700 text-zinc-300 border border-zinc-600/50 hover:bg-zinc-600"
+                    )}
+                  >
+                    {copiedInstall ? (
+                      <><Check className="h-2.5 w-2.5" /> Copied</>
+                    ) : (
+                      <><Copy className="h-2.5 w-2.5" /> Copy</>
+                    )}
+                  </button>
+                </div>
+              </div>
+              <div className="h-4" />
+            </div>
+
+            {/* Usage Code */}
+            {code && (
+              <div className="relative">
+                <div className="flex items-center justify-between px-6 pt-4 pb-2">
+                  <span className="text-[11px] font-semibold uppercase tracking-wider text-[hsl(var(--muted-foreground))]">
+                    Usage
+                  </span>
+                  <button
+                    onClick={copyCode}
+                    className={cn(
+                      "inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-[11px] font-medium transition-all duration-200 border",
+                      copied
+                        ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
+                        : "bg-zinc-800 text-zinc-300 border-zinc-700/50 hover:bg-zinc-700 hover:text-white"
+                    )}
+                  >
+                    {copied ? (
+                      <><Check className="h-3 w-3" /> Copied!</>
+                    ) : (
+                      <><Copy className="h-3 w-3" /> Copy</>
+                    )}
+                  </button>
+                </div>
+                <pre className="code-block m-0 mx-6 mb-6 rounded-lg border-0 py-5 px-5 max-h-[380px] overflow-y-auto">
+                  <code className="text-[12.5px] leading-[1.85]">{code}</code>
+                </pre>
+              </div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

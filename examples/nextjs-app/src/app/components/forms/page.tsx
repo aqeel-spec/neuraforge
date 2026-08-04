@@ -63,7 +63,7 @@ export default function FormsPage() {
 <TextField label="Email" name="email" type="email" required />
 <TextField label="Password" name="password" type="password" required />`}
         >
-          <div className="w-full max-w-sm space-y-4">
+          <div className="w-full space-y-4">
             <TextField label="Email address" name="email" type="email" required />
             <TextField label="Password" name="password" type="password" required />
           </div>
@@ -89,7 +89,7 @@ export default function FormsPage() {
   ]}
 />`}
         >
-          <div className="w-full max-w-sm">
+          <div className="w-full">
             <Select
               label="Framework"
               name="framework"
@@ -114,7 +114,7 @@ export default function FormsPage() {
 
 <Checkbox label="Accept terms and conditions" name="terms" />`}
         >
-          <div className="w-full max-w-sm space-y-3">
+          <div className="w-full space-y-3">
             <Checkbox label="Accept terms and conditions" name="terms" />
             <Checkbox label="Send me marketing emails" name="marketing" />
           </div>
@@ -139,7 +139,7 @@ export default function FormsPage() {
   ]}
 />`}
         >
-          <div className="w-full max-w-sm">
+          <div className="w-full">
             <CheckboxGroup
               legend="Notification channels"
               name="notifications"
@@ -171,7 +171,7 @@ export default function FormsPage() {
   ]}
 />`}
         >
-          <div className="w-full max-w-sm">
+          <div className="w-full">
             <RadioGroup
               legend="Select plan"
               name="plan"
@@ -200,7 +200,7 @@ export default function FormsPage() {
   onChange={setDarkMode}
 />`}
         >
-          <div className="w-full max-w-sm space-y-4">
+          <div className="w-full space-y-4">
             <Switch label="Enable notifications" name="notifications" checked={switchOn} onChange={setSwitchOn} />
             <Switch label="Auto-save drafts" name="autosave" checked={true} onChange={() => {}} />
           </div>
@@ -222,7 +222,7 @@ export default function FormsPage() {
   maxLength={500}
 />`}
         >
-          <div className="w-full max-w-sm">
+          <div className="w-full">
             <Textarea
               label="Description"
               name="description"
@@ -244,7 +244,7 @@ export default function FormsPage() {
 
 <DatePicker label="Start date" name="startDate" />`}
         >
-          <div className="w-full max-w-sm">
+          <div className="w-full">
             <DatePicker label="Start date" name="startDate" />
           </div>
         </ComponentPreview>
@@ -265,7 +265,7 @@ export default function FormsPage() {
   onFiles={(files) => console.log(files)}
 />`}
         >
-          <div className="w-full max-w-sm">
+          <div className="w-full">
             <FileUpload
               label="Upload avatar"
               accept="image/*"
@@ -290,7 +290,7 @@ export default function FormsPage() {
   <button type="submit">Submit</button>
 </Form>`}
         >
-          <div className="w-full max-w-sm">
+          <div className="w-full">
             <Form onSubmit={() => {}}>
               <TextField label="Full name" name="name" required />
               <TextField label="Email" name="email" type="email" required />
