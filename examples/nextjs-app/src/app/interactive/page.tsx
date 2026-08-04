@@ -9,6 +9,7 @@ import { PowerOffSlide } from "@neuraforge-ui/components/src/interactive/power-o
 import { Flip } from "@neuraforge-ui/components/src/interactive/flip";
 import { ImageZoom } from "@neuraforge-ui/components/src/interactive/image-zoom";
 import { CursorFollow } from "@neuraforge-ui/components/src/interactive/cursor-follow";
+import { MusicPlayer, VideoPlayer } from "@neuraforge-ui/components/src/interactive/liquid-glass";
 
 export default function InteractivePage() {
   const [islandExpanded, setIslandExpanded] = useState(false);
@@ -144,6 +145,33 @@ export default function InteractivePage() {
               Move your cursor here
             </span>
           </CursorFollow>
+        </div>
+      </ComponentPreview>
+
+      {/* Music Player - Liquid Glass */}
+      <ComponentPreview
+        title="Music Player"
+        description="Liquid Glass music player with animated volume bars, progress seek, and play controls."
+      >
+        <div className="flex justify-center py-4">
+          <MusicPlayer
+            title="Midnight Dreams"
+            artist="NeuraForge"
+            duration={180}
+          />
+        </div>
+      </ComponentPreview>
+
+      {/* Video Player - Liquid Glass */}
+      <ComponentPreview
+        title="Video Player"
+        description="Liquid Glass video player with poster preview and play/pause overlay."
+      >
+        <div className="flex justify-center py-4">
+          <VideoPlayer
+            title="NeuraForge UI Walkthrough"
+            poster="https://placehold.co/640x360/1e1b4b/c4b5fd?text=NeuraForge+Demo"
+          />
         </div>
       </ComponentPreview>
     </div>
