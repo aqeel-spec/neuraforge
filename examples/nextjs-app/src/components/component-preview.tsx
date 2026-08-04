@@ -173,8 +173,8 @@ export function ComponentPreview({
             <div className={cn("w-full p-4 sm:p-6 overflow-x-auto", expandable ? "min-h-[300px]" : "min-h-[120px]")}>
               <motion.div
                 className={cn(
-                  "mx-auto transition-all duration-300 overflow-hidden",
-                  device !== "desktop" && "border border-[hsl(var(--border))] rounded-xl shadow-sm bg-white dark:bg-zinc-950"
+                  "mx-auto overflow-hidden",
+                  device !== "desktop" && "border border-[hsl(var(--border))] rounded-xl shadow-sm"
                 )}
                 animate={{ maxWidth: deviceWidths[device] }}
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
@@ -187,7 +187,7 @@ export function ComponentPreview({
                     <span className="ml-2 text-[10px] text-[hsl(var(--muted-foreground))]">{deviceLabels[device].label} — {deviceWidths[device]}</span>
                   </div>
                 )}
-                <div className={cn(device !== "desktop" ? "p-4" : "")}>
+                <div className={cn("w-full", device !== "desktop" ? "p-3 overflow-hidden" : "")}>
                   {children}
                 </div>
               </motion.div>

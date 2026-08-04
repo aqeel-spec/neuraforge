@@ -105,7 +105,7 @@ export function Pricing({ title, description, plans, className }: PricingProps) 
         </h2>
         {description !== undefined && <p className="mt-3 text-slate-600">{description}</p>}
       </div>
-      <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-8 grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {plans.map((plan) => (
           <article
             aria-labelledby={`pricing-plan-${plan.id}`}
