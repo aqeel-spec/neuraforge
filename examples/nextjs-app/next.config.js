@@ -19,6 +19,14 @@ const nextConfig = {
       ".mjs": [".mts", ".mjs"],
     };
 
+    // Ensure .tsx and .ts extensions are resolved for bare imports
+    if (!config.resolve.extensions.includes(".tsx")) {
+      config.resolve.extensions.push(".tsx");
+    }
+    if (!config.resolve.extensions.includes(".ts")) {
+      config.resolve.extensions.push(".ts");
+    }
+
     // Map sub-path imports to actual file paths (bypasses exports field restriction)
     const componentsBase = path.join(
       __dirname,
