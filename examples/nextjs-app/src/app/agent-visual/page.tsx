@@ -2,52 +2,116 @@
 "use client";
 
 import { motion } from "framer-motion";
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-};
-
-const components = [
-  { name: "Agent Avatar", description: "Animated avatar representing AI agent state and activity" },
-  { name: "Siri Orb", description: "Pulsating orb visualization inspired by voice assistant interfaces" },
-  { name: "Agentic Globe", description: "3D globe showing distributed agent activity and connections" },
-  { name: "Branding Agent", description: "Visual identity generator agent with real-time previews" },
-  { name: "Ecommerce Multi-Agent", description: "Multi-agent orchestration dashboard for e-commerce workflows" },
-  { name: "Sub Agent Starter", description: "Template for spawning and visualizing sub-agent processes" },
-  { name: "Morph Surface", description: "Fluid morphing surface that responds to agent computation states" },
-];
+import { ComponentPreview } from "@/components/component-preview";
+import { AgentAvatar } from "@neuraforge-ui/components/src/agent-visual/agent-avatar";
+import { SiriOrb } from "@neuraforge-ui/components/src/agent-visual/siri-orb";
+import { MorphSurface } from "@neuraforge-ui/components/src/agent-visual/morph-surface";
+import { BrandingAgent } from "@neuraforge-ui/components/src/agent-visual/branding-agent";
+import { SubAgentStarter } from "@neuraforge-ui/components/src/agent-visual/sub-agent-starter";
 
 export default function AgentVisualPage() {
   return (
-    <motion.div
-      initial="hidden"
-      animate="visible"
-      variants={{ visible: { transition: { staggerChildren: 0.08 } } }}
-      className="space-y-10"
-    >
-      <motion.div variants={fadeUp}>
-        <h1 className="text-3xl font-bold">Agent Visual</h1>
-        <p className="text-muted-foreground mt-2">
-          Visual representations for AI agents, orbs, globes, and multi-agent orchestration interfaces.
+    <div className="min-h-screen bg-gradient-to-b from-gray-950 to-gray-900 p-8">
+      <motion.header
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="mb-12 text-center"
+      >
+        <h1 className="text-4xl font-bold text-white mb-2">
+          Agent Visual Components
+        </h1>
+        <p className="text-gray-400 text-lg">
+          Live demos of AI agent visual identity components
         </p>
-      </motion.div>
+      </motion.header>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {components.map((comp) => (
-          <motion.div
-            key={comp.name}
-            variants={fadeUp}
-            className="rounded-xl border border-[hsl(var(--border))] p-6 hover:shadow-md transition-shadow"
-          >
-            <h3 className="font-semibold text-[hsl(var(--foreground))]">{comp.name}</h3>
-            <p className="text-sm text-[hsl(var(--muted-foreground))] mt-1">{comp.description}</p>
-            <div className="mt-4 rounded-lg bg-[hsl(var(--muted))] p-4 text-center text-sm text-[hsl(var(--muted-foreground))]">
-              Interactive demo coming soon
+      <div className="max-w-6xl mx-auto space-y-12">
+        {/* AgentAvatar — 4 statuses */}
+        <ComponentPreview
+          title="AgentAvatar"
+          description="Animated avatar with status indicators. Supports idle, thinking, speaking, and error states."
+        >
+          <div className="flex items-end gap-8 flex-wrap justify-center">
+            <div className="flex flex-col items-center gap-2">
+              <AgentAvatar size="sm" status="idle" />
+              <span className="text-xs text-gray-400">Idle (sm)</span>
             </div>
-          </motion.div>
-        ))}
+            <div className="flex flex-col items-center gap-2">
+              <AgentAvatar size="md" status="thinking" />
+              <span className="text-xs text-gray-400">Thinking (md)</span>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <AgentAvatar size="lg" status="speaking" />
+              <span className="text-xs text-gray-400">Speaking (lg)</span>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <AgentAvatar size="xl" status="error" />
+              <span className="text-xs text-gray-400">Error (xl)</span>
+            </div>
+          </div>
+        </ComponentPreview>
+
+        {/* SiriOrb — active vs idle */}
+        <ComponentPreview
+          title="SiriOrb"
+          description="Fluid gradient orb inspired by Siri. Responds to active/idle state with smooth transitions."
+        >
+          <div className="flex items-center gap-12 justify-center">
+            <div className="flex flex-col items-center gap-3">
+              <SiriOrb active />
+              <span className="text-xs text-gray-400">Active</span>
+            </div>
+            <div className="flex flex-col items-center gap-3">
+              <SiriOrb active={false} />
+              <span className="text-xs text-gray-400">Idle</span>
+            </div>
+          </div>
+        </ComponentPreview>
+
+        {/* MorphSurface — default blob */}
+        <ComponentPreview
+          title="MorphSurface"
+          description="Organic morphing surface with customizable gradient colors. Uses SVG filter turbulence for fluid motion."
+        >
+          <div className="flex justify-center">
+            <MorphSurface />
+          </div>
+        </ComponentPreview>
+
+        {/* BrandingAgent — agent card */}
+        <ComponentPreview
+          title="BrandingAgent"
+          description="Agent identity card displaying name, role, and capabilities with branded styling."
+        >
+          <div className="flex justify-center">
+            <BrandingAgent
+              name="NeuraForge Agent"
+              role="UI Component Specialist"
+              capabilities={["React", "Tailwind", "Accessibility"]}
+            />
+          </div>
+        </ComponentPreview>
+
+        {/* SubAgentStarter — startup animation */}
+        <ComponentPreview
+          title="SubAgentStarter"
+          description="Startup sequence animation for spawning sub-agents. Shows initialization progress."
+        >
+          <div className="flex justify-center">
+            <SubAgentStarter agentName="CodeReviewer" />
+          </div>
+        </ComponentPreview>
       </div>
-    </motion.div>
+
+      <footer className="mt-16 text-center text-gray-500 text-sm">
+        <p>
+          NeuraForge UI — Agent Visual Components •{" "}
+          <span className="text-gray-400">5 of 7 components shown</span>
+        </p>
+        <p className="mt-1 text-gray-600">
+          AgenticGlobe and EcommerceMultiAgent omitted (require complex 3D setup)
+        </p>
+      </footer>
+    </div>
   );
 }
