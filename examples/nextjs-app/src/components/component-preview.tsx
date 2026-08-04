@@ -170,15 +170,27 @@ export function ComponentPreview({
             transition={{ duration: 0.2 }}
           >
             {/* Preview Area */}
-            <div
-              className={cn(
-                "w-full p-6",
-                expandable ? "min-h-[300px]" : "min-h-[120px]"
-              )}
-            >
-              <div className="mx-auto transition-all duration-300" style={{ maxWidth: deviceWidths[device] }}>
-                {children}
-              </div>
+            <div className={cn("w-full p-4 sm:p-6 overflow-x-auto", expandable ? "min-h-[300px]" : "min-h-[120px]")}>
+              <motion.div
+                className={cn(
+                  "mx-auto transition-all duration-300 overflow-hidden",
+                  device !== "desktop" && "border border-[hsl(var(--border))] rounded-xl shadow-sm bg-white dark:bg-zinc-950"
+                )}
+                animate={{ maxWidth: deviceWidths[device] }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              >
+                {device !== "desktop" && (
+                  <div className="flex items-center justify-center gap-1.5 py-2 border-b border-[hsl(var(--border))]/50 bg-[hsl(var(--muted))]/30">
+                    <div className="w-2 h-2 rounded-full bg-red-400/60" />
+                    <div className="w-2 h-2 rounded-full bg-yellow-400/60" />
+                    <div className="w-2 h-2 rounded-full bg-green-400/60" />
+                    <span className="ml-2 text-[10px] text-[hsl(var(--muted-foreground))]">{deviceLabels[device].label} — {deviceWidths[device]}</span>
+                  </div>
+                )}
+                <div className={cn(device !== "desktop" ? "p-4" : "")}>
+                  {children}
+                </div>
+              </motion.div>
             </div>
           </motion.div>
         ) : (
