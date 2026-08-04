@@ -1,13 +1,12 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { ComponentPreview } from "@/components/component-preview";
 import {
   DataTable,
   Stat,
   Badge,
-  Avatar,
   AvatarGroup,
   Tag,
   Timeline,
@@ -21,6 +20,19 @@ const fadeUp = {
 };
 
 export default function DataDisplayPage() {
+  // Handle hash-based navigation
+  useEffect(() => {
+    const hash = window.location.hash.slice(1);
+    if (hash) {
+      setTimeout(() => {
+        const el = document.getElementById(hash);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 100);
+    }
+  }, []);
+
   return (
     <motion.div
       initial="hidden"
@@ -31,7 +43,7 @@ export default function DataDisplayPage() {
       <motion.div variants={fadeUp}>
         <h1 className="text-3xl font-bold tracking-tight text-[hsl(var(--foreground))]">Data Display</h1>
         <p className="text-[hsl(var(--muted-foreground))] mt-2 text-[15px] leading-relaxed max-w-2xl">
-          9 data display components — tables, stats, badges, avatars, tags, timelines, tooltips,
+          8 data display components — tables, stats, badges, avatars, tags, timelines, tooltips,
           and keyboard shortcut indicators. Built for presenting information clearly.
         </p>
       </motion.div>
@@ -39,6 +51,7 @@ export default function DataDisplayPage() {
       {/* Badge */}
       <motion.div variants={fadeUp}>
         <ComponentPreview
+          id="badge"
           title="Badge"
           description="Inline status indicator with 5 tones — neutral, brand, success, warning, danger"
           code={`import { Badge } from "@neuraforge-ui/components/src/data-display";
@@ -62,6 +75,7 @@ export default function DataDisplayPage() {
       {/* Stat */}
       <motion.div variants={fadeUp}>
         <ComponentPreview
+          id="stat"
           title="Stat"
           description="Key metric display with label, value, description, and trend indicator"
           code={`import { Stat } from "@neuraforge-ui/components/src/data-display";
@@ -77,28 +91,10 @@ export default function DataDisplayPage() {
         </ComponentPreview>
       </motion.div>
 
-      {/* Avatar */}
-      <motion.div variants={fadeUp}>
-        <ComponentPreview
-          title="Avatar"
-          description="User avatar with image, initials fallback, and size variants"
-          code={`import { Avatar } from "@neuraforge-ui/components/src/data-display";
-
-<Avatar name="John Doe" size="sm" />
-<Avatar name="Jane Smith" size="md" />
-<Avatar name="Bob Wilson" size="lg" />`}
-        >
-          <div className="flex items-center gap-3">
-            <Avatar name="John Doe" size="sm" />
-            <Avatar name="Jane Smith" size="md" />
-            <Avatar name="Bob Wilson" size="lg" />
-          </div>
-        </ComponentPreview>
-      </motion.div>
-
       {/* AvatarGroup */}
       <motion.div variants={fadeUp}>
         <ComponentPreview
+          id="avatar-group"
           title="AvatarGroup"
           description="Stacked avatar group with overflow indicator"
           code={`import { AvatarGroup } from "@neuraforge-ui/components/src/data-display";
@@ -130,13 +126,13 @@ export default function DataDisplayPage() {
       {/* Tag */}
       <motion.div variants={fadeUp}>
         <ComponentPreview
+          id="tag"
           title="Tag"
           description="Removable tag/chip with optional close action"
           code={`import { Tag } from "@neuraforge-ui/components/src/data-display";
 
 <Tag>React</Tag>
-<Tag onRemove={() => {}}>TypeScript</Tag>
-<Tag variant="default">Tailwind</Tag>`}
+<Tag onRemove={() => {}}>TypeScript</Tag>`}
         >
           <div className="flex flex-wrap gap-2">
             <Tag>React</Tag>
@@ -151,15 +147,15 @@ export default function DataDisplayPage() {
       {/* Timeline */}
       <motion.div variants={fadeUp}>
         <ComponentPreview
+          id="timeline"
           title="Timeline"
           description="Vertical timeline for event sequences and changelogs"
           code={`import { Timeline } from "@neuraforge-ui/components/src/data-display";
 
 <Timeline
   items={[
-    { title: "v1.0.0 Released", description: "Initial launch", date: "2024-01-15" },
-    { title: "v1.1.0", description: "Added dark mode", date: "2024-02-01" },
-    { title: "v1.2.0", description: "New components", date: "2024-03-01" },
+    { id: "v1", title: "v1.0.0 Released", description: "Initial launch", date: "2024-01-15" },
+    { id: "v2", title: "v1.1.0", description: "Added dark mode", date: "2024-02-01" },
   ]}
 />`}
         >
@@ -178,6 +174,7 @@ export default function DataDisplayPage() {
       {/* Tooltip */}
       <motion.div variants={fadeUp}>
         <ComponentPreview
+          id="tooltip"
           title="Tooltip"
           description="Informational tooltip on hover/focus with configurable placement"
           code={`import { Tooltip } from "@neuraforge-ui/components/src/data-display";
@@ -204,6 +201,7 @@ export default function DataDisplayPage() {
       {/* KBD */}
       <motion.div variants={fadeUp}>
         <ComponentPreview
+          id="kbd"
           title="KBD"
           description="Keyboard shortcut display with platform-aware modifier keys"
           code={`import { KBD } from "@neuraforge-ui/components/src/data-display";
@@ -232,6 +230,7 @@ export default function DataDisplayPage() {
       {/* DataTable */}
       <motion.div variants={fadeUp}>
         <ComponentPreview
+          id="data-table"
           title="DataTable"
           description="Accessible data table with caption, column alignment, and row headers"
           code={`import { DataTable, Badge } from "@neuraforge-ui/components/src/data-display";

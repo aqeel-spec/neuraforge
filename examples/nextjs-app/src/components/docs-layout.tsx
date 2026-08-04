@@ -8,41 +8,129 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   LayoutGrid, Navigation, MessageSquare, FormInput, BarChart3,
   Megaphone, Sparkles, Palette, Bot, Menu, X,
-  Package, Code2, Zap, Search, ChevronRight, ExternalLink
+  Package, Code2, Zap, Search, ChevronRight, ChevronDown, ExternalLink
 } from "lucide-react";
 
-const sidebarNav = [
+interface ComponentItem {
+  id: string;
+  title: string;
+}
+
+interface NavCategory {
+  title: string;
+  href: string;
+  icon: React.ComponentType<{ className?: string }>;
+  components: ComponentItem[];
+}
+
+const componentCategories: NavCategory[] = [
   {
-    title: "Overview",
-    items: [
-      { title: "Introduction", href: "/", icon: Zap },
+    title: "Navigation",
+    href: "/components/navigation",
+    icon: Navigation,
+    components: [
+      { id: "navbar", title: "Navbar" },
+      { id: "mega-menu", title: "MegaMenu" },
+      { id: "breadcrumbs", title: "Breadcrumbs" },
+      { id: "tabs", title: "Tabs" },
+      { id: "command-palette", title: "CommandPalette" },
+      { id: "pagination", title: "Pagination" },
+      { id: "step-indicator", title: "StepIndicator" },
+      { id: "sidebar", title: "Sidebar" },
     ],
   },
   {
-    title: "Components",
-    items: [
-      { title: "Navigation", href: "/components/navigation", icon: Navigation, count: 8 },
-      { title: "Layout", href: "/components/layout", icon: LayoutGrid, count: 5 },
-      { title: "Feedback", href: "/components/feedback", icon: MessageSquare, count: 8 },
-      { title: "Forms", href: "/components/forms", icon: FormInput, count: 10 },
-      { title: "Data Display", href: "/components/data-display", icon: BarChart3, count: 8 },
-      { title: "Marketing", href: "/components/marketing", icon: Megaphone, count: 2 },
+    title: "Layout",
+    href: "/components/layout",
+    icon: LayoutGrid,
+    components: [
+      { id: "hero", title: "Hero" },
+      { id: "card", title: "Card" },
+      { id: "grid", title: "Grid" },
+      { id: "container", title: "Container" },
+      { id: "footer", title: "Footer" },
+      { id: "accordion", title: "Accordion" },
+      { id: "divider", title: "Divider" },
+      { id: "stack", title: "Stack" },
+      { id: "aspect-ratio", title: "AspectRatio" },
+      { id: "drawer", title: "Drawer" },
+      { id: "split-pane", title: "SplitPane" },
     ],
   },
   {
-    title: "Ecosystem",
-    items: [
-      { title: "Motion Presets", href: "/motion", icon: Sparkles },
-      { title: "Design Tokens", href: "/tokens", icon: Palette },
-      { title: "MCP Integration", href: "/mcp", icon: Bot },
+    title: "Forms",
+    href: "/components/forms",
+    icon: FormInput,
+    components: [
+      { id: "text-field", title: "TextField" },
+      { id: "select", title: "Select" },
+      { id: "checkbox", title: "Checkbox" },
+      { id: "checkbox-group", title: "CheckboxGroup" },
+      { id: "radio-group", title: "RadioGroup" },
+      { id: "switch", title: "Switch" },
+      { id: "textarea", title: "Textarea" },
+      { id: "date-picker", title: "DatePicker" },
+      { id: "file-upload", title: "FileUpload" },
+      { id: "form", title: "Form" },
     ],
   },
+  {
+    title: "Feedback",
+    href: "/components/feedback",
+    icon: MessageSquare,
+    components: [
+      { id: "alert", title: "Alert" },
+      { id: "dialog", title: "Dialog" },
+      { id: "confirm-dialog", title: "ConfirmDialog" },
+      { id: "toast", title: "Toast" },
+      { id: "progress", title: "Progress" },
+      { id: "loading-indicator", title: "LoadingIndicator" },
+      { id: "skeleton", title: "Skeleton" },
+      { id: "empty-state", title: "EmptyState" },
+    ],
+  },
+  {
+    title: "Data Display",
+    href: "/components/data-display",
+    icon: BarChart3,
+    components: [
+      { id: "badge", title: "Badge" },
+      { id: "stat", title: "Stat" },
+      { id: "avatar-group", title: "AvatarGroup" },
+      { id: "tag", title: "Tag" },
+      { id: "timeline", title: "Timeline" },
+      { id: "tooltip", title: "Tooltip" },
+      { id: "kbd", title: "KBD" },
+      { id: "data-table", title: "DataTable" },
+    ],
+  },
+  {
+    title: "Marketing",
+    href: "/components/marketing",
+    icon: Megaphone,
+    components: [
+      { id: "pricing", title: "Pricing" },
+      { id: "testimonial", title: "Testimonial" },
+      { id: "feature-grid", title: "FeatureGrid" },
+    ],
+  },
+];
+
+const ecosystemNav = [
+  { title: "Motion Presets", href: "/motion", icon: Sparkles },
+  { title: "Design Tokens", href: "/tokens", icon: Palette },
+  { title: "MCP Integration", href: "/mcp", icon: Bot },
 ];
 
 export function DocsLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [expandedCategories, setExpandedCategories] = useState<string[]>(() => {
+    // Auto-expand the active category
+    const active = componentCategories.find((c) => pathname.startsWith(c.href));
+    return active ? [active.title] : [];
+  });
 
   const handleScroll = useCallback(() => {
     const scrollTop = window.scrollY;
@@ -56,10 +144,24 @@ export function DocsLayout({ children }: { children: React.ReactNode }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
-  // Close sidebar on route change
+  // Auto-expand category when navigating
+  useEffect(() => {
+    const active = componentCategories.find((c) => pathname.startsWith(c.href));
+    if (active && !expandedCategories.includes(active.title)) {
+      setExpandedCategories((prev) => [...prev, active.title]);
+    }
+  }, [pathname]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Close sidebar on route change (mobile)
   useEffect(() => {
     setSidebarOpen(false);
   }, [pathname]);
+
+  const toggleCategory = (title: string) => {
+    setExpandedCategories((prev) =>
+      prev.includes(title) ? prev.filter((t) => t !== title) : [...prev, title]
+    );
+  };
 
   return (
     <div className="relative min-h-screen bg-[hsl(var(--background))]">
@@ -151,83 +253,171 @@ export function DocsLayout({ children }: { children: React.ReactNode }) {
 
       <div className="flex">
         {/* ─── SIDEBAR ─── */}
-        <AnimatePresence>
-          {(sidebarOpen || true) && (
-            <motion.aside
-              className={cn(
-                "fixed top-[var(--header-height)] z-40 h-[calc(100vh-var(--header-height))] w-[var(--sidebar-width)] shrink-0 overflow-y-auto border-r border-[hsl(var(--border))] bg-[hsl(var(--background))]/80 backdrop-blur-xl py-6 px-3 lg:sticky lg:block",
-                sidebarOpen ? "block" : "hidden lg:block"
-              )}
-              initial={false}
-            >
-              <nav className="space-y-7">
-                {sidebarNav.map((section) => (
-                  <div key={section.title}>
-                    <h4 className="mb-2 px-3 text-[11px] font-bold uppercase tracking-[0.08em] text-[hsl(var(--muted-foreground))]/60">
-                      {section.title}
-                    </h4>
-                    <div className="space-y-0.5">
-                      {section.items.map((item) => {
-                        const Icon = item.icon;
-                        const isActive = pathname === item.href;
-                        return (
-                          <Link
-                            key={item.href}
-                            href={item.href}
-                            className={cn(
-                              "group flex items-center gap-2.5 rounded-lg px-3 py-2 text-[13px] font-medium transition-all duration-200",
-                              isActive
-                                ? "active-pill bg-[hsl(var(--primary))]/5 text-[hsl(var(--primary))]"
-                                : "text-[hsl(var(--muted-foreground))] hover:bg-[hsl(var(--accent))] hover:text-[hsl(var(--foreground))]"
-                            )}
-                          >
-                            <Icon className={cn(
-                              "h-4 w-4 transition-all duration-200",
-                              isActive ? "text-[hsl(var(--primary))]" : "text-[hsl(var(--muted-foreground))]/50 group-hover:text-[hsl(var(--foreground))]/70"
-                            )} />
-                            <span className="flex-1">{item.title}</span>
-                            {"count" in item && item.count && (
-                              <span className={cn(
-                                "rounded-full px-2 py-0.5 text-[10px] font-semibold tabular-nums transition-colors",
-                                isActive
-                                  ? "bg-[hsl(var(--primary))]/10 text-[hsl(var(--primary))]"
-                                  : "bg-[hsl(var(--muted))] text-[hsl(var(--muted-foreground))]"
-                              )}>
-                                {item.count}
-                              </span>
-                            )}
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  </div>
-                ))}
-              </nav>
-
-              {/* Bottom card */}
-              <div className="mt-8 mx-1 rounded-xl bg-gradient-to-br from-violet-50 to-indigo-50 p-4 ring-1 ring-violet-100/80">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="h-6 w-6 rounded-md bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center shadow-sm">
-                    <Package className="h-3 w-3 text-white" />
-                  </div>
-                  <span className="text-[11px] font-bold text-violet-900 tracking-tight">Quick Install</span>
-                </div>
-                <code className="block text-[11px] text-violet-700/80 font-mono leading-relaxed">
-                  npm i @neuraforge-ui/components
-                </code>
-                <a
-                  href="https://www.npmjs.com/org/neuraforge-ui"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-3 inline-flex items-center gap-1 text-[11px] font-medium text-violet-600 hover:text-violet-800 transition-colors"
-                >
-                  View on npm
-                  <ExternalLink className="h-2.5 w-2.5" />
-                </a>
-              </div>
-            </motion.aside>
+        <aside
+          className={cn(
+            "fixed top-[var(--header-height)] z-40 h-[calc(100vh-var(--header-height))] w-[var(--sidebar-width)] shrink-0 overflow-y-auto border-r border-[hsl(var(--border))] bg-[hsl(var(--background))]/80 backdrop-blur-xl py-6 px-3 lg:sticky lg:block",
+            sidebarOpen ? "block" : "hidden lg:block"
           )}
-        </AnimatePresence>
+        >
+          <nav className="space-y-6">
+            {/* Overview */}
+            <div>
+              <h4 className="mb-2 px-3 text-[11px] font-bold uppercase tracking-[0.08em] text-[hsl(var(--muted-foreground))]/60">
+                Overview
+              </h4>
+              <div className="space-y-0.5">
+                <Link
+                  href="/"
+                  className={cn(
+                    "group flex items-center gap-2.5 rounded-lg px-3 py-2 text-[13px] font-medium transition-all duration-200",
+                    pathname === "/"
+                      ? "active-pill bg-[hsl(var(--primary))]/5 text-[hsl(var(--primary))]"
+                      : "text-[hsl(var(--muted-foreground))] hover:bg-[hsl(var(--accent))] hover:text-[hsl(var(--foreground))]"
+                  )}
+                >
+                  <Zap className={cn("h-4 w-4", pathname === "/" ? "text-[hsl(var(--primary))]" : "text-[hsl(var(--muted-foreground))]/50")} />
+                  <span>Introduction</span>
+                </Link>
+              </div>
+            </div>
+
+            {/* Components with expandable sections */}
+            <div>
+              <h4 className="mb-2 px-3 text-[11px] font-bold uppercase tracking-[0.08em] text-[hsl(var(--muted-foreground))]/60">
+                Components
+              </h4>
+              <div className="space-y-0.5">
+                {componentCategories.map((category) => {
+                  const Icon = category.icon;
+                  const isActive = pathname.startsWith(category.href);
+                  const isExpanded = expandedCategories.includes(category.title);
+
+                  return (
+                    <div key={category.title}>
+                      {/* Category header - clickable to expand/collapse */}
+                      <button
+                        onClick={() => toggleCategory(category.title)}
+                        className={cn(
+                          "group flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-[13px] font-medium transition-all duration-200",
+                          isActive
+                            ? "bg-[hsl(var(--primary))]/5 text-[hsl(var(--primary))]"
+                            : "text-[hsl(var(--muted-foreground))] hover:bg-[hsl(var(--accent))] hover:text-[hsl(var(--foreground))]"
+                        )}
+                      >
+                        <Icon className={cn(
+                          "h-4 w-4 transition-all duration-200",
+                          isActive ? "text-[hsl(var(--primary))]" : "text-[hsl(var(--muted-foreground))]/50 group-hover:text-[hsl(var(--foreground))]/70"
+                        )} />
+                        <span className="flex-1 text-left">{category.title}</span>
+                        <span className={cn(
+                          "rounded-full px-2 py-0.5 text-[10px] font-semibold tabular-nums",
+                          isActive
+                            ? "bg-[hsl(var(--primary))]/10 text-[hsl(var(--primary))]"
+                            : "bg-[hsl(var(--muted))] text-[hsl(var(--muted-foreground))]"
+                        )}>
+                          {category.components.length}
+                        </span>
+                        <ChevronDown className={cn(
+                          "h-3.5 w-3.5 transition-transform duration-200",
+                          isExpanded ? "rotate-0" : "-rotate-90",
+                          isActive ? "text-[hsl(var(--primary))]" : "text-[hsl(var(--muted-foreground))]/50"
+                        )} />
+                      </button>
+
+                      {/* Expandable sub-items */}
+                      <AnimatePresence initial={false}>
+                        {isExpanded && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.2, ease: "easeInOut" }}
+                            className="overflow-hidden"
+                          >
+                            <div className="ml-4 mt-0.5 space-y-0.5 border-l border-[hsl(var(--border))] pl-3 py-1">
+                              {category.components.map((comp) => {
+                                const compHref = `${category.href}#${comp.id}`;
+                                const isCompActive = typeof window !== "undefined" && 
+                                  pathname === category.href && 
+                                  window.location.hash === `#${comp.id}`;
+                                
+                                return (
+                                  <Link
+                                    key={comp.id}
+                                    href={compHref}
+                                    className={cn(
+                                      "block rounded-md px-2.5 py-1.5 text-[12px] font-medium transition-all duration-150",
+                                      "text-[hsl(var(--muted-foreground))] hover:bg-[hsl(var(--accent))] hover:text-[hsl(var(--foreground))]"
+                                    )}
+                                  >
+                                    {comp.title}
+                                  </Link>
+                                );
+                              })}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Ecosystem */}
+            <div>
+              <h4 className="mb-2 px-3 text-[11px] font-bold uppercase tracking-[0.08em] text-[hsl(var(--muted-foreground))]/60">
+                Ecosystem
+              </h4>
+              <div className="space-y-0.5">
+                {ecosystemNav.map((item) => {
+                  const Icon = item.icon;
+                  const isActive = pathname === item.href;
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className={cn(
+                        "group flex items-center gap-2.5 rounded-lg px-3 py-2 text-[13px] font-medium transition-all duration-200",
+                        isActive
+                          ? "active-pill bg-[hsl(var(--primary))]/5 text-[hsl(var(--primary))]"
+                          : "text-[hsl(var(--muted-foreground))] hover:bg-[hsl(var(--accent))] hover:text-[hsl(var(--foreground))]"
+                      )}
+                    >
+                      <Icon className={cn(
+                        "h-4 w-4 transition-all duration-200",
+                        isActive ? "text-[hsl(var(--primary))]" : "text-[hsl(var(--muted-foreground))]/50 group-hover:text-[hsl(var(--foreground))]/70"
+                      )} />
+                      <span>{item.title}</span>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          </nav>
+
+          {/* Bottom card */}
+          <div className="mt-8 mx-1 rounded-xl bg-gradient-to-br from-violet-50 to-indigo-50 p-4 ring-1 ring-violet-100/80">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="h-6 w-6 rounded-md bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center shadow-sm">
+                <Package className="h-3 w-3 text-white" />
+              </div>
+              <span className="text-[11px] font-bold text-violet-900 tracking-tight">Quick Install</span>
+            </div>
+            <code className="block text-[11px] text-violet-700/80 font-mono leading-relaxed">
+              npm i @neuraforge-ui/components
+            </code>
+            <a
+              href="https://www.npmjs.com/org/neuraforge-ui"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 inline-flex items-center gap-1 text-[11px] font-medium text-violet-600 hover:text-violet-800 transition-colors"
+            >
+              View on npm
+              <ExternalLink className="h-2.5 w-2.5" />
+            </a>
+          </div>
+        </aside>
 
         {/* Mobile overlay */}
         <AnimatePresence>

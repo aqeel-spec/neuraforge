@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ComponentPreview } from "@/components/component-preview";
 import {
@@ -24,6 +24,19 @@ export default function FeedbackPage() {
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [showToast, setShowToast] = useState(false);
 
+  // Handle hash-based navigation
+  useEffect(() => {
+    const hash = window.location.hash.slice(1);
+    if (hash) {
+      setTimeout(() => {
+        const el = document.getElementById(hash);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 100);
+    }
+  }, []);
+
   return (
     <motion.div
       initial="hidden"
@@ -42,6 +55,7 @@ export default function FeedbackPage() {
       {/* Alert */}
       <motion.div variants={fadeUp}>
         <ComponentPreview
+          id="alert"
           title="Alert"
           description="Status messages with 4 variants — info, success, warning, error"
           code={`import { Alert } from "@neuraforge-ui/components/src/feedback/index";
@@ -51,12 +65,6 @@ export default function FeedbackPage() {
 </Alert>
 <Alert variant="success" title="Published!">
   Your package is now live on npm.
-</Alert>
-<Alert variant="warning" title="Breaking change">
-  This update includes API changes.
-</Alert>
-<Alert variant="error" title="Build failed">
-  Check the console for errors.
 </Alert>`}
         >
           <div className="w-full space-y-3">
@@ -79,6 +87,7 @@ export default function FeedbackPage() {
       {/* Dialog */}
       <motion.div variants={fadeUp}>
         <ComponentPreview
+          id="dialog"
           title="Dialog"
           description="Modal dialog with focus trapping, Escape to close, and return-focus"
           code={`import { Dialog } from "@neuraforge-ui/components/src/feedback/index";
@@ -89,10 +98,7 @@ export default function FeedbackPage() {
   title="Confirm action"
   description="This cannot be undone."
 >
-  <div className="flex gap-2 mt-4">
-    <button onClick={() => setOpen(false)}>Cancel</button>
-    <button onClick={handleConfirm}>Confirm</button>
-  </div>
+  <button onClick={() => setOpen(false)}>Cancel</button>
 </Dialog>`}
         >
           <div>
@@ -130,6 +136,7 @@ export default function FeedbackPage() {
       {/* ConfirmDialog */}
       <motion.div variants={fadeUp}>
         <ComponentPreview
+          id="confirm-dialog"
           title="ConfirmDialog"
           description="Pre-built confirmation dialog with confirm/cancel actions and danger variant"
           code={`import { ConfirmDialog } from "@neuraforge-ui/components/src/feedback/index";
@@ -140,8 +147,6 @@ export default function FeedbackPage() {
   title="Reset all settings?"
   description="This will reset everything to defaults."
   onConfirm={() => handleReset()}
-  confirmLabel="Reset"
-  variant="danger"
 />`}
         >
           <div>
@@ -157,8 +162,6 @@ export default function FeedbackPage() {
               title="Reset all settings?"
               description="This will restore all configuration to factory defaults. Your customizations will be lost."
               onConfirm={() => setConfirmOpen(false)}
-              confirmLabel="Reset Everything"
-              variant="destructive"
             />
           </div>
         </ComponentPreview>
@@ -167,15 +170,13 @@ export default function FeedbackPage() {
       {/* Toast */}
       <motion.div variants={fadeUp}>
         <ComponentPreview
+          id="toast"
           title="Toast"
           description="Non-modal notification with auto-dismiss and ARIA live region"
           code={`import { Toast } from "@neuraforge-ui/components/src/feedback/index";
 
 {showToast && (
-  <Toast
-    title="Saved successfully"
-    onDismiss={() => setShowToast(false)}
-  />
+  <Toast title="Saved successfully" onDismiss={() => setShowToast(false)} />
 )}`}
         >
           <div>
@@ -195,12 +196,12 @@ export default function FeedbackPage() {
       {/* Progress */}
       <motion.div variants={fadeUp}>
         <ComponentPreview
+          id="progress"
           title="Progress"
           description="Determinate progress bar with label, percentage, and color variants"
           code={`import { Progress } from "@neuraforge-ui/components/src/feedback/index";
 
-<Progress label="Upload progress" value={65} max={100} />
-<Progress label="Build" value={100} max={100} />`}
+<Progress label="Upload progress" value={65} max={100} />`}
         >
           <div className="w-full space-y-6">
             <Progress label="Upload progress" value={65} max={100} />
@@ -213,6 +214,7 @@ export default function FeedbackPage() {
       {/* LoadingIndicator */}
       <motion.div variants={fadeUp}>
         <ComponentPreview
+          id="loading-indicator"
           title="LoadingIndicator"
           description="Spinner with accessible label, supports determinate progress"
           code={`import { LoadingIndicator } from "@neuraforge-ui/components/src/feedback/index";
@@ -230,13 +232,14 @@ export default function FeedbackPage() {
       {/* Skeleton */}
       <motion.div variants={fadeUp}>
         <ComponentPreview
+          id="skeleton"
           title="Skeleton"
           description="Placeholder loading state with shimmer animation"
           code={`import { Skeleton } from "@neuraforge-ui/components/src/feedback/index";
 
 <Skeleton width="100%" height="20px" />
 <Skeleton width="60%" height="16px" />
-<Skeleton width="200px" height="200px" variant="circular" />`}
+<Skeleton width="40px" height="40px" variant="circular" />`}
         >
           <div className="w-full space-y-4">
             <div className="flex items-center gap-3">
@@ -258,6 +261,7 @@ export default function FeedbackPage() {
       {/* EmptyState */}
       <motion.div variants={fadeUp}>
         <ComponentPreview
+          id="empty-state"
           title="EmptyState"
           description="Placeholder for empty lists with icon, message, and action"
           code={`import { EmptyState } from "@neuraforge-ui/components/src/feedback/index";

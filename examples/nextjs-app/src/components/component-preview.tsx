@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Eye, Code2, Copy, Check } from "lucide-react";
 
 interface ComponentPreviewProps {
+  id?: string;
   title: string;
   description?: string;
   children: React.ReactNode;
@@ -14,6 +15,7 @@ interface ComponentPreviewProps {
 }
 
 export function ComponentPreview({
+  id,
   title,
   description,
   children,
@@ -33,11 +35,16 @@ export function ComponentPreview({
 
   return (
     <motion.div
+      id={id}
       initial={{ opacity: 0, y: 12 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-      className={cn("rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] card-glow overflow-hidden", className)}
+      className={cn(
+        "rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] card-glow overflow-hidden scroll-mt-24",
+        "target:ring-2 target:ring-[hsl(var(--primary))]/30 target:border-[hsl(var(--primary))]/50 transition-all duration-300",
+        className
+      )}
     >
       {/* Header */}
       <div className="flex items-center justify-between border-b border-[hsl(var(--border))] px-5 py-3.5 bg-[hsl(var(--muted))]/30">
@@ -60,7 +67,7 @@ export function ComponentPreview({
             >
               {activeTab === "preview" && (
                 <motion.div
-                  layoutId={`tab-bg-${title}`}
+                  layoutId={`tab-bg-${id || title}`}
                   className="absolute inset-0 bg-[hsl(var(--background))] rounded-md shadow-sm"
                   transition={{ type: "spring", stiffness: 500, damping: 35 }}
                 />
@@ -79,7 +86,7 @@ export function ComponentPreview({
             >
               {activeTab === "code" && (
                 <motion.div
-                  layoutId={`tab-bg-${title}`}
+                  layoutId={`tab-bg-${id || title}`}
                   className="absolute inset-0 bg-[hsl(var(--background))] rounded-md shadow-sm"
                   transition={{ type: "spring", stiffness: 500, damping: 35 }}
                 />

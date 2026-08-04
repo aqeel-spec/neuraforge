@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ComponentPreview } from "@/components/component-preview";
 import {
@@ -24,6 +24,19 @@ const fadeUp = {
 export default function FormsPage() {
   const [switchOn, setSwitchOn] = useState(false);
 
+  // Handle hash-based navigation
+  useEffect(() => {
+    const hash = window.location.hash.slice(1);
+    if (hash) {
+      setTimeout(() => {
+        const el = document.getElementById(hash);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 100);
+    }
+  }, []);
+
   return (
     <motion.div
       initial="hidden"
@@ -42,6 +55,7 @@ export default function FormsPage() {
       {/* TextField */}
       <motion.div variants={fadeUp}>
         <ComponentPreview
+          id="text-field"
           title="TextField"
           description="Labelled text input with validation and error messaging"
           code={`import { TextField } from "@neuraforge-ui/components/src/forms/index";
@@ -59,6 +73,7 @@ export default function FormsPage() {
       {/* Select */}
       <motion.div variants={fadeUp}>
         <ComponentPreview
+          id="select"
           title="Select"
           description="Accessible dropdown select with keyboard navigation and ARIA"
           code={`import { Select } from "@neuraforge-ui/components/src/forms/index";
@@ -91,14 +106,12 @@ export default function FormsPage() {
       {/* Checkbox */}
       <motion.div variants={fadeUp}>
         <ComponentPreview
+          id="checkbox"
           title="Checkbox"
           description="Single checkbox with label and description"
           code={`import { Checkbox } from "@neuraforge-ui/components/src/forms/index";
 
-<Checkbox
-  label="Accept terms and conditions"
-  name="terms"
-/>`}
+<Checkbox label="Accept terms and conditions" name="terms" />`}
         >
           <div className="w-full max-w-sm space-y-3">
             <Checkbox label="Accept terms and conditions" name="terms" />
@@ -110,6 +123,7 @@ export default function FormsPage() {
       {/* CheckboxGroup */}
       <motion.div variants={fadeUp}>
         <ComponentPreview
+          id="checkbox-group"
           title="CheckboxGroup"
           description="Group of checkboxes with a shared legend and validation"
           code={`import { CheckboxGroup } from "@neuraforge-ui/components/src/forms/index";
@@ -141,6 +155,7 @@ export default function FormsPage() {
       {/* RadioGroup */}
       <motion.div variants={fadeUp}>
         <ComponentPreview
+          id="radio-group"
           title="RadioGroup"
           description="Exclusive-choice radio group with keyboard arrow navigation"
           code={`import { RadioGroup } from "@neuraforge-ui/components/src/forms/index";
@@ -172,12 +187,14 @@ export default function FormsPage() {
       {/* Switch */}
       <motion.div variants={fadeUp}>
         <ComponentPreview
+          id="switch"
           title="Switch"
           description="Toggle switch for boolean settings with ARIA switch role"
           code={`import { Switch } from "@neuraforge-ui/components/src/forms/index";
 
 <Switch
   label="Dark mode"
+  name="darkmode"
   checked={darkMode}
   onChange={setDarkMode}
 />`}
@@ -192,6 +209,7 @@ export default function FormsPage() {
       {/* Textarea */}
       <motion.div variants={fadeUp}>
         <ComponentPreview
+          id="textarea"
           title="Textarea"
           description="Multi-line text input with character count and auto-resize"
           code={`import { Textarea } from "@neuraforge-ui/components/src/forms/index";
@@ -217,22 +235,15 @@ export default function FormsPage() {
       {/* DatePicker */}
       <motion.div variants={fadeUp}>
         <ComponentPreview
+          id="date-picker"
           title="DatePicker"
           description="Calendar date picker with keyboard navigation and locale support"
           code={`import { DatePicker } from "@neuraforge-ui/components/src/forms/index";
 
-<DatePicker
-  label="Start date"
-  name="startDate"
-  onChange={(date) => console.log(date)}
-/>`}
+<DatePicker label="Start date" name="startDate" />`}
         >
           <div className="w-full max-w-sm">
-            <DatePicker
-              label="Start date"
-              name="startDate"
-              onChange={() => {}}
-            />
+            <DatePicker label="Start date" name="startDate" />
           </div>
         </ComponentPreview>
       </motion.div>
@@ -240,13 +251,13 @@ export default function FormsPage() {
       {/* FileUpload */}
       <motion.div variants={fadeUp}>
         <ComponentPreview
+          id="file-upload"
           title="FileUpload"
           description="Drag-and-drop file upload with progress and validation"
           code={`import { FileUpload } from "@neuraforge-ui/components/src/forms/index";
 
 <FileUpload
   label="Upload avatar"
-  name="avatar"
   accept="image/*"
   maxSize={5 * 1024 * 1024}
   onFiles={(files) => console.log(files)}
@@ -266,19 +277,19 @@ export default function FormsPage() {
       {/* Form */}
       <motion.div variants={fadeUp}>
         <ComponentPreview
+          id="form"
           title="Form"
           description="Form wrapper with submit handling and validation coordination"
-          code={`import { Form, TextField, Select } from "@neuraforge-ui/components/src/forms/index";
+          code={`import { Form, TextField } from "@neuraforge-ui/components/src/forms/index";
 
 <Form onSubmit={(data) => console.log(data)}>
   <TextField label="Name" name="name" required />
   <TextField label="Email" name="email" type="email" required />
-  <Select label="Role" name="role" options={[...]} />
   <button type="submit">Submit</button>
 </Form>`}
         >
           <div className="w-full max-w-sm">
-            <Form onSubmit={() => alert("Form submitted!")}>
+            <Form onSubmit={() => {}}>
               <TextField label="Full name" name="name" required />
               <TextField label="Email" name="email" type="email" required />
               <button

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ComponentPreview } from "@/components/component-preview";
 import {
@@ -23,6 +23,19 @@ export default function NavigationPage() {
   const [cmdOpen, setCmdOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
+  // Handle hash-based navigation
+  useEffect(() => {
+    const hash = window.location.hash.slice(1);
+    if (hash) {
+      setTimeout(() => {
+        const el = document.getElementById(hash);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 100);
+    }
+  }, []);
+
   return (
     <motion.div
       initial="hidden"
@@ -41,6 +54,7 @@ export default function NavigationPage() {
       {/* Navbar */}
       <motion.div variants={fadeUp}>
         <ComponentPreview
+          id="navbar"
           title="Navbar"
           description="Responsive site-wide navigation bar with mobile hamburger menu"
           code={`import { Navbar } from "@neuraforge-ui/components/src/navigation-layout/index";
@@ -78,6 +92,7 @@ export default function NavigationPage() {
       {/* MegaMenu */}
       <motion.div variants={fadeUp}>
         <ComponentPreview
+          id="mega-menu"
           title="MegaMenu"
           description="Multi-column dropdown navigation with grouped links and descriptions"
           code={`import { MegaMenu } from "@neuraforge-ui/components/src/navigation-layout/index";
@@ -90,13 +105,6 @@ export default function NavigationPage() {
       links: [
         { label: "Analytics", href: "/analytics", description: "Track metrics" },
         { label: "Automation", href: "/auto", description: "Workflow builder" },
-      ],
-    },
-    {
-      title: "Solutions",
-      links: [
-        { label: "Enterprise", href: "/enterprise", description: "For teams" },
-        { label: "Startups", href: "/startups", description: "Move fast" },
       ],
     },
   ]}
@@ -130,6 +138,7 @@ export default function NavigationPage() {
       {/* Breadcrumbs */}
       <motion.div variants={fadeUp}>
         <ComponentPreview
+          id="breadcrumbs"
           title="Breadcrumbs"
           description="Navigation breadcrumb trail with aria-current on the last item"
           code={`import { Breadcrumbs } from "@neuraforge-ui/components/src/navigation-layout/index";
@@ -155,6 +164,7 @@ export default function NavigationPage() {
       {/* Tabs */}
       <motion.div variants={fadeUp}>
         <ComponentPreview
+          id="tabs"
           title="Tabs"
           description="Tabbed interface with WAI-ARIA Tabs pattern — arrow keys, Home/End, auto-activation"
           code={`import { Tabs } from "@neuraforge-ui/components/src/navigation-layout/index";
@@ -184,6 +194,7 @@ export default function NavigationPage() {
       {/* CommandPalette */}
       <motion.div variants={fadeUp}>
         <ComponentPreview
+          id="command-palette"
           title="CommandPalette"
           description="Keyboard-driven command menu with fuzzy search — like ⌘K"
           code={`import { CommandPalette } from "@neuraforge-ui/components/src/navigation-layout/index";
@@ -194,7 +205,6 @@ export default function NavigationPage() {
   commands={[
     { id: "home", label: "Go to Home", action: () => router.push("/") },
     { id: "search", label: "Search docs", action: () => openSearch() },
-    { id: "theme", label: "Toggle theme", action: () => toggleTheme() },
   ]}
 />`}
         >
@@ -222,6 +232,7 @@ export default function NavigationPage() {
       {/* Pagination */}
       <motion.div variants={fadeUp}>
         <ComponentPreview
+          id="pagination"
           title="Pagination"
           description="Page navigation with first/last, prev/next, and numbered pages"
           code={`import { Pagination } from "@neuraforge-ui/components/src/navigation-layout/index";
@@ -245,6 +256,7 @@ export default function NavigationPage() {
       {/* StepIndicator */}
       <motion.div variants={fadeUp}>
         <ComponentPreview
+          id="step-indicator"
           title="StepIndicator"
           description="Multi-step progress indicator with completed, active, and upcoming states"
           code={`import { StepIndicator } from "@neuraforge-ui/components/src/navigation-layout/index";
@@ -275,6 +287,7 @@ export default function NavigationPage() {
       {/* Sidebar */}
       <motion.div variants={fadeUp}>
         <ComponentPreview
+          id="sidebar"
           title="Sidebar"
           description="Vertical navigation with grouped sections, aria-current, and disabled states"
           code={`import { Sidebar } from "@neuraforge-ui/components/src/navigation-layout/index";
@@ -286,13 +299,6 @@ export default function NavigationPage() {
       items: [
         { label: "Dashboard", href: "/dashboard", current: true },
         { label: "Analytics", href: "/analytics" },
-      ],
-    },
-    {
-      title: "Settings",
-      items: [
-        { label: "Profile", href: "/settings/profile" },
-        { label: "Billing", href: "/settings/billing" },
       ],
     },
   ]}
