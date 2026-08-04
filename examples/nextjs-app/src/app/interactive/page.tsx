@@ -88,20 +88,24 @@ export default function InteractivePage() {
       {/* Flip Card */}
       <ComponentPreview
         title="Flip"
-        description="A 3D card flip interaction — click to reveal the back."
+        description="Premium 3D card flip on hover — reveals features and CTA with staggered animations."
       >
-        <div className="flex justify-center">
+        <div className="flex justify-center gap-6 flex-wrap">
           <Flip
-            front={
-              <div className="w-64 h-40 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-700 flex items-center justify-center shadow-lg">
-                <span className="text-white font-medium">Click to flip</span>
-              </div>
-            }
-            back={
-              <div className="w-64 h-40 rounded-xl bg-gradient-to-br from-emerald-600 to-teal-700 flex items-center justify-center shadow-lg">
-                <span className="text-white font-medium">This is the back!</span>
-              </div>
-            }
+            title="AI Components"
+            subtitle="Build intelligent interfaces"
+            description="13 purpose-built components for chat, reasoning, and agent workflows."
+            features={["Chat Interface", "Streaming Response", "Tool Call Display", "Context Meter"]}
+            ctaText="Explore AI"
+            accentColor="violet"
+          />
+          <Flip
+            title="Premium Blocks"
+            subtitle="Full page sections"
+            description="20 ready-to-use landing page blocks with animations."
+            features={["Hero Sections x5", "Pricing Gradient", "Testimonial Marquee", "FAQ Accordion"]}
+            ctaText="View Blocks"
+            accentColor="cyan"
           />
         </div>
       </ComponentPreview>

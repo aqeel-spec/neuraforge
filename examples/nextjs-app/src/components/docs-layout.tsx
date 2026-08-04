@@ -172,6 +172,7 @@ const ecosystemNav = [
   { title: "Interactive", href: "/interactive", icon: MousePointer },
   { title: "Agent Visual", href: "/agent-visual", icon: BotIcon },
   { title: "Blocks", href: "/blocks", icon: Blocks },
+  { title: "Themes", href: "/themes", icon: Palette },
   { title: "Motion Presets", href: "/motion", icon: Sparkles },
   { title: "Design Tokens", href: "/tokens", icon: Palette },
   { title: "MCP Integration", href: "/mcp", icon: Bot },
