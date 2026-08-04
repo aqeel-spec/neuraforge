@@ -80,7 +80,7 @@ export function SearchInput({
     <div className={`space-y-2 ${className ?? ""}`}>
       <label
         htmlFor={inputId}
-        className="block text-sm font-medium text-slate-900 dark:text-slate-100"
+        className="block text-sm font-medium text-slate-900 dark:text-white"
       >
         {label}
       </label>
@@ -89,7 +89,7 @@ export function SearchInput({
         <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
           {loading ? (
             <svg
-              className="h-4 w-4 animate-spin text-slate-400 dark:text-slate-500"
+              className="h-4 w-4 animate-spin text-slate-400 dark:text-zinc-500"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -111,7 +111,7 @@ export function SearchInput({
             </svg>
           ) : (
             <svg
-              className="h-4 w-4 text-slate-400 dark:text-slate-500"
+              className="h-4 w-4 text-slate-400 dark:text-zinc-500"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -138,10 +138,9 @@ export function SearchInput({
           placeholder={placeholder}
           aria-label={label}
           className={[
-            "block w-full rounded-lg border border-slate-300 bg-white py-2 pl-10 text-sm text-slate-900 shadow-sm outline-none transition-colors",
-            "placeholder:text-slate-400 dark:placeholder:text-slate-500",
+            "block w-full rounded-lg border border-slate-300 dark:border-zinc-600 bg-white dark:bg-zinc-900 py-2 pl-10 text-sm text-slate-900 dark:text-white shadow-sm outline-none transition-colors",
+            "placeholder:text-slate-400 dark:placeholder:text-zinc-500",
             "focus-visible:border-indigo-600 focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2",
-            "dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100",
             clearable && hasValue ? "pr-9" : "pr-3",
           ].join(" ")}
         />
@@ -152,7 +151,7 @@ export function SearchInput({
             type="button"
             onClick={handleClear}
             aria-label="Clear search"
-            className="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400 hover:text-slate-600 outline-none focus-visible:text-indigo-600 dark:text-slate-500 dark:hover:text-slate-300 dark:focus-visible:text-indigo-400"
+            className="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400 dark:text-zinc-500 hover:text-slate-600 dark:hover:text-zinc-200 outline-none focus-visible:text-indigo-600 dark:focus-visible:text-indigo-400"
           >
             <svg
               className="h-4 w-4"
@@ -187,7 +186,7 @@ export function SearchInput({
                 "focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2",
                 filter.active
                   ? "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200"
-                  : "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:hover:bg-slate-700",
+                  : "bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-300 hover:bg-slate-200 dark:hover:bg-zinc-600",
               ].join(" ")}
             >
               {filter.label}

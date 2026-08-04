@@ -130,16 +130,16 @@ export function RangeSlider({
 
   return (
     <div className={className}>
-      <label id={labelId} className="block text-sm font-medium text-slate-900">
+      <label id={labelId} className="block text-sm font-medium text-slate-900 dark:text-white">
         {label}
       </label>
       <input type="hidden" name={`${name}-min`} value={current[0]} />
       <input type="hidden" name={`${name}-max`} value={current[1]} />
       <div className="flex items-center gap-3 pt-2">
-        <span className="text-xs font-medium text-slate-600">{current[0]}</span>
+        <span className="text-xs font-medium text-slate-600 dark:text-zinc-300">{current[0]}</span>
         <div
           ref={trackRef}
-          className="relative h-2 flex-1 cursor-pointer rounded-full bg-slate-200"
+          className="relative h-2 flex-1 cursor-pointer rounded-full bg-slate-200 dark:bg-zinc-700"
           onMouseDown={handleTrackMouseDown}
           role="presentation"
         >
@@ -158,7 +158,7 @@ export function RangeSlider({
             aria-valuenow={current[0]}
             aria-disabled={disabled}
             aria-label={`${label} minimum`}
-            className="absolute top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-indigo-600 bg-white shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2"
+            className="absolute top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-indigo-600 bg-white dark:bg-zinc-900 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2"
             style={{ left: `${lowPct}%` }}
             onKeyDown={handleThumbKeyDown(0)}
           />
@@ -172,12 +172,12 @@ export function RangeSlider({
             aria-valuenow={current[1]}
             aria-disabled={disabled}
             aria-label={`${label} maximum`}
-            className="absolute top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-indigo-600 bg-white shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2"
+            className="absolute top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-indigo-600 bg-white dark:bg-zinc-900 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2"
             style={{ left: `${highPct}%` }}
             onKeyDown={handleThumbKeyDown(1)}
           />
         </div>
-        <span className="text-xs font-medium text-slate-600">{current[1]}</span>
+        <span className="text-xs font-medium text-slate-600 dark:text-zinc-300">{current[1]}</span>
       </div>
     </div>
   );

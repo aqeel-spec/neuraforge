@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 
 export interface AgentAvatarProps {
   name?: string;
@@ -28,6 +28,7 @@ const statusAnimation: Record<string, object> = {
 };
 
 export function AgentAvatar({ name, status = 'idle', size = 'md', className = '' }: AgentAvatarProps) {
+  const shouldReduceMotion = useReducedMotion();
   const initials = name
     ? name.split(' ').map((w) => w[0]).join('').slice(0, 2).toUpperCase()
     : 'AI';
@@ -36,7 +37,7 @@ export function AgentAvatar({ name, status = 'idle', size = 'md', className = ''
     <div className={`relative inline-flex items-center justify-center ${className}`}>
       <motion.div
         className={`absolute rounded-full border-2 ${statusColors[status]} ${ringSize[size]}`}
-        animate={statusAnimation[status] as any}
+        animate={shouldReduceMotion ? {} : (statusAnimation[status] as any)}
       />
       <div
         className={`relative rounded-full bg-gradient-to-br from-purple-500 via-blue-500 to-cyan-400 dark:from-purple-600 dark:via-blue-600 dark:to-cyan-500 flex items-center justify-center ${sizeMap[size]}`}

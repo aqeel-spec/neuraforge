@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import React from 'react';
 
 export interface Page404Props {
@@ -11,6 +11,7 @@ export interface Page404Props {
 }
 
 export function Page404({ title = '404', message = "The page you're looking for doesn't exist.", cta, className = '' }: Page404Props) {
+  const shouldReduceMotion = useReducedMotion();
   return (
     <section className={`w-full min-h-screen flex items-center justify-center bg-white dark:bg-gray-950 ${className}`}>
       <motion.div
@@ -21,8 +22,8 @@ export function Page404({ title = '404', message = "The page you're looking for 
       >
         <motion.h1
           className="text-[120px] md:text-[200px] font-bold leading-none bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 bg-clip-text text-transparent select-none"
-          animate={{ y: [0, -10, 0] }}
-          transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+          animate={shouldReduceMotion ? {} : { y: [0, -10, 0] }}
+          transition={{ duration: 3, repeat: shouldReduceMotion ? 0 : Infinity, ease: 'easeInOut' }}
         >
           {title}
         </motion.h1>

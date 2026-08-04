@@ -44,7 +44,7 @@ export function TeamCarousel({ members, className = '' }: TeamCarouselProps) {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.05 }}
-              className="min-w-[260px] snap-center flex-shrink-0 rounded-2xl bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 p-6 text-center"
+              className="w-[240px] sm:w-[260px] shrink-0 snap-center rounded-2xl bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 p-6 text-center"
             >
               <img src={m.photo} alt={m.name} className="w-20 h-20 rounded-full mx-auto mb-4 object-cover" />
               <h3 className="text-base font-semibold text-gray-900 dark:text-white">{m.name}</h3>

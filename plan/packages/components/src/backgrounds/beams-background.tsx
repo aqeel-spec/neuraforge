@@ -1,7 +1,7 @@
 'use client';
 import { type ReactNode } from "react";
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 
 export interface BeamsBackgroundProps {
   color?: string;
@@ -16,6 +16,7 @@ export function BeamsBackground({
   className = '',
   children,
 }: BeamsBackgroundProps) {
+  const shouldReduceMotion = useReducedMotion();
   const beams = Array.from({ length: beamCount }, (_, i) => i);
 
   return (
@@ -29,10 +30,10 @@ export function BeamsBackground({
             style={{
               background: `conic-gradient(from ${(360 / beamCount) * i}deg at 50% 50%, transparent 0deg, ${color}20 2deg, transparent 4deg)`,
             }}
-            animate={{ rotate: 360 }}
+            animate={shouldReduceMotion ? {} : { rotate: 360 }}
             transition={{
               duration: 20 + i * 3,
-              repeat: Infinity,
+              repeat: shouldReduceMotion ? 0 : Infinity,
               ease: 'linear',
             }}
           />

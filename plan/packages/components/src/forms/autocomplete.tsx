@@ -86,7 +86,7 @@ export function Autocomplete({
 
   return (
     <div ref={containerRef} className="relative w-full">
-      <label htmlFor={inputId} className="mb-1.5 block text-sm font-medium text-slate-900">
+      <label htmlFor={inputId} className="mb-1.5 block text-sm font-medium text-slate-900 dark:text-white">
         {label}
       </label>
       <input
@@ -110,13 +110,13 @@ export function Autocomplete({
         }}
         onFocus={() => setOpen(true)}
         onKeyDown={handleKeyDown}
-        className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none transition-colors placeholder:text-slate-400 focus-visible:border-indigo-600 focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2"
+        className="w-full rounded-lg border border-slate-300 dark:border-zinc-600 bg-white dark:bg-zinc-900 px-3 py-2 text-sm text-slate-900 dark:text-white outline-none transition-colors placeholder:text-slate-400 dark:placeholder:text-zinc-500 focus-visible:border-indigo-600 focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2"
       />
       {open && filtered.length > 0 ? (
         <ul
           id={listboxId}
           role="listbox"
-          className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-lg border border-slate-200 bg-white py-1 shadow-lg"
+          className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-lg border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 py-1 shadow-lg"
         >
           {filtered.map((option, index) => (
             <li
@@ -128,7 +128,7 @@ export function Autocomplete({
               className={`cursor-pointer px-3 py-2 text-sm ${
                 index === activeIndex
                   ? "bg-indigo-50 text-indigo-900"
-                  : "text-slate-900 hover:bg-slate-50"
+                  : "text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-zinc-800"
               }`}
             >
               {option}

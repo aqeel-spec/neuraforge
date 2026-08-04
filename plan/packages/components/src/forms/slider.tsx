@@ -44,10 +44,10 @@ export function Slider({
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between">
-        <label htmlFor={inputId} className="text-sm font-medium text-slate-900">
+        <label htmlFor={inputId} className="text-sm font-medium text-slate-900 dark:text-white">
           {label}
         </label>
-        <output htmlFor={inputId} className="text-sm tabular-nums text-slate-600">
+        <output htmlFor={inputId} className="text-sm tabular-nums text-slate-600 dark:text-zinc-300">
           {currentValue}
         </output>
       </div>
@@ -64,7 +64,7 @@ export function Slider({
         aria-valuemin={min}
         aria-valuemax={max}
         aria-valuenow={currentValue}
-        className="h-2 w-full cursor-pointer appearance-none rounded-full bg-slate-200 accent-indigo-600 outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+        className="h-2 w-full cursor-pointer appearance-none rounded-full bg-slate-200 dark:bg-zinc-700 accent-indigo-600 outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
       />
     </div>
   );

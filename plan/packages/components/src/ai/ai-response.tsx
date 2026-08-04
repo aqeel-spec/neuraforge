@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 
 export interface AiResponseProps {
   content: string;
@@ -42,6 +42,7 @@ export function AiResponse({
   const indexRef = useRef(0);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const completedRef = useRef(!isStreaming);
+  const shouldReduceMotion = useReducedMotion();
 
   // Streaming character reveal
   useEffect(() => {
@@ -98,7 +99,7 @@ export function AiResponse({
           <motion.span
             className="ml-0.5 inline-block h-[18px] w-[3px] translate-y-[3px] rounded-full bg-gradient-to-b from-violet-500 via-indigo-500 to-cyan-500"
             animate={{ opacity: [1, 0.2, 1] }}
-            transition={{ duration: 0.8, repeat: Infinity, ease: 'easeInOut' }}
+            transition={{ duration: 0.8, repeat: shouldReduceMotion ? 0 : Infinity, ease: 'easeInOut' }}
           />
         )}
       </div>

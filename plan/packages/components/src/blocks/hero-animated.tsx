@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import React from 'react';
 
 export interface HeroAnimatedProps {
@@ -11,6 +11,7 @@ export interface HeroAnimatedProps {
 }
 
 export function HeroAnimated({ title, subtitle, cta, className = '' }: HeroAnimatedProps) {
+  const shouldReduceMotion = useReducedMotion();
   const particles = Array.from({ length: 20 }, (_, i) => ({
     id: i,
     x: Math.random() * 100,
@@ -27,8 +28,8 @@ export function HeroAnimated({ title, subtitle, cta, className = '' }: HeroAnima
           key={p.id}
           className="absolute rounded-full bg-purple-400/20"
           style={{ left: `${p.x}%`, top: `${p.y}%`, width: p.size, height: p.size }}
-          animate={{ y: [-20, 20, -20], opacity: [0.2, 0.8, 0.2] }}
-          transition={{ duration: p.duration, repeat: Infinity, ease: 'easeInOut' }}
+          animate={shouldReduceMotion ? {} : { y: [-20, 20, -20], opacity: [0.2, 0.8, 0.2] }}
+          transition={{ duration: p.duration, repeat: shouldReduceMotion ? 0 : Infinity, ease: 'easeInOut' }}
         />
       ))}
 

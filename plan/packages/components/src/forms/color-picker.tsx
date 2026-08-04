@@ -55,7 +55,7 @@ export function ColorPicker({
 
   return (
     <div className="space-y-2">
-      <label htmlFor={inputId} className="block text-sm font-medium text-slate-900">
+      <label htmlFor={inputId} className="block text-sm font-medium text-slate-900 dark:text-white">
         {label}
       </label>
       <div className="flex items-center gap-3">
@@ -65,14 +65,14 @@ export function ColorPicker({
           name={name}
           value={currentValue}
           onChange={handleChange}
-          className="h-10 w-10 cursor-pointer rounded-lg border border-slate-300 p-0.5 outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2"
+          className="h-10 w-10 cursor-pointer rounded-lg border border-slate-300 dark:border-zinc-600 p-0.5 outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2"
         />
         <input
           type="text"
           aria-label={`${label} hex value`}
           value={currentValue}
           onChange={handleChange}
-          className="w-28 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-mono text-slate-900 outline-none transition-colors focus-visible:border-indigo-600 focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2"
+          className="w-28 rounded-lg border border-slate-300 dark:border-zinc-600 bg-white dark:bg-zinc-900 px-3 py-2 text-sm font-mono text-slate-900 dark:text-white outline-none transition-colors focus-visible:border-indigo-600 focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2"
         />
       </div>
       {presets.length > 0 ? (
@@ -86,7 +86,7 @@ export function ColorPicker({
               style={{ backgroundColor: color }}
               className={`h-7 w-7 rounded-md border-2 transition-transform hover:scale-110 outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 ${
                 currentValue.toLowerCase() === color.toLowerCase()
-                  ? "border-slate-900 shadow-sm"
+                  ? "border-slate-900 dark:border-white shadow-sm"
                   : "border-transparent"
               }`}
             />

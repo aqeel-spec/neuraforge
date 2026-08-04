@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState, useCallback, memo } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from 'framer-motion';
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -80,6 +80,7 @@ interface DotProps {
 }
 
 const DotEl = memo(function DotEl({ dot, dotSize, mouseX, mouseY, repulsionRadius, repulsionStrength }: DotProps) {
+  const shouldReduceMotion = useReducedMotion();
   const posX = useTransform([mouseX, mouseY], () => {
     const mx = mouseX.get();
     const my = mouseY.get();
@@ -136,7 +137,7 @@ const DotEl = memo(function DotEl({ dot, dotSize, mouseX, mouseY, repulsionRadiu
         opacity: opaSpring,
       }}
       animate={{ opacity: [dot.opacity * 0.5, dot.opacity * 1.5, dot.opacity * 0.5] }}
-      transition={{ duration: 0.8 + Math.random() * 0.3, repeat: Infinity, ease: 'easeInOut' }}
+      transition={{ duration: 0.8 + Math.random() * 0.3, repeat: shouldReduceMotion ? 0 : Infinity, ease: 'easeInOut' }}
     />
   );
 });

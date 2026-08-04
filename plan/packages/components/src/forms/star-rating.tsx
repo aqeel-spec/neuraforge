@@ -159,7 +159,7 @@ export function StarRating({
 
   return (
     <div className={`space-y-1 ${className ?? ""}`}>
-      <span className="block text-sm font-medium text-slate-900 dark:text-slate-100">
+      <span className="block text-sm font-medium text-slate-900 dark:text-white">
         {label}
       </span>
       <div
@@ -233,7 +233,7 @@ export function StarRating({
                 />
               ) : (
                 <StarEmpty
-                  className={`${sizeClass} text-slate-300 dark:text-slate-600`}
+                  className={`${sizeClass} text-slate-300 dark:text-zinc-600`}
                 />
               )}
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect, useCallback, type FormEvent } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 
 export interface AiBubbleChatMessage {
   id: string;
@@ -32,6 +32,7 @@ export function AiBubbleChat({
   const [input, setInput] = useState('');
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const shouldReduceMotion = useReducedMotion();
 
   const scrollToBottom = useCallback(() => {
     if (scrollRef.current) {
@@ -153,7 +154,7 @@ export function AiBubbleChat({
                       key={i}
                       className="w-2 h-2 rounded-full bg-gradient-to-br from-violet-400 to-indigo-500"
                       animate={{ scale: [1, 1.4, 1], opacity: [0.5, 1, 0.5] }}
-                      transition={{ duration: 1, repeat: Infinity, delay: i * 0.2, ease: 'easeInOut' }}
+                      transition={{ duration: 1, repeat: shouldReduceMotion ? 0 : Infinity, delay: i * 0.2, ease: 'easeInOut' }}
                     />
                   ))}
                 </div>

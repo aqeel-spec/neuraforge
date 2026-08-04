@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import React from 'react';
 
 export interface Testimonial {
@@ -16,6 +16,7 @@ export interface TestimonialMarqueeProps {
 }
 
 export function TestimonialMarquee({ testimonials, className = '' }: TestimonialMarqueeProps) {
+  const shouldReduceMotion = useReducedMotion();
   const doubled = [...testimonials, ...testimonials];
 
   return (
@@ -33,13 +34,13 @@ export function TestimonialMarquee({ testimonials, className = '' }: Testimonial
       <div className="relative flex overflow-hidden">
         <motion.div
           className="flex gap-6 whitespace-nowrap"
-          animate={{ x: ['0%', '-50%'] }}
-          transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
+          animate={shouldReduceMotion ? {} : { x: ['0%', '-50%'] }}
+          transition={{ duration: 30, repeat: shouldReduceMotion ? 0 : Infinity, ease: 'linear' }}
         >
           {doubled.map((t, i) => (
             <div
               key={i}
-              className="inline-flex flex-col min-w-[320px] max-w-[380px] rounded-2xl bg-white dark:bg-gray-800 p-6 shadow-lg border border-gray-100 dark:border-gray-700"
+              className="inline-flex flex-col w-[280px] sm:w-[320px] md:w-[380px] shrink-0 rounded-2xl bg-white dark:bg-gray-800 p-6 shadow-lg border border-gray-100 dark:border-gray-700"
             >
               <p className="text-gray-700 dark:text-gray-300 whitespace-normal text-sm leading-relaxed mb-4">
                 &ldquo;{t.quote}&rdquo;

@@ -55,17 +55,17 @@ export function Switch({
         onClick={handleToggle}
         onKeyDown={handleKeyDown}
         className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${
-          isChecked ? "bg-indigo-600" : "bg-slate-200"
+          isChecked ? "bg-indigo-600" : "bg-slate-200 dark:bg-zinc-700"
         }`}
       >
         <span
           aria-hidden="true"
-          className={`pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow-sm ring-0 transition-transform ${
+          className={`pointer-events-none inline-block h-5 w-5 rounded-full bg-white dark:bg-zinc-900 shadow-sm ring-0 transition-transform ${
             isChecked ? "translate-x-5" : "translate-x-0"
           }`}
         />
       </button>
-      <span id={labelId} className="text-sm font-medium text-slate-900">
+      <span id={labelId} className="text-sm font-medium text-slate-900 dark:text-white">
         {label}
       </span>
     </div>

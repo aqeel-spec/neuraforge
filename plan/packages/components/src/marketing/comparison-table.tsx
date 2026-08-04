@@ -45,7 +45,7 @@ export function ComparisonTable({
       aria-label="Feature comparison"
     >
       <div className="max-w-6xl mx-auto overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
-        <table className="w-full min-w-[600px] border-collapse text-sm">
+        <table className="w-full min-w-full sm:min-w-[600px] border-collapse text-sm">
           <thead>
             <tr className="border-b border-gray-200 dark:border-gray-700">
               <th

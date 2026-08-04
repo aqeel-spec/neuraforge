@@ -122,7 +122,7 @@ export function Combobox({
 
   return (
     <div className={className}>
-      <label id={labelId} htmlFor={inputId} className="block text-sm font-medium text-slate-900">
+      <label id={labelId} htmlFor={inputId} className="block text-sm font-medium text-slate-900 dark:text-white">
         {label}
       </label>
       <input type="hidden" name={name} value={value ?? ""} />
@@ -142,7 +142,7 @@ export function Combobox({
           disabled={disabled}
           placeholder={selectedOption?.label ?? placeholder}
           value={query}
-          className="flex w-full items-center rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-950 shadow-sm outline-none placeholder:text-slate-400 focus-visible:border-indigo-600 focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-slate-100"
+          className="flex w-full items-center rounded-md border border-slate-300 dark:border-zinc-600 bg-white dark:bg-zinc-900 px-3 py-2 text-sm text-slate-950 dark:text-white shadow-sm outline-none placeholder:text-slate-400 dark:placeholder:text-zinc-500 focus-visible:border-indigo-600 focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-slate-100 dark:disabled:bg-zinc-800"
           onChange={(e) => {
             setQuery(e.target.value);
             setIsOpen(true);
@@ -157,7 +157,7 @@ export function Combobox({
             id={listboxId}
             role="listbox"
             aria-labelledby={labelId}
-            className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md border border-slate-200 bg-white py-1 shadow-lg"
+            className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 py-1 shadow-lg"
           >
             {filtered.map((option, index) => (
               <li
@@ -168,7 +168,7 @@ export function Combobox({
                 className={`cursor-pointer px-3 py-2 text-sm ${
                   index === activeIndex
                     ? "bg-indigo-600 text-white"
-                    : "text-slate-950 hover:bg-slate-100"
+                    : "text-slate-950 dark:text-white hover:bg-slate-100 dark:hover:bg-zinc-700"
                 } ${option.value === value ? "font-medium" : ""}`}
                 onClick={() => selectOption(option.value)}
                 onMouseEnter={() => setActiveIndex(index)}
@@ -184,7 +184,7 @@ export function Combobox({
                 className={`cursor-pointer px-3 py-2 text-sm ${
                   activeIndex === filtered.length
                     ? "bg-indigo-600 text-white"
-                    : "text-slate-950 hover:bg-slate-100"
+                    : "text-slate-950 dark:text-white hover:bg-slate-100 dark:hover:bg-zinc-700"
                 }`}
                 onClick={() => selectOption(query)}
                 onMouseEnter={() => setActiveIndex(filtered.length)}

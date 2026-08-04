@@ -30,7 +30,7 @@ export function FooterMega({ columns, newsletter, socials, className = '' }: Foo
         transition={{ duration: 0.6 }}
         className="max-w-7xl mx-auto"
       >
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 mb-12">
           {columns.map((col, i) => (
             <div key={i}>
               <h4 className="text-sm font-semibold text-white uppercase tracking-wide mb-4">{col.title}</h4>

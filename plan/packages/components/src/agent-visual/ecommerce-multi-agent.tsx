@@ -1,7 +1,7 @@
 'use client';
 import { Fragment } from "react";
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 
 export interface AgentNode {
   id: string;
@@ -28,12 +28,13 @@ const statusDot: Record<string, string> = {
 };
 
 export function EcommerceMultiAgent({ agents, className = '' }: EcommerceMultiAgentProps) {
+  const shouldReduceMotion = useReducedMotion();
   return (
     <div className={`relative flex flex-wrap items-center justify-center gap-6 p-6 ${className}`}>
       {agents.map((agent, i) => (
         <Fragment key={agent.id}>
           <motion.div
-            className={`relative border-2 rounded-xl p-4 min-w-[140px] text-center ${statusStyles[agent.status]}`}
+            className={`relative border-2 rounded-xl p-4 w-full max-w-[140px] sm:min-w-[140px] text-center ${statusStyles[agent.status]}`}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.15 }}
@@ -41,8 +42,8 @@ export function EcommerceMultiAgent({ agents, className = '' }: EcommerceMultiAg
             <div className="flex items-center justify-center gap-2 mb-1">
               <motion.span
                 className={`w-2.5 h-2.5 rounded-full ${statusDot[agent.status]}`}
-                animate={agent.status === 'active' ? { scale: [1, 1.4, 1] } : {}}
-                transition={{ duration: 1, repeat: Infinity }}
+                animate={agent.status === 'active' && !shouldReduceMotion ? { scale: [1, 1.4, 1] } : {}}
+                transition={{ duration: 1, repeat: shouldReduceMotion ? 0 : Infinity }}
               />
               <span className="text-xs uppercase font-medium text-gray-500 dark:text-gray-400">
                 {agent.status}

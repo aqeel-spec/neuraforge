@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import React from 'react';
 
 export interface OrbitingIcon {
@@ -18,6 +18,7 @@ export interface CTAOrbitingProps {
 }
 
 export function CTAOrbiting({ title, subtitle, buttonText, icons, onCtaClick, className = '' }: CTAOrbitingProps) {
+  const shouldReduceMotion = useReducedMotion();
   return (
     <section className={`w-full py-32 bg-white dark:bg-gray-950 overflow-hidden ${className}`}>
       <motion.div
@@ -40,8 +41,8 @@ export function CTAOrbiting({ title, subtitle, buttonText, icons, onCtaClick, cl
           <motion.div
             key={i}
             className="absolute w-12 h-12 rounded-full bg-white dark:bg-gray-800 shadow-lg border border-gray-100 dark:border-gray-700 flex items-center justify-center text-xl"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 15 + i * 2, repeat: Infinity, ease: 'linear' }}
+            animate={shouldReduceMotion ? {} : { rotate: 360 }}
+            transition={{ duration: 15 + i * 2, repeat: shouldReduceMotion ? 0 : Infinity, ease: 'linear' }}
             style={{
               top: '50%',
               left: '50%',

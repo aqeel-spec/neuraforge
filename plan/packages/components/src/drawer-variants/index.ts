@@ -1,13 +1,11 @@
-export {
-  DefaultDrawer,
-  NestedDrawer,
-  ScrollableDrawer,
-  FormDrawer,
-  NotificationDrawer,
-  SettingsDrawer,
-  ProfileDrawer,
-  CartDrawer,
-  FiltersDrawer,
-  CommandDrawer,
-  type DrawerProps,
-} from './drawer-variants';
+export { DrawerShell, DrawerHeader, type DrawerProps } from './drawer-shell';
+export { DefaultDrawer } from './default-drawer';
+export { NestedDrawer } from './nested-drawer';
+export { ScrollableDrawer } from './scrollable-drawer';
+export { FormDrawer } from './form-drawer';
+export { NotificationDrawer } from './notification-drawer';
+export { SettingsDrawer } from './settings-drawer';
+export { ProfileDrawer } from './profile-drawer';
+export { CartDrawer } from './cart-drawer';
+export { FiltersDrawer } from './filters-drawer';
+export { CommandDrawer } from './command-drawer';

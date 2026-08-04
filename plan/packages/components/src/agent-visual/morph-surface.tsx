@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 
 export interface MorphSurfaceProps {
   colors?: string[];
@@ -21,6 +21,7 @@ export function MorphSurface({
   speed = 'medium',
   className = '',
 }: MorphSurfaceProps) {
+  const shouldReduceMotion = useReducedMotion();
   const dur = speedMap[speed];
 
   return (
@@ -42,10 +43,10 @@ export function MorphSurface({
             key={i}
             fill="url(#morph-grad-1)"
             fillOpacity={0.5 - i * 0.1}
-            animate={{ d: blobPaths }}
+            animate={shouldReduceMotion ? {} : { d: blobPaths }}
             transition={{
               duration: dur + i,
-              repeat: Infinity,
+              repeat: shouldReduceMotion ? 0 : Infinity,
               repeatType: 'reverse',
               ease: 'easeInOut',
               delay: i * 0.5,

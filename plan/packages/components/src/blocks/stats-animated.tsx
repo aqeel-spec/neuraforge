@@ -88,7 +88,7 @@ export function StatsAnimated({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto"
       >
         {stats.map((stat, i) => (
           <div key={`${stat.label}-${i}`} className={variantStyles[variant]}>

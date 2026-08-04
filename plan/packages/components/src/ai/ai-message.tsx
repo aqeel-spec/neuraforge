@@ -1,7 +1,7 @@
 'use client';
 
 import { type ReactNode } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 
 export interface AiMessageProps {
   role: 'user' | 'assistant';
@@ -40,11 +40,12 @@ function DefaultAvatar({ role }: { role: 'user' | 'assistant' }) {
 }
 
 function StreamingCursor() {
+  const shouldReduceMotion = useReducedMotion();
   return (
     <motion.span
       className="ml-0.5 inline-block h-[18px] w-[2.5px] rounded-full bg-gradient-to-b from-violet-500 to-indigo-500"
       animate={{ opacity: [1, 0.3, 1] }}
-      transition={{ duration: 0.9, repeat: Infinity, ease: 'easeInOut' }}
+      transition={{ duration: 0.9, repeat: shouldReduceMotion ? 0 : Infinity, ease: 'easeInOut' }}
     />
   );
 }

@@ -121,9 +121,9 @@ export function FileUpload({
 
   return (
     <div className="space-y-1.5">
-      <span className="block text-sm font-medium text-slate-900">{label}</span>
+      <span className="block text-sm font-medium text-slate-900 dark:text-white">{label}</span>
       {description ? (
-        <p id={descriptionId} className="text-sm text-slate-600">
+        <p id={descriptionId} className="text-sm text-slate-600 dark:text-zinc-300">
           {description}
         </p>
       ) : null}
@@ -145,17 +145,17 @@ export function FileUpload({
         onDrop={handleDrop}
         className={`flex min-h-[8rem] cursor-pointer flex-col items-center justify-center rounded-md border-2 border-dashed px-4 py-6 text-center outline-none transition-colors focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 ${
           disabled
-            ? "cursor-not-allowed border-slate-200 bg-slate-50 text-slate-400"
+            ? "cursor-not-allowed border-slate-200 dark:border-zinc-700 bg-slate-50 dark:bg-zinc-800 text-slate-400 dark:text-zinc-500"
             : isDragging
               ? "border-indigo-500 bg-indigo-50"
               : resolvedError
-                ? "border-red-300 bg-red-50 hover:border-red-400"
-                : "border-slate-300 bg-white hover:border-slate-400"
+                ? "border-red-300 dark:border-red-700 bg-red-50 dark:bg-red-950 hover:border-red-400"
+                : "border-slate-300 dark:border-zinc-600 bg-white dark:bg-zinc-900 hover:border-slate-400"
         }`}
       >
         <svg
           aria-hidden="true"
-          className={`mb-2 h-8 w-8 ${isDragging ? "text-indigo-500" : "text-slate-400"}`}
+          className={`mb-2 h-8 w-8 ${isDragging ? "text-indigo-500" : "text-slate-400 dark:text-zinc-500"}`}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -167,12 +167,12 @@ export function FileUpload({
             d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
           />
         </svg>
-        <p className="text-sm text-slate-600">
+        <p className="text-sm text-slate-600 dark:text-zinc-300">
           <span className="font-medium text-indigo-600">Click to upload</span> or drag and drop
         </p>
-        {accept ? <p className="mt-1 text-xs text-slate-500">{accept}</p> : null}
+        {accept ? <p className="mt-1 text-xs text-slate-500 dark:text-zinc-400">{accept}</p> : null}
         {maxSize ? (
-          <p className="mt-1 text-xs text-slate-500">Max size: {formatBytes(maxSize)}</p>
+          <p className="mt-1 text-xs text-slate-500 dark:text-zinc-400">Max size: {formatBytes(maxSize)}</p>
         ) : null}
       </div>
       <input
@@ -192,10 +192,10 @@ export function FileUpload({
           {selectedFiles.map((file, index) => (
             <li
               key={`${file.name}-${index}`}
-              className="flex items-center gap-2 text-sm text-slate-700"
+              className="flex items-center gap-2 text-sm text-slate-700 dark:text-zinc-200"
             >
               <svg
-                className="h-4 w-4 text-slate-400"
+                className="h-4 w-4 text-slate-400 dark:text-zinc-500"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -208,13 +208,13 @@ export function FileUpload({
                 />
               </svg>
               <span className="truncate">{file.name}</span>
-              <span className="text-xs text-slate-500">({formatBytes(file.size)})</span>
+              <span className="text-xs text-slate-500 dark:text-zinc-400">({formatBytes(file.size)})</span>
             </li>
           ))}
         </ul>
       ) : null}
       {resolvedError ? (
-        <p id={errorId} role="alert" className="text-sm font-medium text-red-700">
+        <p id={errorId} role="alert" className="text-sm font-medium text-red-700 dark:text-red-400">
           {resolvedError}
         </p>
       ) : null}

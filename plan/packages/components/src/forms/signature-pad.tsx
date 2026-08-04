@@ -175,10 +175,10 @@ export function SignaturePad({
 
   return (
     <div className={`space-y-2 ${className ?? ""}`}>
-      <span className="block text-sm font-medium text-slate-900 dark:text-slate-100">
+      <span className="block text-sm font-medium text-slate-900 dark:text-white">
         {label}
       </span>
-      <div className="inline-block rounded-lg border border-slate-300 dark:border-slate-600 overflow-hidden">
+      <div className="inline-block rounded-lg border border-slate-300 dark:border-zinc-600 overflow-hidden">
         <canvas
           ref={canvasRef}
           id={canvasId}
@@ -214,10 +214,9 @@ export function SignaturePad({
           onClick={handleClear}
           disabled={disabled || !hasStrokes}
           className={[
-            "rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 shadow-sm outline-none transition-colors",
-            "hover:bg-slate-50 focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2",
+            "rounded-md border border-slate-300 dark:border-zinc-600 bg-white dark:bg-zinc-900 px-3 py-1.5 text-sm font-medium text-slate-700 dark:text-zinc-200 shadow-sm outline-none transition-colors",
+            "hover:bg-slate-50 dark:hover:bg-zinc-800 focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2",
             "disabled:cursor-not-allowed disabled:opacity-50",
-            "dark:border-slate-600 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700",
           ].join(" ")}
         >
           {clearLabel}

@@ -132,7 +132,7 @@ export function MultiSelect({
 
   return (
     <div className={className}>
-      <label id={labelId} className="block text-sm font-medium text-slate-900">
+      <label id={labelId} className="block text-sm font-medium text-slate-900 dark:text-white">
         {label}
       </label>
       {/* Hidden inputs for form submission */}
@@ -152,7 +152,7 @@ export function MultiSelect({
             isOpen && activeIndex >= 0 ? `${generatedId}-option-${activeIndex}` : undefined
           }
           aria-disabled={disabled}
-          className="flex min-h-[2.5rem] w-full flex-wrap items-center gap-1.5 rounded-md border border-slate-300 bg-white px-3 py-1.5 shadow-sm outline-none focus-visible:border-indigo-600 focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed"
+          className="flex min-h-[2.5rem] w-full flex-wrap items-center gap-1.5 rounded-md border border-slate-300 dark:border-zinc-600 bg-white dark:bg-zinc-900 px-3 py-1.5 shadow-sm outline-none focus-visible:border-indigo-600 focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed"
           onClick={() => !disabled && setIsOpen((prev) => !prev)}
           onKeyDown={handleKeyDown}
         >
@@ -186,7 +186,7 @@ export function MultiSelect({
               </span>
             ))
           ) : (
-            <span className="text-sm text-slate-400">{placeholder}</span>
+            <span className="text-sm text-slate-400 dark:text-zinc-500">{placeholder}</span>
           )}
         </div>
         {isOpen && availableOptions.length > 0 ? (
@@ -196,7 +196,7 @@ export function MultiSelect({
             role="listbox"
             aria-labelledby={labelId}
             aria-multiselectable="true"
-            className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md border border-slate-200 bg-white py-1 shadow-lg"
+            className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 py-1 shadow-lg"
           >
             {availableOptions.map((option, index) => (
               <li
@@ -208,7 +208,7 @@ export function MultiSelect({
                 className={`cursor-pointer px-3 py-2 text-sm ${
                   index === activeIndex
                     ? "bg-indigo-600 text-white"
-                    : "text-slate-950 hover:bg-slate-100"
+                    : "text-slate-950 dark:text-white hover:bg-slate-100 dark:hover:bg-zinc-700"
                 } ${isAtMax ? "cursor-not-allowed opacity-50" : ""}`}
                 onClick={() => addOption(option.value)}
                 onMouseEnter={() => setActiveIndex(index)}
@@ -220,7 +220,7 @@ export function MultiSelect({
         ) : null}
       </div>
       {max != null ? (
-        <p className="mt-1 text-xs text-slate-500">
+        <p className="mt-1 text-xs text-slate-500 dark:text-zinc-400">
           {selected.length}/{max} selected
         </p>
       ) : null}

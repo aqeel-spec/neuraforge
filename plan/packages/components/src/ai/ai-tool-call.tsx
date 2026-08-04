@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 
 export interface AiToolCallProps {
   name: string;
@@ -14,6 +14,7 @@ export interface AiToolCallProps {
 }
 
 function ToolStatusIcon({ status }: { status: AiToolCallProps['status'] }) {
+  const shouldReduceMotion = useReducedMotion();
   switch (status) {
     case 'success':
       return (
@@ -46,8 +47,8 @@ function ToolStatusIcon({ status }: { status: AiToolCallProps['status'] }) {
       return (
         <motion.div
           className="w-4 h-4 rounded-full border-2 border-amber-500 dark:border-amber-400 border-t-transparent"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+          animate={{ rotate: shouldReduceMotion ? 0 : 360 }}
+          transition={{ duration: 1, repeat: shouldReduceMotion ? 0 : Infinity, ease: 'linear' }}
           aria-hidden="true"
         />
       );

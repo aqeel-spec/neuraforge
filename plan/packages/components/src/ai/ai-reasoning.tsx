@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 
 export interface AiReasoningStep {
   id: string;
@@ -18,6 +18,7 @@ export interface AiReasoningProps {
 }
 
 function StatusIcon({ status }: { status: AiReasoningStep['status'] }) {
+  const shouldReduceMotion = useReducedMotion();
   switch (status) {
     case 'complete':
       return (
@@ -50,8 +51,8 @@ function StatusIcon({ status }: { status: AiReasoningStep['status'] }) {
       return (
         <motion.div
           className="w-4 h-4 rounded-full border-2 border-blue-500 dark:border-blue-400 border-t-transparent shrink-0"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+          animate={{ rotate: shouldReduceMotion ? 0 : 360 }}
+          transition={{ duration: 1, repeat: shouldReduceMotion ? 0 : Infinity, ease: 'linear' }}
           aria-hidden="true"
         />
       );
@@ -59,6 +60,7 @@ function StatusIcon({ status }: { status: AiReasoningStep['status'] }) {
 }
 
 export function AiReasoning({ steps, collapsed = true, onToggle, className = '' }: AiReasoningProps) {
+  const shouldReduceMotion = useReducedMotion();
   const isThinking = steps.some((s) => s.status === 'thinking');
 
   return (
@@ -74,8 +76,8 @@ export function AiReasoning({ steps, collapsed = true, onToggle, className = '' 
         {isThinking && (
           <motion.div
             className="w-3.5 h-3.5 rounded-full border-2 border-blue-500 dark:border-blue-400 border-t-transparent"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+            animate={{ rotate: shouldReduceMotion ? 0 : 360 }}
+            transition={{ duration: 1, repeat: shouldReduceMotion ? 0 : Infinity, ease: 'linear' }}
             aria-hidden="true"
           />
         )}

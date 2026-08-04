@@ -1,7 +1,7 @@
 'use client';
 import { type ReactNode } from "react";
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 
 export interface NotificationBadgeProps {
   count: number;
@@ -20,6 +20,7 @@ export function NotificationBadge({
   children,
   className = '',
 }: NotificationBadgeProps) {
+  const shouldReduceMotion = useReducedMotion();
   const displayCount = count > max ? `${max}+` : String(count);
   const show = count > 0;
 
@@ -38,7 +39,7 @@ export function NotificationBadge({
           transition={{ type: 'spring', stiffness: 500, damping: 20 }}
         >
           {variant === 'count' && displayCount}
-          {pulse && (
+          {pulse && !shouldReduceMotion && (
             <motion.span
               className="absolute inset-0 rounded-full bg-red-500"
               animate={{ scale: [1, 1.6], opacity: [0.6, 0] }}

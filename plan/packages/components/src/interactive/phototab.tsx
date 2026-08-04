@@ -67,7 +67,7 @@ export function Phototab({ tabs, className = '' }: PhototabProps) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.25 }}
-            className="grid grid-cols-2 sm:grid-cols-3 gap-3"
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3"
           >
             {currentTab.images.map((image, idx) => (
               <motion.div

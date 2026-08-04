@@ -43,14 +43,14 @@ export function Checkbox({
           disabled={disabled}
           aria-invalid={error ? true : undefined}
           aria-describedby={error ? errorId : undefined}
-          className="h-4 w-4 rounded border-slate-300 text-indigo-600 outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          className="h-4 w-4 rounded border-slate-300 dark:border-zinc-600 text-indigo-600 outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
         />
-        <label htmlFor={inputId} className="text-sm font-medium text-slate-900">
+        <label htmlFor={inputId} className="text-sm font-medium text-slate-900 dark:text-white">
           {label}
         </label>
       </div>
       {error ? (
-        <p id={errorId} role="alert" className="text-sm font-medium text-red-700">
+        <p id={errorId} role="alert" className="text-sm font-medium text-red-700 dark:text-red-400">
           {error}
         </p>
       ) : null}

@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 
 export interface GlobeConnection {
   from: { lat: number; lng: number };
@@ -22,6 +22,7 @@ function latLngToXY(lat: number, lng: number, r: number, cx: number, cy: number)
 }
 
 export function AgenticGlobe({ connections = [], size = 200, className = '' }: AgenticGlobeProps) {
+  const shouldReduceMotion = useReducedMotion();
   const cx = size / 2;
   const cy = size / 2;
   const r = size * 0.4;
@@ -29,8 +30,8 @@ export function AgenticGlobe({ connections = [], size = 200, className = '' }: A
   return (
     <motion.div
       className={`inline-block ${className}`}
-      animate={{ rotate: 360 }}
-      transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
+      animate={shouldReduceMotion ? {} : { rotate: 360 }}
+      transition={{ duration: 30, repeat: shouldReduceMotion ? 0 : Infinity, ease: 'linear' }}
     >
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="drop-shadow-lg">
         {/* Globe circle */}
@@ -88,7 +89,7 @@ export function AgenticGlobe({ connections = [], size = 200, className = '' }: A
                 strokeWidth={1.5}
                 initial={{ pathLength: 0 }}
                 animate={{ pathLength: 1 }}
-                transition={{ duration: 2, delay: i * 0.3, repeat: Infinity, repeatDelay: 3 }}
+                transition={{ duration: 2, delay: i * 0.3, repeat: shouldReduceMotion ? 0 : Infinity, repeatDelay: 3 }}
               />
               <circle cx={from.x} cy={from.y} r={3} className="fill-cyan-500 dark:fill-cyan-400" />
               <circle cx={to.x} cy={to.y} r={3} className="fill-cyan-500 dark:fill-cyan-400" />

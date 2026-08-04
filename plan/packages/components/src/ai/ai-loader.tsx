@@ -1,7 +1,7 @@
 'use client';
 
 import { useId, useMemo } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 
 export interface AiLoaderProps {
   variant?: 'wave' | 'neural' | 'stream';
@@ -13,6 +13,7 @@ export interface AiLoaderProps {
 const sizes = { sm: 48, md: 64, lg: 96 } as const;
 
 function WaveVariant({ size }: { size: number }) {
+  const shouldReduceMotion = useReducedMotion();
   const bars = 7;
   const barWidth = size * 0.08;
   const gap = size * 0.04;
@@ -51,7 +52,7 @@ function WaveVariant({ size }: { size: number }) {
           }}
           transition={{
             duration: 1.2,
-            repeat: Infinity,
+            repeat: shouldReduceMotion ? 0 : Infinity,
             ease: 'easeInOut',
             delay: i * 0.12,
           }}
@@ -62,6 +63,7 @@ function WaveVariant({ size }: { size: number }) {
 }
 
 function NeuralVariant({ size }: { size: number }) {
+  const shouldReduceMotion = useReducedMotion();
   const nodes = useMemo(() => [
     { x: size * 0.5, y: size * 0.12 },
     { x: size * 0.15, y: size * 0.4 },
@@ -100,7 +102,7 @@ function NeuralVariant({ size }: { size: number }) {
           stroke="#8b5cf6"
           strokeWidth={1.5}
           animate={{ strokeOpacity: [0.2, 0.7, 0.2] }}
-          transition={{ duration: 2, repeat: Infinity, delay: i * 0.15 }}
+          transition={{ duration: 2, repeat: shouldReduceMotion ? 0 : Infinity, delay: i * 0.15 }}
         />
       ))}
       {nodes.map((node, i) => (
@@ -116,7 +118,7 @@ function NeuralVariant({ size }: { size: number }) {
           }}
           transition={{
             duration: 1.6,
-            repeat: Infinity,
+            repeat: shouldReduceMotion ? 0 : Infinity,
             ease: 'easeInOut',
             delay: i * 0.25,
           }}
@@ -127,6 +129,7 @@ function NeuralVariant({ size }: { size: number }) {
 }
 
 function StreamVariant({ size }: { size: number }) {
+  const shouldReduceMotion = useReducedMotion();
   const particles = 12;
   const height = size * 0.5;
   const width = size * 2;
@@ -159,7 +162,7 @@ function StreamVariant({ size }: { size: number }) {
               animate={{ cx: [-10, width + 10] }}
               transition={{
                 duration: 2 + (i % 4) * 0.4,
-                repeat: Infinity,
+                repeat: shouldReduceMotion ? 0 : Infinity,
                 ease: 'linear',
                 delay: i * 0.18,
               }}

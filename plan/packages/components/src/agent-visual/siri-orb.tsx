@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 
 export interface SiriOrbProps {
   active?: boolean;
@@ -17,6 +17,7 @@ export function SiriOrb({
   colors = ['#a855f7', '#3b82f6', '#06b6d4', '#10b981'],
   className = '',
 }: SiriOrbProps) {
+  const shouldReduceMotion = useReducedMotion();
   const px = sizeMap[size];
   const gradient = `radial-gradient(circle, ${colors.join(', ')})`;
 
@@ -30,33 +31,39 @@ export function SiriOrb({
         className="absolute inset-0 rounded-full opacity-40 blur-xl"
         style={{ background: gradient }}
         animate={
-          active
-            ? { scale: [1, 1.3, 1], opacity: [0.4, 0.7, 0.4] }
-            : { scale: [1, 1.05, 1], opacity: [0.3, 0.4, 0.3] }
+          shouldReduceMotion
+            ? {}
+            : active
+              ? { scale: [1, 1.3, 1], opacity: [0.4, 0.7, 0.4] }
+              : { scale: [1, 1.05, 1], opacity: [0.3, 0.4, 0.3] }
         }
-        transition={{ duration: active ? 1.2 : 3, repeat: Infinity, ease: 'easeInOut' }}
+        transition={{ duration: active ? 1.2 : 3, repeat: shouldReduceMotion ? 0 : Infinity, ease: 'easeInOut' }}
       />
       {/* Middle layer */}
       <motion.div
         className="absolute rounded-full blur-md"
         style={{ width: px * 0.75, height: px * 0.75, background: gradient }}
         animate={
-          active
-            ? { scale: [1, 1.2, 0.95, 1], rotate: [0, 180, 360] }
-            : { scale: [1, 1.03, 1] }
+          shouldReduceMotion
+            ? {}
+            : active
+              ? { scale: [1, 1.2, 0.95, 1], rotate: [0, 180, 360] }
+              : { scale: [1, 1.03, 1] }
         }
-        transition={{ duration: active ? 1.5 : 4, repeat: Infinity, ease: 'easeInOut' }}
+        transition={{ duration: active ? 1.5 : 4, repeat: shouldReduceMotion ? 0 : Infinity, ease: 'easeInOut' }}
       />
       {/* Core */}
       <motion.div
         className="relative rounded-full"
         style={{ width: px * 0.5, height: px * 0.5, background: gradient }}
         animate={
-          active
-            ? { scale: [1, 1.15, 0.9, 1] }
-            : { scale: [1, 1.02, 1] }
+          shouldReduceMotion
+            ? {}
+            : active
+              ? { scale: [1, 1.15, 0.9, 1] }
+              : { scale: [1, 1.02, 1] }
         }
-        transition={{ duration: active ? 0.8 : 3, repeat: Infinity, ease: 'easeInOut' }}
+        transition={{ duration: active ? 0.8 : 3, repeat: shouldReduceMotion ? 0 : Infinity, ease: 'easeInOut' }}
       />
     </div>
   );

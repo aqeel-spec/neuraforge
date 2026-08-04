@@ -38,11 +38,11 @@ export function Flip({
     emerald: { gradient: "from-emerald-500/20 via-emerald-500/10 to-transparent", text: "text-emerald-500", glow: "rgba(16, 185, 129, 0.5)", bg: "group-hover/start:text-emerald-600 dark:group-hover/start:text-emerald-400" },
   };
 
-  const colors = colorMap[accentColor] || colorMap.violet;
+  const colors = colorMap[accentColor] ?? colorMap.violet!;
 
   return (
     <div
-      className={`group relative h-[340px] w-full max-w-[300px] [perspective:2000px] ${className}`}
+      className={`group relative h-[340px] sm:h-[340px] w-full max-w-[300px] [perspective:2000px] ${className}`}
       onMouseEnter={() => setIsFlipped(true)}
       onMouseLeave={() => setIsFlipped(false)}
     >
@@ -59,7 +59,7 @@ export function Flip({
             <div className="relative h-full overflow-hidden bg-gradient-to-b from-zinc-100 to-white dark:from-zinc-900 dark:to-black">
               {/* Animated background orbs */}
               <div aria-hidden="true" className="absolute inset-0 flex items-start justify-center pt-16">
-                <div className="relative flex h-[120px] w-[200px] items-center justify-center">
+                <div className="relative flex h-[120px] w-full max-w-[200px] items-center justify-center">
                   {[...Array(8)].map((_, i) => (
                     <div
                       key={i}

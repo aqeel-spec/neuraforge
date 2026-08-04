@@ -61,15 +61,18 @@ function hashToGradient(name: string): string {
     'from-sky-500 to-blue-500',
   ];
 
-  return gradients[Math.abs(hash) % gradients.length];
+  return gradients[Math.abs(hash) % gradients.length] ?? 'from-violet-500 to-indigo-600';
 }
 
 function getInitials(name: string): string {
-  const parts = name.trim().split(/\s+/);
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return '?';
   if (parts.length === 1) {
-    return parts[0].charAt(0).toUpperCase();
+    return (parts[0] ?? '').charAt(0).toUpperCase() || '?';
   }
-  return (parts[0].charAt(0) + parts[parts.length - 1].charAt(0)).toUpperCase();
+  const first = (parts[0] ?? '').charAt(0);
+  const last = (parts[parts.length - 1] ?? '').charAt(0);
+  return (first + last).toUpperCase() || '?';
 }
 
 function DefaultUserIcon({ className }: { className?: string }) {

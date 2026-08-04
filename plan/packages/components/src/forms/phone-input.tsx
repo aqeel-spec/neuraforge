@@ -181,7 +181,7 @@ export function PhoneInput({
     <div className={`space-y-1.5 ${className ?? ""}`}>
       <label
         htmlFor={id}
-        className="block text-sm font-medium text-slate-900 dark:text-slate-100"
+        className="block text-sm font-medium text-slate-900 dark:text-white"
       >
         {label}
       </label>
@@ -194,13 +194,12 @@ export function PhoneInput({
           disabled={disabled}
           aria-label={`Country code for ${label}`}
           className={[
-            "rounded-l-md border border-r-0 bg-slate-50 px-2 py-2 text-sm text-slate-900 outline-none transition-colors",
+            "rounded-l-md border border-r-0 bg-slate-50 dark:bg-zinc-800 px-2 py-2 text-sm text-slate-900 dark:text-white outline-none transition-colors",
             "focus-visible:border-indigo-600 focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2",
             "disabled:cursor-not-allowed disabled:opacity-50",
-            "dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100",
             hasError
               ? "border-red-600 dark:border-red-500"
-              : "border-slate-300 dark:border-slate-600",
+              : "border-slate-300 dark:border-zinc-600",
           ].join(" ")}
         >
           {COUNTRIES.map((country) => (
@@ -223,14 +222,13 @@ export function PhoneInput({
           aria-invalid={hasError || undefined}
           aria-describedby={hasError ? errorId : undefined}
           className={[
-            "block w-full rounded-r-md border bg-white px-3 py-2 text-sm text-slate-900 shadow-sm outline-none transition-colors",
-            "placeholder:text-slate-400 dark:placeholder:text-slate-500",
+            "block w-full rounded-r-md border bg-white dark:bg-zinc-900 px-3 py-2 text-sm text-slate-900 dark:text-white shadow-sm outline-none transition-colors",
+            "placeholder:text-slate-400 dark:placeholder:text-zinc-500",
             "focus-visible:border-indigo-600 focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2",
-            "disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-500",
-            "dark:bg-slate-900 dark:text-slate-100 dark:disabled:bg-slate-800 dark:disabled:text-slate-400",
+            "disabled:cursor-not-allowed disabled:bg-slate-100 dark:disabled:bg-zinc-800 disabled:text-slate-500 dark:disabled:text-zinc-400",
             hasError
               ? "border-red-600 dark:border-red-500"
-              : "border-slate-300 dark:border-slate-600",
+              : "border-slate-300 dark:border-zinc-600",
           ].join(" ")}
         />
       </div>

@@ -90,7 +90,7 @@ export function Calendar({ value, onChange, min, max, className }: CalendarProps
 
   return (
     <div
-      className={`w-72 rounded-xl border border-slate-200 bg-white p-4 shadow-sm ${className ?? ""}`}
+      className={`w-72 rounded-xl border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 p-4 shadow-sm ${className ?? ""}`}
       role="application"
       aria-label="Calendar"
     >
@@ -100,7 +100,7 @@ export function Calendar({ value, onChange, min, max, className }: CalendarProps
           type="button"
           onClick={goToPrevMonth}
           aria-label="Previous month"
-          className="rounded-md p-1 text-slate-600 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2"
+          className="rounded-md p-1 text-slate-600 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-zinc-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2"
         >
           <svg
             aria-hidden="true"
@@ -113,14 +113,14 @@ export function Calendar({ value, onChange, min, max, className }: CalendarProps
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
           </svg>
         </button>
-        <span className="text-sm font-semibold text-slate-900">
+        <span className="text-sm font-semibold text-slate-900 dark:text-white">
           {MONTHS[month]} {year}
         </span>
         <button
           type="button"
           onClick={goToNextMonth}
           aria-label="Next month"
-          className="rounded-md p-1 text-slate-600 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2"
+          className="rounded-md p-1 text-slate-600 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-zinc-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2"
         >
           <svg
             aria-hidden="true"
@@ -137,7 +137,7 @@ export function Calendar({ value, onChange, min, max, className }: CalendarProps
       {/* Day headers */}
       <div className="grid grid-cols-7 text-center">
         {DAYS.map((day) => (
-          <span key={day} className="py-1 text-xs font-medium text-slate-500">
+          <span key={day} className="py-1 text-xs font-medium text-slate-500 dark:text-zinc-400">
             {day}
           </span>
         ))}
@@ -173,7 +173,7 @@ export function Calendar({ value, onChange, min, max, className }: CalendarProps
                   ? "bg-indigo-600 font-semibold text-white"
                   : isToday
                     ? "font-semibold text-indigo-600"
-                    : "text-slate-900 hover:bg-slate-100"
+                    : "text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-zinc-700"
               } ${isDisabled ? "cursor-not-allowed opacity-40" : "cursor-pointer"}`}
               onClick={() => handleDayClick(date)}
               onKeyDown={(e) => handleDayKeyDown(e, date)}

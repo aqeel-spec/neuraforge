@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from "react";
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 
 export interface SubAgentStarterProps {
   agentName: string;
@@ -14,6 +14,7 @@ const stages = ['Initializing…', 'Loading modules…', 'Connecting…', 'Ready
 export function SubAgentStarter({ agentName, onReady, className = '' }: SubAgentStarterProps) {
   const [stage, setStage] = useState(0);
   const [progress, setProgress] = useState(0);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -45,8 +46,8 @@ export function SubAgentStarter({ agentName, onReady, className = '' }: SubAgent
             <motion.div
               key="loading"
               className="w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+              animate={{ rotate: shouldReduceMotion ? 0 : 360 }}
+              transition={{ duration: 1, repeat: shouldReduceMotion ? 0 : Infinity, ease: 'linear' }}
             />
           ) : (
             <motion.div

@@ -19,7 +19,7 @@ export interface TextareaProps {
 }
 
 const textareaClasses =
-  "block w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-slate-950 shadow-sm outline-none placeholder:text-slate-400 focus-visible:border-indigo-600 focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-500 resize-y";
+  "block w-full rounded-md border border-slate-300 dark:border-zinc-600 bg-white dark:bg-zinc-900 px-3 py-2 text-slate-950 dark:text-white shadow-sm outline-none placeholder:text-slate-400 dark:placeholder:text-zinc-500 focus-visible:border-indigo-600 focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-slate-100 dark:disabled:bg-zinc-800 disabled:text-slate-500 dark:disabled:text-zinc-400 resize-y";
 
 export function Textarea({
   label,
@@ -61,16 +61,16 @@ export function Textarea({
 
   return (
     <div className="space-y-1.5">
-      <label htmlFor={textareaId} className="block text-sm font-medium text-slate-900">
+      <label htmlFor={textareaId} className="block text-sm font-medium text-slate-900 dark:text-white">
         {label}
         {required ? (
-          <span aria-hidden="true" className="ml-1 text-red-600">
+          <span aria-hidden="true" className="ml-1 text-red-600 dark:text-red-400">
             *
           </span>
         ) : null}
       </label>
       {description ? (
-        <p id={descriptionId} className="text-sm text-slate-600">
+        <p id={descriptionId} className="text-sm text-slate-600 dark:text-zinc-300">
           {description}
         </p>
       ) : null}
@@ -92,14 +92,14 @@ export function Textarea({
       />
       <div className="flex items-center justify-between">
         {resolvedError ? (
-          <p id={errorId} role="alert" className="text-sm font-medium text-red-700">
+          <p id={errorId} role="alert" className="text-sm font-medium text-red-700 dark:text-red-400">
             {resolvedError}
           </p>
         ) : (
           <span />
         )}
         {maxLength ? (
-          <p className="text-xs text-slate-500" aria-live="polite">
+          <p className="text-xs text-slate-500 dark:text-zinc-400" aria-live="polite">
             {charCount}/{maxLength}
           </p>
         ) : null}

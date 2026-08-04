@@ -21,7 +21,7 @@ export interface SelectProps {
 }
 
 const triggerClasses =
-  "flex w-full items-center justify-between rounded-md border border-slate-300 bg-white px-3 py-2 text-slate-950 shadow-sm outline-none focus-visible:border-indigo-600 focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-500";
+  "flex w-full items-center justify-between rounded-md border border-slate-300 dark:border-zinc-600 bg-white dark:bg-zinc-900 px-3 py-2 text-slate-950 dark:text-white shadow-sm outline-none focus-visible:border-indigo-600 focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-slate-100 dark:disabled:bg-zinc-800 disabled:text-slate-500 dark:disabled:text-zinc-400";
 
 export function Select({
   label,
@@ -134,10 +134,10 @@ export function Select({
 
   return (
     <div className="space-y-1.5">
-      <label id={labelId} className="block text-sm font-medium text-slate-900">
+      <label id={labelId} className="block text-sm font-medium text-slate-900 dark:text-white">
         {label}
         {required ? (
-          <span aria-hidden="true" className="ml-1 text-red-600">
+          <span aria-hidden="true" className="ml-1 text-red-600 dark:text-red-400">
             *
           </span>
         ) : null}
@@ -165,12 +165,12 @@ export function Select({
           onClick={() => setIsOpen((prev) => !prev)}
           onKeyDown={handleTriggerKeyDown}
         >
-          <span className={selectedOption ? "text-slate-950" : "text-slate-400"}>
+          <span className={selectedOption ? "text-slate-950 dark:text-white" : "text-slate-400 dark:text-zinc-500"}>
             {selectedOption?.label ?? placeholder}
           </span>
           <svg
             aria-hidden="true"
-            className={`h-4 w-4 text-slate-500 transition-transform ${isOpen ? "rotate-180" : ""}`}
+            className={`h-4 w-4 text-slate-500 dark:text-zinc-400 transition-transform ${isOpen ? "rotate-180" : ""}`}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -184,7 +184,7 @@ export function Select({
             id={listboxId}
             role="listbox"
             aria-labelledby={labelId}
-            className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md border border-slate-200 bg-white py-1 shadow-lg"
+            className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 py-1 shadow-lg"
           >
             {options.map((option, index) => (
               <li
@@ -195,7 +195,7 @@ export function Select({
                 className={`cursor-pointer px-3 py-2 text-sm ${
                   index === activeIndex
                     ? "bg-indigo-600 text-white"
-                    : "text-slate-950 hover:bg-slate-100"
+                    : "text-slate-950 dark:text-white hover:bg-slate-100 dark:hover:bg-zinc-700"
                 } ${option.value === value ? "font-medium" : ""}`}
                 onClick={(e) => handleOptionClick(e, option.value)}
                 onMouseEnter={() => setActiveIndex(index)}
@@ -207,7 +207,7 @@ export function Select({
         ) : null}
       </div>
       {error ? (
-        <p id={errorId} role="alert" className="text-sm font-medium text-red-700">
+        <p id={errorId} role="alert" className="text-sm font-medium text-red-700 dark:text-red-400">
           {error}
         </p>
       ) : null}

@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 
 export interface AiContextMeterProps {
   used: number;
@@ -63,6 +63,7 @@ function RadialMeter({ percentage, status }: { percentage: number; status: 'norm
 }
 
 function BarMeter({ percentage, status }: { percentage: number; status: 'normal' | 'warning' | 'danger' }) {
+  const shouldReduceMotion = useReducedMotion();
   const colors = statusColors[status];
   return (
     <div className="w-full">
@@ -82,7 +83,7 @@ function BarMeter({ percentage, status }: { percentage: number; status: 'normal'
             <motion.div
               className="absolute inset-y-0 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-white/40 to-transparent"
               animate={{ x: ['-100%', '400%'] }}
-              transition={{ duration: 2, repeat: Infinity, ease: 'linear', repeatDelay: 1 }}
+              transition={{ duration: 2, repeat: shouldReduceMotion ? 0 : Infinity, ease: 'linear', repeatDelay: 1 }}
             />
           </motion.div>
         </motion.div>
@@ -115,7 +116,7 @@ export function AiContextMeter({
             {formatNumber(used)} <span className="text-slate-400 font-normal">/ {formatNumber(total)}</span>
           </p>
           <div className="flex items-center gap-1.5">
-            <span className={`w-2 h-2 rounded-full ${colors.bg} animate-pulse`} />
+            <span className={`w-2 h-2 rounded-full ${colors.bg} animate-pulse motion-reduce:animate-none`} />
             <span className={`text-xs font-medium ${colors.text}`}>
               {status === 'normal' ? 'Healthy' : status === 'warning' ? 'Getting full' : 'Near limit'}
             </span>
@@ -129,7 +130,7 @@ export function AiContextMeter({
     <div className={`w-full space-y-3 ${className}`} role="meter" aria-valuenow={used} aria-valuemin={0} aria-valuemax={total} aria-label={label}>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <span className={`w-2 h-2 rounded-full ${colors.bg} ${status !== 'normal' ? 'animate-pulse' : ''}`} />
+          <span className={`w-2 h-2 rounded-full ${colors.bg} ${status !== 'normal' ? 'animate-pulse motion-reduce:animate-none' : ''}`} />
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">{label}</span>
         </div>
         <span className="text-sm font-bold tabular-nums text-slate-800 dark:text-slate-100">

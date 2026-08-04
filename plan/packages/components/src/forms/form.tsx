@@ -72,7 +72,7 @@ export function Form({
         <div
           id={errorSummaryId}
           role="alert"
-          className="mb-4 rounded-md border border-red-300 bg-red-50 p-4 text-red-950"
+          className="mb-4 rounded-md border border-red-300 dark:border-red-700 bg-red-50 dark:bg-red-950 p-4 text-red-950 dark:text-red-200"
         >
           <strong>Check the form</strong>
           <ul className="mt-2 list-disc pl-5">
@@ -97,14 +97,14 @@ export function Form({
         {children}
       </fieldset>
       {status ? (
-        <p id={statusId} role="status" aria-live="polite" className="mt-3 text-sm text-slate-700">
+        <p id={statusId} role="status" aria-live="polite" className="mt-3 text-sm text-slate-700 dark:text-zinc-200">
           {status}
         </p>
       ) : null}
       <button
         type="submit"
         disabled={disabled || isSubmitting}
-        className="mt-4 inline-flex min-h-10 items-center justify-center rounded-md bg-indigo-600 px-4 py-2 font-medium text-white outline-none hover:bg-indigo-700 focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-slate-400"
+        className="mt-4 inline-flex min-h-10 items-center justify-center rounded-md bg-indigo-600 px-4 py-2 font-medium text-white outline-none hover:bg-indigo-700 focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-slate-400 dark:disabled:bg-zinc-600"
       >
         {isSubmitting ? submittingLabel : submitLabel}
       </button>

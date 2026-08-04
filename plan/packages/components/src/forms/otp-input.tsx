@@ -89,7 +89,7 @@ export function OtpInput({
           onPaste={handlePaste}
           disabled={disabled}
           aria-label={`Digit ${index + 1}`}
-          className="h-12 w-10 rounded-lg border border-slate-300 bg-white text-center text-lg font-semibold text-slate-900 outline-none transition-colors focus-visible:border-indigo-600 focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          className="h-12 w-10 rounded-lg border border-slate-300 dark:border-zinc-600 bg-white dark:bg-zinc-900 text-center text-lg font-semibold text-slate-900 dark:text-white outline-none transition-colors focus-visible:border-indigo-600 focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
         />
       ))}
     </div>

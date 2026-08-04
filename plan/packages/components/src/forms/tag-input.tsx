@@ -104,22 +104,21 @@ export function TagInput({
     <div className={`space-y-1.5 ${className ?? ""}`}>
       <label
         htmlFor={inputId}
-        className="block text-sm font-medium text-slate-900 dark:text-slate-100"
+        className="block text-sm font-medium text-slate-900 dark:text-white"
       >
         {label}
       </label>
       <div
         onClick={handleWrapperClick}
         className={[
-          "flex flex-wrap items-center gap-1.5 rounded-lg border bg-white px-3 py-2 transition-colors",
+          "flex flex-wrap items-center gap-1.5 rounded-lg border bg-white dark:bg-zinc-900 px-3 py-2 transition-colors",
           "focus-within:border-indigo-600 focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2",
-          "dark:bg-slate-900",
           disabled
             ? "cursor-not-allowed opacity-50"
             : "cursor-text",
           hasError
             ? "border-red-600 dark:border-red-500"
-            : "border-slate-300 dark:border-slate-600",
+            : "border-slate-300 dark:border-zinc-600",
         ].join(" ")}
       >
         {/* Tag chips */}
@@ -171,7 +170,7 @@ export function TagInput({
           placeholder={tags.length === 0 ? placeholder : isAtMax ? "" : placeholder}
           aria-invalid={hasError || undefined}
           aria-describedby={hasError ? errorId : undefined}
-          className="min-w-[80px] flex-1 border-0 bg-transparent p-0 text-sm text-slate-900 outline-none placeholder:text-slate-400 disabled:cursor-not-allowed dark:text-slate-100 dark:placeholder:text-slate-500"
+          className="min-w-[80px] flex-1 border-0 bg-transparent p-0 text-sm text-slate-900 dark:text-white outline-none placeholder:text-slate-400 dark:placeholder:text-zinc-500 disabled:cursor-not-allowed"
         />
       </div>
 
