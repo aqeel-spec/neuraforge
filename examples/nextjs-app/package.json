@@ -1,25 +1,36 @@
 {
   "name": "neuraforge-nextjs-example",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
-  "description": "Example Next.js app using NeuraForge UI components",
+  "description": "Example Next.js app demonstrating all @neuraforge-ui packages",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
-    "@neuraforge/components": "*",
-    "@neuraforge/tokens": "*",
-    "@neuraforge/motion": "*",
-    "next": "14.2.0",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
+    "@neuraforge-ui/components": "0.1.0",
+    "@neuraforge-ui/compositions": "0.1.0",
+    "@neuraforge-ui/mcp-core": "0.1.0",
+    "@neuraforge-ui/motion": "0.1.0",
+    "@neuraforge-ui/schemas": "0.1.0",
+    "@neuraforge-ui/tokens": "0.1.0",
+    "clsx": "^2.1.1",
     "framer-motion": "11.15.0",
-    "tailwindcss": "3.4.17"
+    "lucide-react": "^1.28.0",
+    "next": "14.2.22",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
-    "typescript": "5.7.3",
-    "@types/react": "19.0.3"
+    "@types/node": "22.10.5",
+    "@types/react": "18.3.18",
+    "@types/react-dom": "18.3.5",
+    "autoprefixer": "10.4.20",
+    "postcss": "8.4.49",
+    "tailwindcss": "3.4.17",
+    "typescript": "5.7.3"
   }
 }

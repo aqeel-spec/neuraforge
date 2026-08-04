@@ -227,10 +227,23 @@ export interface FeatureGridProps {
   title: string;
   description?: string;
   features: readonly FeatureItem[];
+  columns?: 2 | 3 | 4;
   className?: string;
 }
 
-export function FeatureGrid({ title, description, features, className }: FeatureGridProps) {
+const columnClasses = {
+  2: "sm:grid-cols-2",
+  3: "sm:grid-cols-2 lg:grid-cols-3",
+  4: "sm:grid-cols-2 lg:grid-cols-4",
+} as const;
+
+export function FeatureGrid({
+  title,
+  description,
+  features,
+  columns = 3,
+  className,
+}: FeatureGridProps) {
   return (
     <section aria-labelledby="neuraforge-features-title" className={className}>
       <div className="max-w-2xl">
@@ -242,7 +255,7 @@ export function FeatureGrid({ title, description, features, className }: Feature
         </h2>
         {description !== undefined && <p className="mt-3 text-slate-600">{description}</p>}
       </div>
-      <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <ul className={`mt-8 grid gap-5 ${columnClasses[columns]}`}>
         {features.map((feature) => (
           <li className="rounded-xl border border-slate-200 bg-white p-5" key={feature.id}>
             {feature.icon !== undefined && (

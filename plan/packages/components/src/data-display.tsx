@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import type { ReactNode } from "react";
 
 const joinClasses = (...classes: (string | false | null | undefined)[]) =>
@@ -220,4 +220,212 @@ export function Avatar({ name, src, alt, size = "md", className }: AvatarProps) 
   );
 }
 
-export const dataDisplayComponentIds = ["data-table", "stat", "badge", "avatar"] as const;
+export interface AvatarGroupProps {
+  avatars: readonly { name: string; src?: string }[];
+  max?: number;
+  size?: "sm" | "md" | "lg";
+  className?: string;
+}
+
+export function AvatarGroup({ avatars, max = 5, size = "md", className }: AvatarGroupProps) {
+  const visible = avatars.slice(0, max);
+  const overflow = avatars.length - max;
+
+  return (
+    <div
+      className={joinClasses("flex -space-x-2", className)}
+      role="group"
+      aria-label={`${String(avatars.length)} users`}
+    >
+      {visible.map((avatar) => (
+        <Avatar
+          key={avatar.name}
+          name={avatar.name}
+          {...(avatar.src !== undefined ? { src: avatar.src } : {})}
+          size={size}
+          className="ring-2 ring-white"
+        />
+      ))}
+      {overflow > 0 && (
+        <span
+          aria-label={`${String(overflow)} more users`}
+          className={joinClasses(
+            "inline-flex shrink-0 items-center justify-center rounded-full bg-slate-100 font-semibold text-slate-700 ring-2 ring-white",
+            avatarSizes[size],
+          )}
+        >
+          +{overflow}
+        </span>
+      )}
+    </div>
+  );
+}
+
+export type TagVariant = "default" | "primary" | "success" | "warning" | "danger";
+
+export interface TagProps {
+  children: ReactNode;
+  onRemove?: () => void;
+  variant?: TagVariant;
+  className?: string;
+}
+
+const tagClasses: Record<TagVariant, string> = {
+  default: "bg-slate-100 text-slate-700 ring-slate-200",
+  primary: "bg-indigo-50 text-indigo-700 ring-indigo-200",
+  success: "bg-emerald-50 text-emerald-700 ring-emerald-200",
+  warning: "bg-amber-50 text-amber-800 ring-amber-200",
+  danger: "bg-rose-50 text-rose-700 ring-rose-200",
+};
+
+export function Tag({ children, onRemove, variant = "default", className }: TagProps) {
+  return (
+    <span
+      className={joinClasses(
+        "inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-medium ring-1 ring-inset",
+        tagClasses[variant],
+        className,
+      )}
+    >
+      {children}
+      {onRemove !== undefined && (
+        <button
+          type="button"
+          onClick={onRemove}
+          aria-label={`Remove ${typeof children === "string" ? children : "tag"}`}
+          className="ml-0.5 inline-flex size-4 items-center justify-center rounded-sm outline-none hover:bg-black/10 focus-visible:ring-2 focus-visible:ring-current"
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+      )}
+    </span>
+  );
+}
+
+export interface TimelineItem {
+  id: string;
+  title: string;
+  description?: string;
+  date?: string;
+  icon?: ReactNode;
+  variant?: "default" | "success" | "warning" | "danger";
+}
+
+export interface TimelineProps {
+  items: readonly TimelineItem[];
+  className?: string;
+}
+
+const timelineDotClasses = {
+  default: "bg-slate-400",
+  success: "bg-emerald-500",
+  warning: "bg-amber-500",
+  danger: "bg-rose-500",
+} as const;
+
+export function Timeline({ items, className }: TimelineProps) {
+  return (
+    <ol
+      className={joinClasses("relative border-l border-slate-200", className)}
+      aria-label="Timeline"
+    >
+      {items.map((item) => (
+        <li key={item.id} className="mb-6 ml-6 last:mb-0">
+          <span
+            aria-hidden="true"
+            className={joinClasses(
+              "absolute -left-1.5 mt-1.5 size-3 rounded-full ring-4 ring-white",
+              timelineDotClasses[item.variant ?? "default"],
+            )}
+          />
+          {item.icon !== undefined && (
+            <span aria-hidden="true" className="mb-1 inline-flex text-slate-500">
+              {item.icon}
+            </span>
+          )}
+          <h3 className="text-sm font-semibold text-slate-950">{item.title}</h3>
+          {item.date !== undefined && <time className="text-xs text-slate-500">{item.date}</time>}
+          {item.description !== undefined && (
+            <p className="mt-1 text-sm text-slate-600">{item.description}</p>
+          )}
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+export interface TooltipProps {
+  content: ReactNode;
+  children: ReactNode;
+  side?: "top" | "bottom" | "left" | "right";
+  delayMs?: number;
+  className?: string;
+}
+
+const tooltipPositionClasses = {
+  top: "bottom-full left-1/2 -translate-x-1/2 mb-2",
+  bottom: "top-full left-1/2 -translate-x-1/2 mt-2",
+  left: "right-full top-1/2 -translate-y-1/2 mr-2",
+  right: "left-full top-1/2 -translate-y-1/2 ml-2",
+} as const;
+
+export function Tooltip({
+  content,
+  children,
+  side = "top",
+  delayMs = 300,
+  className,
+}: TooltipProps) {
+  return (
+    <span
+      className={joinClasses("group relative inline-flex", className)}
+      style={{ "--tooltip-delay": `${String(delayMs)}ms` } as React.CSSProperties}
+    >
+      {children}
+      <span
+        role="tooltip"
+        className={joinClasses(
+          "pointer-events-none absolute z-50 hidden whitespace-nowrap rounded-md bg-slate-900 px-2.5 py-1.5 text-xs font-medium text-white shadow-lg group-hover:delay-[var(--tooltip-delay)] group-hover:block group-focus-within:delay-[var(--tooltip-delay)] group-focus-within:block",
+          tooltipPositionClasses[side],
+        )}
+      >
+        {content}
+      </span>
+    </span>
+  );
+}
+
+export interface KBDProps {
+  keys: string[];
+  className?: string;
+}
+
+export function KBD({ keys, className }: KBDProps) {
+  return (
+    <span
+      className={joinClasses("inline-flex items-center gap-0.5", className)}
+      aria-label={keys.join(" + ")}
+    >
+      {keys.map((key, index) => (
+        <kbd
+          key={`${key}-${String(index)}`}
+          className="inline-flex min-w-[1.5rem] items-center justify-center rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 text-xs font-medium text-slate-700 shadow-sm"
+        >
+          {key}
+        </kbd>
+      ))}
+    </span>
+  );
+}
+
+export const dataDisplayComponentIds = [
+  "data-table",
+  "stat",
+  "badge",
+  "avatar",
+  "avatar-group",
+  "tag",
+  "timeline",
+  "tooltip",
+  "kbd",
+] as const;

@@ -1,6 +1,6 @@
 {
   "name": "@neuraforge-ui/mcp-core",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Public side-effect-free MCP operation core",
   "type": "module",
   "license": "MIT",

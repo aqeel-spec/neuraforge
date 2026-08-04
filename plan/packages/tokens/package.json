@@ -1,6 +1,6 @@
 {
   "name": "@neuraforge-ui/tokens",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Public design-token and Tailwind theme engine",
   "type": "module",
   "license": "MIT",
