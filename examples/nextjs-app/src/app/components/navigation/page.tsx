@@ -95,6 +95,7 @@ export default function NavigationPage() {
           id="mega-menu"
           title="MegaMenu"
           description="Multi-column dropdown navigation with grouped links and descriptions"
+          expandable
           code={`import { MegaMenu } from "@neuraforge-ui/components/src/navigation-layout/index";
 
 <MegaMenu
@@ -196,6 +197,7 @@ export default function NavigationPage() {
         <ComponentPreview
           id="command-palette"
           title="CommandPalette"
+          expandable
           description="Keyboard-driven command menu with fuzzy search — like ⌘K"
           code={`import { CommandPalette } from "@neuraforge-ui/components/src/navigation-layout/index";
 

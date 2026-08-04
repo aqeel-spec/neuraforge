@@ -177,6 +177,7 @@ export default function DataDisplayPage() {
           id="tooltip"
           title="Tooltip"
           description="Informational tooltip on hover/focus with configurable placement"
+          expandable
           code={`import { Tooltip } from "@neuraforge-ui/components/src/data-display";
 
 <Tooltip content="Copy to clipboard">

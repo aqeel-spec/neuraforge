@@ -279,6 +279,7 @@ export default function LayoutPage() {
           id="drawer"
           title="Drawer"
           description="Slide-out panel with focus trapping and backdrop overlay"
+          expandable
           code={`import { Drawer } from "@neuraforge-ui/components/src/navigation-layout/index";
 
 <Drawer open={open} onOpenChange={setOpen} title="Settings" side="right">

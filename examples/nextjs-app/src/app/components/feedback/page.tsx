@@ -90,6 +90,7 @@ export default function FeedbackPage() {
           id="dialog"
           title="Dialog"
           description="Modal dialog with focus trapping, Escape to close, and return-focus"
+          expandable
           code={`import { Dialog } from "@neuraforge-ui/components/src/feedback/index";
 
 <Dialog
@@ -139,6 +140,7 @@ export default function FeedbackPage() {
           id="confirm-dialog"
           title="ConfirmDialog"
           description="Pre-built confirmation dialog with confirm/cancel actions and danger variant"
+          expandable
           code={`import { ConfirmDialog } from "@neuraforge-ui/components/src/feedback/index";
 
 <ConfirmDialog

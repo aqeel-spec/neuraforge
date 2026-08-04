@@ -12,6 +12,8 @@ interface ComponentPreviewProps {
   children: React.ReactNode;
   code?: string;
   className?: string;
+  /** Set to true for components with dropdowns/popups that need extra space */
+  expandable?: boolean;
 }
 
 export function ComponentPreview({
@@ -21,6 +23,7 @@ export function ComponentPreview({
   children,
   code,
   className,
+  expandable = false,
 }: ComponentPreviewProps) {
   const [activeTab, setActiveTab] = useState<"preview" | "code">("preview");
   const [copied, setCopied] = useState(false);
@@ -34,24 +37,21 @@ export function ComponentPreview({
   };
 
   return (
-    <motion.div
+    <div
       id={id}
-      initial={{ opacity: 0, y: 12 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
       className={cn(
-        "rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] card-glow overflow-hidden scroll-mt-24",
-        "target:ring-2 target:ring-[hsl(var(--primary))]/30 target:border-[hsl(var(--primary))]/50 transition-all duration-300",
+        "rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] scroll-mt-24 transition-all duration-300",
+        "hover:border-[hsl(var(--border))]/80 hover:shadow-[0_2px_12px_-4px_rgba(0,0,0,0.08)]",
+        "target:ring-2 target:ring-[hsl(var(--primary))]/30 target:border-[hsl(var(--primary))]/40",
         className
       )}
     >
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-[hsl(var(--border))] px-5 py-3.5 bg-[hsl(var(--muted))]/30">
+      <div className="flex items-center justify-between border-b border-[hsl(var(--border))] px-5 py-3.5 bg-[hsl(var(--muted))]/20">
         <div className="min-w-0 flex-1">
-          <h3 className="text-sm font-semibold text-[hsl(var(--foreground))] tracking-tight">{title}</h3>
+          <h3 className="text-[13px] font-semibold text-[hsl(var(--foreground))] tracking-tight">{title}</h3>
           {description && (
-            <p className="text-[12px] text-[hsl(var(--muted-foreground))] mt-0.5 leading-relaxed truncate">{description}</p>
+            <p className="text-[11px] text-[hsl(var(--muted-foreground))] mt-0.5 leading-relaxed">{description}</p>
           )}
         </div>
         {code && (
@@ -99,69 +99,52 @@ export function ComponentPreview({
       </div>
 
       {/* Content */}
-      <AnimatePresence mode="wait">
-        {activeTab === "preview" ? (
-          <motion.div
-            key="preview"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
-            className="p-6 dot-pattern min-h-[120px]"
+      {activeTab === "preview" ? (
+        <div
+          className={cn(
+            "relative p-6",
+            expandable ? "min-h-[280px]" : "min-h-[140px]"
+          )}
+          style={{ 
+            backgroundImage: "radial-gradient(hsl(var(--border)) 0.5px, transparent 0.5px)",
+            backgroundSize: "16px 16px" 
+          }}
+        >
+          <div
+            className={cn(
+              "relative bg-[hsl(var(--background))] rounded-lg p-6 border border-[hsl(var(--border))]/60 shadow-sm",
+              expandable && "overflow-visible min-h-[200px]"
+            )}
           >
-            <div className="bg-[hsl(var(--background))] rounded-lg p-6 shadow-sm border border-[hsl(var(--border))]">
-              {children}
-            </div>
-          </motion.div>
-        ) : (
-          <motion.div
-            key="code"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
-            className="relative"
-          >
-            {/* Copy button */}
-            <div className="absolute right-4 top-4 z-10">
-              <motion.button
-                onClick={copyCode}
-                whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center gap-1.5 rounded-lg bg-zinc-800 px-3 py-1.5 text-[11px] font-medium text-zinc-300 hover:bg-zinc-700 hover:text-white border border-zinc-700/50 transition-all duration-200 shadow-lg"
-              >
-                <AnimatePresence mode="wait">
-                  {copied ? (
-                    <motion.span
-                      key="copied"
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.8 }}
-                      className="inline-flex items-center gap-1"
-                    >
-                      <Check className="h-3 w-3 text-emerald-400" />
-                      <span className="text-emerald-400">Copied!</span>
-                    </motion.span>
-                  ) : (
-                    <motion.span
-                      key="copy"
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.8 }}
-                      className="inline-flex items-center gap-1"
-                    >
-                      <Copy className="h-3 w-3" />
-                      Copy
-                    </motion.span>
-                  )}
-                </AnimatePresence>
-              </motion.button>
-            </div>
-            <pre className="code-block m-0 rounded-none border-0 border-t border-zinc-800/50 py-6 max-h-[400px] overflow-y-auto">
-              <code className="text-[13px] leading-[1.7]">{code}</code>
-            </pre>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
+            {children}
+          </div>
+        </div>
+      ) : (
+        <div className="relative">
+          {/* Copy button */}
+          <div className="absolute right-4 top-4 z-10">
+            <button
+              onClick={copyCode}
+              className="inline-flex items-center gap-1.5 rounded-lg bg-zinc-800 px-3 py-1.5 text-[11px] font-medium text-zinc-300 hover:bg-zinc-700 hover:text-white border border-zinc-700/50 transition-all duration-200 shadow-lg"
+            >
+              {copied ? (
+                <span className="inline-flex items-center gap-1">
+                  <Check className="h-3 w-3 text-emerald-400" />
+                  <span className="text-emerald-400">Copied!</span>
+                </span>
+              ) : (
+                <span className="inline-flex items-center gap-1">
+                  <Copy className="h-3 w-3" />
+                  Copy
+                </span>
+              )}
+            </button>
+          </div>
+          <pre className="code-block m-0 rounded-none rounded-b-xl border-0 border-t border-zinc-800/50 py-5 px-5 max-h-[360px] overflow-y-auto">
+            <code className="text-[12.5px] leading-[1.8]">{code}</code>
+          </pre>
+        </div>
+      )}
+    </div>
   );
 }

@@ -76,6 +76,7 @@ export default function FormsPage() {
           id="select"
           title="Select"
           description="Accessible dropdown select with keyboard navigation and ARIA"
+          expandable
           code={`import { Select } from "@neuraforge-ui/components/src/forms/index";
 
 <Select
@@ -238,6 +239,7 @@ export default function FormsPage() {
           id="date-picker"
           title="DatePicker"
           description="Calendar date picker with keyboard navigation and locale support"
+          expandable
           code={`import { DatePicker } from "@neuraforge-ui/components/src/forms/index";
 
 <DatePicker label="Start date" name="startDate" />`}
