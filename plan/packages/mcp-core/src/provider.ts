@@ -14,8 +14,8 @@ import type {
   LicenseProvenance,
   Result,
   SemanticVersion,
-} from "@neuraforge/schemas";
-import type { TokenDocument } from "@neuraforge/tokens";
+} from "@neuraforge-ui/schemas";
+import type { TokenDocument } from "@neuraforge-ui/tokens";
 import type { ComponentCategory, ComponentSummary, InstallInstruction } from "./types.js";
 
 // ---------------------------------------------------------------------------

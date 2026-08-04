@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * @neuraforge/cli — Transactional, verified, open-source component installer.
+ * @neuraforge-ui/cli — Transactional, verified, open-source component installer.
  *
  * Exposes:
  * - Strict JSON-safe types for all operations

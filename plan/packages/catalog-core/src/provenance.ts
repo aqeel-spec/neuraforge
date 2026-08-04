@@ -1,4 +1,8 @@
-import type { DependencyInventoryItem, FieldError, LicenseProvenance } from "@neuraforge/schemas";
+import type {
+  DependencyInventoryItem,
+  FieldError,
+  LicenseProvenance,
+} from "@neuraforge-ui/schemas";
 
 /**
  * License provenance and dependency-inventory validation.

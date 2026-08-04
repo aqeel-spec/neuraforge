@@ -1,16 +1,16 @@
 {
-  "name": "@neuraforge/three-d",
-  "version": "0.0.0",
+  "name": "@neuraforge-ui/three-d",
+  "version": "0.1.0",
   "description": "Public 3D components with first-class non-3D fallbacks",
   "type": "module",
   "license": "MIT",
-  "repository": "https://github.com/neuraforge/ui.git",
+  "repository": "https://github.com/aqeel-spec/neuraforge.git",
   "exports": {
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@neuraforge/schemas": "0.0.0",
-    "@neuraforge/catalog-core": "0.0.0"
+    "@neuraforge-ui/schemas": "0.1.0",
+    "@neuraforge-ui/catalog-core": "0.1.0"
   },
   "peerDependencies": {
     "react": "19.0.0",

@@ -1,5 +1,5 @@
 /**
- * Integration tests for @neuraforge/public-api.
+ * Integration tests for @neuraforge-ui/public-api.
  *
  * Spins up a real ephemeral Node HTTP server and tests the full request lifecycle.
  */
@@ -9,8 +9,8 @@ import { createServer } from "node:http";
 import type { Server } from "node:http";
 import { createPublicApi, createNodeRequestListener } from "../index.js";
 import type { PublicApiHandler } from "../types.js";
-import { buildReleaseBundle } from "@neuraforge/registry-builder";
-import type { ReleaseBundle } from "@neuraforge/registry-builder";
+import { buildReleaseBundle } from "@neuraforge-ui/registry-builder";
+import type { ReleaseBundle } from "@neuraforge-ui/registry-builder";
 import { buildFixtureInput } from "../../../../packages/registry-builder/src/__tests__/fixtures.js";
 
 // ---------------------------------------------------------------------------

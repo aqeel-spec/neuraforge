@@ -1,4 +1,4 @@
-import type { AccessClassification, FieldError } from "@neuraforge/schemas";
+import type { AccessClassification, FieldError } from "@neuraforge-ui/schemas";
 
 /**
  * Entitlement-free artifact access validation.

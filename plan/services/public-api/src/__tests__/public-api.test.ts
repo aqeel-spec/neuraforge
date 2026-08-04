@@ -1,5 +1,5 @@
 /**
- * Unit tests for @neuraforge/public-api.
+ * Unit tests for @neuraforge-ui/public-api.
  *
  * Tests API construction, all five routes, validation, error handling,
  * HEAD parity, immutable headers, deterministic responses, and security.
@@ -9,9 +9,9 @@ import { describe, it, expect, beforeAll } from "vitest";
 import { createPublicApi } from "../handler.js";
 import { createNodeRequestListener } from "../node-adapter.js";
 import type { HttpRequest, HttpResponse, PublicApiHandler } from "../types.js";
-import { buildReleaseBundle, toJsonValue } from "@neuraforge/registry-builder";
-import type { ReleaseBundle } from "@neuraforge/registry-builder";
-import { canonicalizeJson } from "@neuraforge/catalog-core";
+import { buildReleaseBundle, toJsonValue } from "@neuraforge-ui/registry-builder";
+import type { ReleaseBundle } from "@neuraforge-ui/registry-builder";
+import { canonicalizeJson } from "@neuraforge-ui/catalog-core";
 import { buildFixtureInput } from "../../../../packages/registry-builder/src/__tests__/fixtures.js";
 import * as fs from "node:fs";
 import * as path from "node:path";

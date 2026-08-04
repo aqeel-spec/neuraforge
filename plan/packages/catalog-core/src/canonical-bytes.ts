@@ -1,5 +1,5 @@
-import type { Checksum, JsonValue } from "@neuraforge/schemas";
-import { CANONICALIZATION_VERSION } from "@neuraforge/schemas";
+import type { Checksum, JsonValue } from "@neuraforge-ui/schemas";
+import { CANONICALIZATION_VERSION } from "@neuraforge-ui/schemas";
 
 /**
  * Canonical byte generation and SHA-256 checksums.

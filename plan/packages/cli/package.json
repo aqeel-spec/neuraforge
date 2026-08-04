@@ -1,10 +1,10 @@
 {
-  "name": "@neuraforge/cli",
-  "version": "0.0.0",
+  "name": "@neuraforge-ui/cli",
+  "version": "0.1.0",
   "description": "Open-source Registry discovery and installation CLI",
   "type": "module",
   "license": "MIT",
-  "repository": "https://github.com/neuraforge/ui.git",
+  "repository": "https://github.com/aqeel-spec/neuraforge.git",
   "exports": {
     ".": "./src/index.ts"
   },
@@ -12,10 +12,10 @@
     "neuraforge": "./src/bin.ts"
   },
   "dependencies": {
-    "@neuraforge/catalog-core": "0.0.0",
-    "@neuraforge/registry-builder": "0.0.0",
-    "@neuraforge/mcp-core": "0.0.0",
-    "@neuraforge/schemas": "0.0.0"
+    "@neuraforge-ui/catalog-core": "0.1.0",
+    "@neuraforge-ui/registry-builder": "0.1.0",
+    "@neuraforge-ui/mcp-core": "0.1.0",
+    "@neuraforge-ui/schemas": "0.1.0"
   },
   "publishConfig": {
     "access": "public"

@@ -1,4 +1,4 @@
-import type { ArtifactRef, LicenseProvenance, SemanticVersion } from "@neuraforge/schemas";
+import type { ArtifactRef, LicenseProvenance, SemanticVersion } from "@neuraforge-ui/schemas";
 
 import type {
   ApplicableControl,

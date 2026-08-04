@@ -8,9 +8,9 @@
  * auth store, DB, hosted state, or environment-variable dependency.
  */
 
-import type { ReleaseBundle } from "@neuraforge/registry-builder";
-import { createRegistryBundleReader, toJsonValue } from "@neuraforge/registry-builder";
-import type { ReleaseManifest } from "@neuraforge/schemas";
+import type { ReleaseBundle } from "@neuraforge-ui/registry-builder";
+import { createRegistryBundleReader, toJsonValue } from "@neuraforge-ui/registry-builder";
+import type { ReleaseManifest } from "@neuraforge-ui/schemas";
 import type { HttpRequest, HttpResponse, PublicApiHandler } from "./types.js";
 import { createRouter } from "./router.js";
 import { buildImmutableResponse, buildErrorResponse } from "./responses.js";

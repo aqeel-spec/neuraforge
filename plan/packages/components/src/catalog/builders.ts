@@ -1,6 +1,6 @@
-import type { Checksum, FileRecord, PerformanceRecord } from "@neuraforge/schemas";
-import { CANONICALIZATION_VERSION } from "@neuraforge/schemas";
-import { canonicalizeTextBytes, computeSha256Digest } from "@neuraforge/catalog-core";
+import type { Checksum, FileRecord, PerformanceRecord } from "@neuraforge-ui/schemas";
+import { CANONICALIZATION_VERSION } from "@neuraforge-ui/schemas";
+import { canonicalizeTextBytes, computeSha256Digest } from "@neuraforge-ui/catalog-core";
 import type { ComponentCategory, ComponentRecord, PerformanceBudget } from "../contracts/types.js";
 
 /**
@@ -77,7 +77,7 @@ export function bundleSizeRecord(
 
 /** MIT provenance for original NeuraForge source. */
 export const MIT_PROVENANCE = {
-  name: "@neuraforge/components",
+  name: "@neuraforge-ui/components",
   version: "1.0.0",
   source: "https://github.com/neuraforge/ui",
   copyright: "Copyright 2024 NeuraForge Contributors",
@@ -93,13 +93,13 @@ export function standardInstall(stableId: string): ComponentRecord["installation
   return [
     {
       step: 1,
-      description: `Install @neuraforge/components`,
-      command: "npm install @neuraforge/components@1.0.0",
+      description: `Install @neuraforge-ui/components`,
+      command: "npm install @neuraforge-ui/components@1.0.0",
     },
     {
       step: 2,
       description: `Import ${stableId} from the package`,
-      command: `import { ... } from '@neuraforge/components';`,
+      command: `import { ... } from '@neuraforge-ui/components';`,
     },
     { step: 3, description: "Ensure Tailwind CSS is configured in your project" },
   ];
@@ -120,7 +120,7 @@ export const STANDARD_PEER_DEPS: ComponentRecord["peerDependencies"] = [
 
 /** Standard dependency on schemas package. */
 export const STANDARD_DEPS: ComponentRecord["dependencies"] = [
-  { name: "@neuraforge/schemas", version: "0.0.0", source: "https://github.com/neuraforge/ui" },
+  { name: "@neuraforge-ui/schemas", version: "0.0.0", source: "https://github.com/neuraforge/ui" },
 ];
 
 /** Creates a documentation path for a component. */

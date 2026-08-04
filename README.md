@@ -39,11 +39,11 @@ checksum before it touches your project.
 
 ```bash
 # Install components
-npm install @neuraforge/components @neuraforge/tokens
+npm install @neuraforge-ui/components @neuraforge-ui/tokens
 
 # Or use the CLI
-npx @neuraforge/cli search "pricing"
-npx @neuraforge/cli install pricing@1.0.0
+npx @neuraforge-ui/cli search "pricing"
+npx @neuraforge-ui/cli install pricing@1.0.0
 ```
 
 ## MCP Setup (for AI Agents)
@@ -53,7 +53,7 @@ npx @neuraforge/cli install pricing@1.0.0
   "mcpServers": {
     "neuraforge": {
       "command": "node",
-      "args": ["node_modules/@neuraforge/mcp-core/dist/server.js"]
+      "args": ["node_modules/@neuraforge-ui/mcp-core/dist/server.js"]
     }
   }
 }

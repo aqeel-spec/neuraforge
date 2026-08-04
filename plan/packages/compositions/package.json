@@ -1,16 +1,16 @@
 {
-  "name": "@neuraforge/compositions",
-  "version": "0.0.0",
+  "name": "@neuraforge-ui/compositions",
+  "version": "0.1.0",
   "description": "Deterministic curated page and section compositions",
   "type": "module",
   "license": "MIT",
-  "repository": "https://github.com/neuraforge/ui.git",
+  "repository": "https://github.com/aqeel-spec/neuraforge.git",
   "exports": {
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@neuraforge/schemas": "0.0.0",
-    "@neuraforge/catalog-core": "0.0.0"
+    "@neuraforge-ui/schemas": "0.1.0",
+    "@neuraforge-ui/catalog-core": "0.1.0"
   },
   "publishConfig": {
     "access": "public"

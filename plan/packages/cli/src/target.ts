@@ -5,7 +5,7 @@
  * MutableTarget extends it with write/delete operations for apply/rollback.
  */
 
-import type { Checksum } from "@neuraforge/schemas";
+import type { Checksum } from "@neuraforge-ui/schemas";
 
 /** Read-only view of a target directory, used during preview. */
 export interface ReadOnlyTarget {

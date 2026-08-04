@@ -11,8 +11,8 @@
  */
 
 import { describe, it, expect, beforeAll } from "vitest";
-import { CANONICALIZATION_VERSION } from "@neuraforge/schemas";
-import type { Checksum } from "@neuraforge/schemas";
+import { CANONICALIZATION_VERSION } from "@neuraforge-ui/schemas";
+import type { Checksum } from "@neuraforge-ui/schemas";
 import { createInstaller } from "../installer.js";
 import type { Installer } from "../installer.js";
 import type { InstallPlan, Confirmation, InstallJournal } from "../types.js";

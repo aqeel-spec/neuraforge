@@ -14,8 +14,8 @@ import type {
   LicenseProvenance,
   Result,
   SemanticVersion,
-} from "@neuraforge/schemas";
-import type { TokenCategory, TokenDocument } from "@neuraforge/tokens";
+} from "@neuraforge-ui/schemas";
+import type { TokenCategory, TokenDocument } from "@neuraforge-ui/tokens";
 
 // ---------------------------------------------------------------------------
 // Component Category (closed six values)

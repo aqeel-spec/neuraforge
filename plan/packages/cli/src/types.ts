@@ -11,7 +11,7 @@ import type {
   CompatibilityConstraint,
   LicenseProvenance,
   SemanticVersion,
-} from "@neuraforge/schemas";
+} from "@neuraforge-ui/schemas";
 
 // ---------------------------------------------------------------------------
 // Install Request

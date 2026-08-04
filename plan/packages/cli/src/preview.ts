@@ -14,14 +14,14 @@
  *   4. Produce final plan with planId and planChecksum
  */
 
-import type { Checksum } from "@neuraforge/schemas";
-import { CANONICALIZATION_VERSION } from "@neuraforge/schemas";
+import type { Checksum } from "@neuraforge-ui/schemas";
+import { CANONICALIZATION_VERSION } from "@neuraforge-ui/schemas";
 import {
   canonicalizeTextBytes,
   computeSha256Digest,
   computeFileSetChecksum,
-} from "@neuraforge/catalog-core";
-import type { RegistryBundleReader, RegistryArtifactEntry } from "@neuraforge/registry-builder";
+} from "@neuraforge-ui/catalog-core";
+import type { RegistryBundleReader, RegistryArtifactEntry } from "@neuraforge-ui/registry-builder";
 import type { ReadOnlyTarget } from "./target.js";
 import type {
   InstallRequest,
@@ -35,7 +35,7 @@ import type {
   InstallerError,
 } from "./types.js";
 import { validateConfinedPath } from "./path-security.js";
-import { isExactSemanticVersion } from "@neuraforge/catalog-core";
+import { isExactSemanticVersion } from "@neuraforge-ui/catalog-core";
 import { computePlanChecksum, derivePlanId } from "./plan-integrity.js";
 
 // ---------------------------------------------------------------------------

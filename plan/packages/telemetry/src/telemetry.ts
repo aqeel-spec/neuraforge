@@ -1,4 +1,4 @@
-import type { ErrorEnvelope, FieldError, Result } from "@neuraforge/schemas";
+import type { ErrorEnvelope, FieldError, Result } from "@neuraforge-ui/schemas";
 
 /**
  * Default-off, consent-gated telemetry for the CLI, MCP Server, Public

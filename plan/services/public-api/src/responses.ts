@@ -5,9 +5,9 @@
  * ETag generation, cache headers, and HEAD response parity.
  */
 
-import type { Checksum, ErrorEnvelope, JsonValue } from "@neuraforge/schemas";
-import { toJsonValue } from "@neuraforge/registry-builder";
-import { canonicalizeJson, computeSha256Digest } from "@neuraforge/catalog-core";
+import type { Checksum, ErrorEnvelope, JsonValue } from "@neuraforge-ui/schemas";
+import { toJsonValue } from "@neuraforge-ui/registry-builder";
+import { canonicalizeJson, computeSha256Digest } from "@neuraforge-ui/catalog-core";
 import type { HttpResponse } from "./types.js";
 
 const textEncoder = new TextEncoder();

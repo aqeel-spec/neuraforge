@@ -5,18 +5,18 @@
  * Returns Result with all errors. No bind/listen inside prepare.
  */
 
-import type { FieldError, Result } from "@neuraforge/schemas";
-import type { ReleaseBundle } from "@neuraforge/registry-builder";
+import type { FieldError, Result } from "@neuraforge-ui/schemas";
+import type { ReleaseBundle } from "@neuraforge-ui/registry-builder";
 import {
   createRegistryBundleReader,
   createMcpCatalogProvider,
   verifyReleaseBundle,
-} from "@neuraforge/registry-builder";
-import type { RegistryBundleReader } from "@neuraforge/registry-builder";
-import { createPublicApi } from "@neuraforge/public-api";
-import type { PublicApiHandler } from "@neuraforge/public-api";
-import { createMcpDispatcher } from "@neuraforge/mcp-core";
-import type { McpDispatcher } from "@neuraforge/mcp-core";
+} from "@neuraforge-ui/registry-builder";
+import type { RegistryBundleReader } from "@neuraforge-ui/registry-builder";
+import { createPublicApi } from "@neuraforge-ui/public-api";
+import type { PublicApiHandler } from "@neuraforge-ui/public-api";
+import { createMcpDispatcher } from "@neuraforge-ui/mcp-core";
+import type { McpDispatcher } from "@neuraforge-ui/mcp-core";
 import { validateSelfHostConfig } from "./validate-config.js";
 import type { SelfHostConfig, EnabledInterface } from "./config-types.js";
 import { createDocsHandler } from "./docs-handler.js";

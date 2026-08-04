@@ -1,10 +1,10 @@
 {
-  "name": "@neuraforge/schemas",
-  "version": "0.0.0",
+  "name": "@neuraforge-ui/schemas",
+  "version": "0.1.0",
   "description": "Versioned public schemas and generated types",
   "type": "module",
   "license": "MIT",
-  "repository": "https://github.com/neuraforge/ui.git",
+  "repository": "https://github.com/aqeel-spec/neuraforge.git",
   "exports": {
     ".": "./src/index.ts",
     "./v1/common.schema.json": "./schemas/v1/common.schema.json"

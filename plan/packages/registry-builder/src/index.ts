@@ -1,5 +1,5 @@
 /**
- * @neuraforge/registry-builder — Deterministic immutable content-addressed release bundle builder.
+ * @neuraforge-ui/registry-builder — Deterministic immutable content-addressed release bundle builder.
  *
  * Exposes:
  * - Strict data types for RegistrySnapshot, ReleaseBundle, etc.

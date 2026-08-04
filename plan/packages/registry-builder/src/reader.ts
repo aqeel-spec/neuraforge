@@ -6,7 +6,7 @@
  * and token get. Unknown versions return typed not-found errors with alternatives.
  */
 
-import type { ArtifactRef, Checksum, Result, SemanticVersion } from "@neuraforge/schemas";
+import type { ArtifactRef, Checksum, Result, SemanticVersion } from "@neuraforge-ui/schemas";
 import type {
   RegistryArtifactEntry,
   RegistrySnapshot,

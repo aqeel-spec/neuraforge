@@ -1,5 +1,5 @@
 /**
- * @neuraforge/self-hosting — Account-free self-hosting process composition.
+ * @neuraforge-ui/self-hosting — Account-free self-hosting process composition.
  *
  * No NeuraForge account, license, hosted quota, or required egress.
  * Local operation after bundle acquisition is sufficient.

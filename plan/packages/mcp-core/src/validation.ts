@@ -6,8 +6,8 @@
  * Uses runtime isRecord and per-operation validators — no unsafe casts.
  */
 
-import type { ErrorEnvelope, FieldError } from "@neuraforge/schemas";
-import { isExactSemanticVersion } from "@neuraforge/catalog-core";
+import type { ErrorEnvelope, FieldError } from "@neuraforge-ui/schemas";
+import { isExactSemanticVersion } from "@neuraforge-ui/catalog-core";
 import { COMPONENT_CATEGORIES, OPERATION_IDS } from "./types.js";
 import type {
   ComponentCategory,
@@ -16,7 +16,7 @@ import type {
   OperationId,
   PublicContext,
 } from "./types.js";
-import type { TokenCategory } from "@neuraforge/tokens";
+import type { TokenCategory } from "@neuraforge-ui/tokens";
 
 // ---------------------------------------------------------------------------
 // Helpers

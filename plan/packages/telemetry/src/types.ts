@@ -1,8 +1,8 @@
 /**
  * Local (non-shared) telemetry data models.
  *
- * These types are deliberately kept inside `@neuraforge/telemetry` rather than in
- * `@neuraforge/schemas`: no other package (Registry builder, CLI, MCP core, hosted
+ * These types are deliberately kept inside `@neuraforge-ui/telemetry` rather than in
+ * `@neuraforge-ui/schemas`: no other package (Registry builder, CLI, MCP core, hosted
  * gateway) needs to reference a Telemetry Schema or Consent Receipt shape, so promoting
  * them to the shared common schema would only widen that package's surface without
  * benefit.

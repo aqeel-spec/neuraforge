@@ -10,7 +10,7 @@ import {
   STANDARD_PEER_DEPS,
   standardInstall,
 } from "./builders.js";
-import type { FileRecord, Checksum } from "@neuraforge/schemas";
+import type { FileRecord, Checksum } from "@neuraforge-ui/schemas";
 
 export function createFormsRecords(files: {
   form: { sourceFiles: FileRecord[]; checksum: Checksum };

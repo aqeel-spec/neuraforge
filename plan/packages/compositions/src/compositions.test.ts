@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import type { ArtifactRef, Checksum, FileRecord, LicenseProvenance } from "@neuraforge/schemas";
+import type { ArtifactRef, Checksum, FileRecord, LicenseProvenance } from "@neuraforge-ui/schemas";
 
 import type {
   BrandConfig,

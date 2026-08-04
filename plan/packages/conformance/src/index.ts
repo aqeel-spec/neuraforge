@@ -1,5 +1,5 @@
 /**
- * @neuraforge/conformance — Shared transport-neutral conformance harness.
+ * @neuraforge-ui/conformance — Shared transport-neutral conformance harness.
  *
  * Runs deterministic named cases over one verified bundle using adapters for:
  * - Registry reader (RegistryBundleReader)

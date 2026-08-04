@@ -20,9 +20,9 @@ import type {
   ReleaseApproval,
   ReleaseManifest,
   SemanticVersion,
-} from "@neuraforge/schemas";
-import type { ProjectedComponentRecord } from "@neuraforge/components";
-import type { TokenDocument, TokenPublicationIndex } from "@neuraforge/tokens";
+} from "@neuraforge-ui/schemas";
+import type { ProjectedComponentRecord } from "@neuraforge-ui/components";
+import type { TokenDocument, TokenPublicationIndex } from "@neuraforge-ui/tokens";
 
 // ---------------------------------------------------------------------------
 // Source files with content

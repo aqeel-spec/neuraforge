@@ -1,5 +1,5 @@
 /**
- * @neuraforge/docs — Public documentation site generator.
+ * @neuraforge-ui/docs — Public documentation site generator.
  *
  * Generates static pages from the Registry snapshot for:
  * - Component catalog (20 components across 6 categories)

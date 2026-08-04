@@ -9,12 +9,12 @@
  */
 
 import { describe, it, expect, beforeAll } from "vitest";
-import { buildReleaseBundle } from "@neuraforge/registry-builder";
-import type { ReleaseBundle } from "@neuraforge/registry-builder";
-import { buildFixtureInput } from "@neuraforge/registry-builder/testing";
+import { buildReleaseBundle } from "@neuraforge-ui/registry-builder";
+import type { ReleaseBundle } from "@neuraforge-ui/registry-builder";
+import { buildFixtureInput } from "@neuraforge-ui/registry-builder/testing";
 import { runMvpConformance, CONFORMANCE_CASE_NAMES } from "../index.js";
-import { canonicalizeJson } from "@neuraforge/catalog-core";
-import { toJsonValue } from "@neuraforge/registry-builder";
+import { canonicalizeJson } from "@neuraforge-ui/catalog-core";
+import { toJsonValue } from "@neuraforge-ui/registry-builder";
 import type { ConformanceAdapters } from "../types.js";
 import { createDefaultAdapters } from "../adapters.js";
 

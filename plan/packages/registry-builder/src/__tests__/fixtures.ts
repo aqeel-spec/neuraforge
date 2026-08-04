@@ -16,18 +16,18 @@ import type {
   PerformanceRecord,
   QualityGateResult,
   ReleaseApproval,
-} from "@neuraforge/schemas";
-import { CANONICALIZATION_VERSION } from "@neuraforge/schemas";
+} from "@neuraforge-ui/schemas";
+import { CANONICALIZATION_VERSION } from "@neuraforge-ui/schemas";
 import {
   canonicalizeJsonBytes,
   canonicalizeTextBytes,
   computeFileSetChecksum,
   computeSha256Digest,
-} from "@neuraforge/catalog-core";
-import type { TokenDocument } from "@neuraforge/tokens";
+} from "@neuraforge-ui/catalog-core";
+import type { TokenDocument } from "@neuraforge-ui/tokens";
 import type { ReleaseBuildInput, RequiredMvpSurface } from "../types.js";
-import type { ProjectedComponentRecord } from "@neuraforge/components";
-import type { JsonValue } from "@neuraforge/schemas";
+import type { ProjectedComponentRecord } from "@neuraforge-ui/components";
+import type { JsonValue } from "@neuraforge-ui/schemas";
 
 // ---------------------------------------------------------------------------
 // Source content
@@ -57,7 +57,7 @@ export function textByteLength(text: string): number {
 // ---------------------------------------------------------------------------
 
 export const MIT_PROVENANCE: LicenseProvenance = {
-  name: "@neuraforge/components",
+  name: "@neuraforge-ui/components",
   version: "1.0.0",
   source: "https://github.com/neuraforge/ui",
   copyright: "Copyright 2024 NeuraForge Contributors",
@@ -310,7 +310,7 @@ export async function buildFixtureInput(options?: {
       generatedFiles: [],
       dependencies: [
         {
-          name: "@neuraforge/schemas",
+          name: "@neuraforge-ui/schemas",
           version: "0.0.0",
           source: "https://github.com/neuraforge/ui",
         },
@@ -324,7 +324,7 @@ export async function buildFixtureInput(options?: {
         {
           step: 1,
           description: "Install package",
-          command: "npm install @neuraforge/components@1.0.0",
+          command: "npm install @neuraforge-ui/components@1.0.0",
         },
         { step: 2, description: "Import component" },
         { step: 3, description: "Configure Tailwind" },

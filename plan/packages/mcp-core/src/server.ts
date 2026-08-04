@@ -22,7 +22,7 @@
  */
 
 import * as readline from "node:readline";
-import type { JsonValue } from "@neuraforge/schemas";
+import type { JsonValue } from "@neuraforge-ui/schemas";
 
 // ---------------------------------------------------------------------------
 // JSON-RPC Types
@@ -263,8 +263,8 @@ function handleToolCall(params: JsonValue): JsonValue {
                 source: "// Component source available via Registry",
                 checksum: "sha256:verified",
                 installSteps: [
-                  "npm install @neuraforge/components",
-                  `import { ${String(args.stableId).replace(/-./g, (c) => c[1]!.toUpperCase())} } from '@neuraforge/components'`,
+                  "npm install @neuraforge-ui/components",
+                  `import { ${String(args.stableId).replace(/-./g, (c) => c[1]!.toUpperCase())} } from '@neuraforge-ui/components'`,
                 ],
               },
               null,

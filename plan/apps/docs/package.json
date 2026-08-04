@@ -1,10 +1,10 @@
 {
-  "name": "@neuraforge/docs",
-  "version": "0.0.0",
+  "name": "@neuraforge-ui/docs",
+  "version": "0.1.0",
   "type": "module",
   "license": "MIT",
   "private": true,
-  "repository": "https://github.com/neuraforge/ui.git",
+  "repository": "https://github.com/aqeel-spec/neuraforge.git",
   "publishConfig": {
     "access": "public"
   },
@@ -14,10 +14,10 @@
     "preview": "astro preview"
   },
   "dependencies": {
-    "@neuraforge/schemas": "0.0.0",
-    "@neuraforge/components": "0.0.0",
-    "@neuraforge/motion": "0.0.0",
-    "@neuraforge/three-d": "0.0.0",
-    "@neuraforge/compositions": "0.0.0"
+    "@neuraforge-ui/schemas": "0.1.0",
+    "@neuraforge-ui/components": "0.1.0",
+    "@neuraforge-ui/motion": "0.1.0",
+    "@neuraforge-ui/three-d": "0.1.0",
+    "@neuraforge-ui/compositions": "0.1.0"
   }
 }

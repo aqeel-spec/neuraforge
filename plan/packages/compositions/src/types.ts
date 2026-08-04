@@ -6,7 +6,7 @@ import type {
   JsonValue,
   LicenseProvenance,
   SemanticVersion,
-} from "@neuraforge/schemas";
+} from "@neuraforge-ui/schemas";
 
 // ---------------------------------------------------------------------------
 // Composition Manifest (Requirement 6.1, 6.8–6.10)

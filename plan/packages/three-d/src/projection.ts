@@ -4,7 +4,7 @@ import type {
   LicenseProvenance,
   PerformanceRecord,
   SemanticVersion,
-} from "@neuraforge/schemas";
+} from "@neuraforge-ui/schemas";
 
 import type {
   ThreeDAssetRef,

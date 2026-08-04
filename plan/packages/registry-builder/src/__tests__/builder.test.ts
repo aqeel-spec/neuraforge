@@ -2,7 +2,7 @@
  * Registry-builder tests: build, canonicalization, and content addressing.
  */
 
-import { computeFileSetChecksum } from "@neuraforge/catalog-core";
+import { computeFileSetChecksum } from "@neuraforge-ui/catalog-core";
 import { describe, it, expect } from "vitest";
 import { buildReleaseBundle } from "../builder.js";
 import { deepFreeze } from "../freeze.js";

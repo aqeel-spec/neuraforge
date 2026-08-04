@@ -5,15 +5,15 @@
  * dispatcher to the transport-neutral adapter interface used by conformance cases.
  */
 
-import type { JsonValue } from "@neuraforge/schemas";
-import type { ReleaseBundle } from "@neuraforge/registry-builder";
+import type { JsonValue } from "@neuraforge-ui/schemas";
+import type { ReleaseBundle } from "@neuraforge-ui/registry-builder";
 import {
   createRegistryBundleReader,
   createMcpCatalogProvider,
   toJsonValue,
-} from "@neuraforge/registry-builder";
-import { createPublicApi } from "@neuraforge/public-api";
-import { createMcpDispatcher } from "@neuraforge/mcp-core";
+} from "@neuraforge-ui/registry-builder";
+import { createPublicApi } from "@neuraforge-ui/public-api";
+import { createMcpDispatcher } from "@neuraforge-ui/mcp-core";
 import type {
   ConformanceAdapters,
   McpAdapter,

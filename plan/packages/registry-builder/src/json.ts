@@ -1,4 +1,4 @@
-import type { JsonValue } from "@neuraforge/schemas";
+import type { JsonValue } from "@neuraforge-ui/schemas";
 
 /**
  * Projects an unknown value to the closed JSON data model used by canonicalization.

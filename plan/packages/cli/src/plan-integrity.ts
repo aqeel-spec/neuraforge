@@ -20,9 +20,9 @@
  * plan bytes.
  */
 
-import type { JsonValue } from "@neuraforge/schemas";
-import { canonicalizeJsonBytes, computeSha256Digest } from "@neuraforge/catalog-core";
-import { toJsonValue } from "@neuraforge/registry-builder";
+import type { JsonValue } from "@neuraforge-ui/schemas";
+import { canonicalizeJsonBytes, computeSha256Digest } from "@neuraforge-ui/catalog-core";
+import { toJsonValue } from "@neuraforge-ui/registry-builder";
 import type { InstallPlan } from "./types.js";
 
 // ---------------------------------------------------------------------------

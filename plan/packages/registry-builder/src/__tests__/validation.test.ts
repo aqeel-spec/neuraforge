@@ -6,7 +6,7 @@ import { describe, it, expect } from "vitest";
 import { buildReleaseBundle } from "../builder.js";
 import { buildFixtureInput, computeTextChecksum, textByteLength } from "./fixtures.js";
 import type { ReleaseBuildInput } from "../types.js";
-import type { ProjectedComponentRecord } from "@neuraforge/components";
+import type { ProjectedComponentRecord } from "@neuraforge-ui/components";
 
 function getComponent(
   components: readonly ProjectedComponentRecord[],

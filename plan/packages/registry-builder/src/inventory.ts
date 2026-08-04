@@ -8,7 +8,7 @@
  * - No auth/entitlement/private flags on surfaces
  */
 
-import type { FieldError } from "@neuraforge/schemas";
+import type { FieldError } from "@neuraforge-ui/schemas";
 import type { MvpInventoryResult, RegistryArtifactEntry, RequiredMvpSurface } from "./types.js";
 
 const REQUIRED_CATEGORIES = [

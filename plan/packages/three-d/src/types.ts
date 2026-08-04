@@ -5,7 +5,7 @@ import type {
   LicenseProvenance,
   PerformanceRecord,
   SemanticVersion,
-} from "@neuraforge/schemas";
+} from "@neuraforge-ui/schemas";
 
 // ---------------------------------------------------------------------------
 // 3D Component Lifecycle States (Design: ThreeDComponentRecord)

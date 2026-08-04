@@ -2,8 +2,8 @@
  * verifyRuntimeIntegrity — reports every mismatch from registry-builder verifier.
  */
 
-import type { ReleaseBundle, VerificationResult } from "@neuraforge/registry-builder";
-import { verifyReleaseBundle } from "@neuraforge/registry-builder";
+import type { ReleaseBundle, VerificationResult } from "@neuraforge-ui/registry-builder";
+import { verifyReleaseBundle } from "@neuraforge-ui/registry-builder";
 import type { PreparedRuntime } from "./prepare.js";
 
 function isPreparedRuntime(value: PreparedRuntime | ReleaseBundle): value is PreparedRuntime {

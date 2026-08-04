@@ -11,7 +11,7 @@
  * Registry comparison.
  */
 
-import type { RegistryBundleReader } from "@neuraforge/registry-builder";
+import type { RegistryBundleReader } from "@neuraforge-ui/registry-builder";
 import type { ReadOnlyTarget, MutableTarget } from "./target.js";
 import type {
   InstallRequest,

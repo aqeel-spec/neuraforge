@@ -2,14 +2,14 @@
  * In-memory fixture provider for mcp-core tests.
  */
 
-import type { ArtifactRef, Checksum, JsonValue, Result } from "@neuraforge/schemas";
+import type { ArtifactRef, Checksum, JsonValue, Result } from "@neuraforge-ui/schemas";
 import {
   computeFileSetChecksum,
   computeJsonChecksum,
   computeSha256Digest,
   canonicalizeTextBytes,
-} from "@neuraforge/catalog-core";
-import type { TokenDocument } from "@neuraforge/tokens";
+} from "@neuraforge-ui/catalog-core";
+import type { TokenDocument } from "@neuraforge-ui/tokens";
 import type {
   ComponentArtifact,
   ComponentSourceFile,

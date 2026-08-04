@@ -13,8 +13,8 @@ import {
   computeFileSetChecksum,
   computeSha256Digest,
   canonicalizeTextBytes,
-} from "@neuraforge/catalog-core";
-import type { Checksum, ErrorEnvelope } from "@neuraforge/schemas";
+} from "@neuraforge-ui/catalog-core";
+import type { Checksum, ErrorEnvelope } from "@neuraforge-ui/schemas";
 import type { ComponentArtifact, ComponentSourceFile } from "./provider.js";
 
 // ---------------------------------------------------------------------------

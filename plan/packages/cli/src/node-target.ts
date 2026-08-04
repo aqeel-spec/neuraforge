@@ -10,9 +10,9 @@
 import { readFile, writeFile, unlink, mkdir, stat, realpath, rename } from "node:fs/promises";
 import { join, resolve, dirname } from "node:path";
 import { randomBytes } from "node:crypto";
-import { CANONICALIZATION_VERSION } from "@neuraforge/schemas";
-import type { Checksum } from "@neuraforge/schemas";
-import { canonicalizeTextBytes, computeSha256Digest } from "@neuraforge/catalog-core";
+import { CANONICALIZATION_VERSION } from "@neuraforge-ui/schemas";
+import type { Checksum } from "@neuraforge-ui/schemas";
+import { canonicalizeTextBytes, computeSha256Digest } from "@neuraforge-ui/catalog-core";
 import type { MutableTarget } from "./target.js";
 import { validateConfinedPath, isWithinRoot } from "./path-security.js";
 

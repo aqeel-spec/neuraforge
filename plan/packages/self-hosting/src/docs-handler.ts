@@ -5,9 +5,9 @@
  * self-hosting/contribution/security links. No auth.
  */
 
-import type { JsonValue } from "@neuraforge/schemas";
-import type { ReleaseBundle } from "@neuraforge/registry-builder";
-import { toJsonValue } from "@neuraforge/registry-builder";
+import type { JsonValue } from "@neuraforge-ui/schemas";
+import type { ReleaseBundle } from "@neuraforge-ui/registry-builder";
+import { toJsonValue } from "@neuraforge-ui/registry-builder";
 
 export interface DocsResponse {
   readonly status: number;

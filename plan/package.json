@@ -1,6 +1,6 @@
 {
-  "name": "@neuraforge/workspace",
-  "version": "0.0.0",
+  "name": "@neuraforge-ui/workspace",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
   "description": "Public open-source NeuraForge UI monorepo",
@@ -17,8 +17,8 @@
   "scripts": {
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "schemas:generate": "npm run generate --workspace @neuraforge/schemas",
-    "schemas:check": "npm run generate:check --workspace @neuraforge/schemas",
+    "schemas:generate": "npm run generate --workspace @neuraforge-ui/schemas",
+    "schemas:check": "npm run generate:check --workspace @neuraforge-ui/schemas",
     "lint": "eslint . --max-warnings=0",
     "typecheck": "tsc --noEmit",
     "test": "npm run test:unit && npm run test:integration",

@@ -1,4 +1,4 @@
-import type { FieldError } from "@neuraforge/schemas";
+import type { FieldError } from "@neuraforge-ui/schemas";
 
 import { addCalendarDays, type CalendarWindow, type PublicProcessLink } from "./governance.js";
 

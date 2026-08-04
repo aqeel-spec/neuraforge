@@ -1,4 +1,4 @@
-import type { FieldError } from "@neuraforge/schemas";
+import type { FieldError } from "@neuraforge-ui/schemas";
 import { BEHAVIOR_KEYS } from "../contracts/types.js";
 import type {
   BehaviorKey,

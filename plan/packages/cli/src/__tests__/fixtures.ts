@@ -4,16 +4,16 @@
  * Creates a minimal verified bundle and provides helper utilities.
  */
 
-import { CANONICALIZATION_VERSION } from "@neuraforge/schemas";
-import type { Checksum, ArtifactRef } from "@neuraforge/schemas";
+import { CANONICALIZATION_VERSION } from "@neuraforge-ui/schemas";
+import type { Checksum, ArtifactRef } from "@neuraforge-ui/schemas";
 import {
   canonicalizeTextBytes,
   computeSha256Digest,
   computeFileSetChecksum,
-} from "@neuraforge/catalog-core";
-import type { RegistryBundleReader, RegistryArtifactEntry } from "@neuraforge/registry-builder";
-import type { ComponentSummaryFromBundle, NotFoundError } from "@neuraforge/registry-builder";
-import type { Result } from "@neuraforge/schemas";
+} from "@neuraforge-ui/catalog-core";
+import type { RegistryBundleReader, RegistryArtifactEntry } from "@neuraforge-ui/registry-builder";
+import type { ComponentSummaryFromBundle, NotFoundError } from "@neuraforge-ui/registry-builder";
+import type { Result } from "@neuraforge-ui/schemas";
 import type { ReadOnlyTarget, MutableTarget } from "../target.js";
 
 // ---------------------------------------------------------------------------

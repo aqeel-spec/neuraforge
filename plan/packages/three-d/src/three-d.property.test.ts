@@ -14,7 +14,7 @@ import {
   tickFrame,
 } from "./lifecycle.js";
 
-import type { JsonValue } from "@neuraforge/schemas";
+import type { JsonValue } from "@neuraforge-ui/schemas";
 
 // Feature: neuraforge-open-source-ui, Property 15: 3D suspension and resumption preserve valid state
 

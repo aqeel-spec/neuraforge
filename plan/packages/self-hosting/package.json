@@ -1,20 +1,20 @@
 {
-  "name": "@neuraforge/self-hosting",
-  "version": "0.0.0",
+  "name": "@neuraforge-ui/self-hosting",
+  "version": "0.1.0",
   "description": "Account-free self-hosting process composition",
   "type": "module",
   "license": "MIT",
-  "repository": "https://github.com/neuraforge/ui.git",
+  "repository": "https://github.com/aqeel-spec/neuraforge.git",
   "exports": {
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@neuraforge/catalog-core": "0.0.0",
-    "@neuraforge/conformance": "0.0.0",
-    "@neuraforge/mcp-core": "0.0.0",
-    "@neuraforge/public-api": "0.0.0",
-    "@neuraforge/registry-builder": "0.0.0",
-    "@neuraforge/schemas": "0.0.0"
+    "@neuraforge-ui/catalog-core": "0.1.0",
+    "@neuraforge-ui/conformance": "0.1.0",
+    "@neuraforge-ui/mcp-core": "0.1.0",
+    "@neuraforge-ui/public-api": "0.1.0",
+    "@neuraforge-ui/registry-builder": "0.1.0",
+    "@neuraforge-ui/schemas": "0.1.0"
   },
   "publishConfig": {
     "access": "public"

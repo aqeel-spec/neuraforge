@@ -2,8 +2,8 @@
  * Health report — deterministic, no Date.now, no credential values.
  */
 
-import type { JsonValue } from "@neuraforge/schemas";
-import { toJsonValue } from "@neuraforge/registry-builder";
+import type { JsonValue } from "@neuraforge-ui/schemas";
+import { toJsonValue } from "@neuraforge-ui/registry-builder";
 import type { EnabledInterface } from "./config-types.js";
 import type { PreparedRuntime } from "./prepare.js";
 

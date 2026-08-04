@@ -7,14 +7,14 @@
  * - Address format: sha256:<64hex>
  */
 
-import type { Checksum, ReleaseManifest } from "@neuraforge/schemas";
-import { CANONICALIZATION_VERSION } from "@neuraforge/schemas";
+import type { Checksum, ReleaseManifest } from "@neuraforge-ui/schemas";
+import { CANONICALIZATION_VERSION } from "@neuraforge-ui/schemas";
 import {
   canonicalizeJson,
   canonicalizeJsonBytes,
   computeChecksum,
   computeSha256Digest,
-} from "@neuraforge/catalog-core";
+} from "@neuraforge-ui/catalog-core";
 import type { RegistrySnapshot, ReleaseBundle, SourceFileWithContent } from "./types.js";
 import { toJsonValue } from "./json.js";
 

@@ -5,7 +5,7 @@ import type {
   FieldError,
   Result,
   SemanticVersion,
-} from "@neuraforge/schemas";
+} from "@neuraforge-ui/schemas";
 
 import { buildValidationErrorEnvelope, type ValidationContext } from "./errors.js";
 

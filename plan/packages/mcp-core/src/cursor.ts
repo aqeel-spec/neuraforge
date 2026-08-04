@@ -12,8 +12,8 @@
  * - Registry version mismatch
  */
 
-import { canonicalizeJson, computeSha256Digest } from "@neuraforge/catalog-core";
-import type { JsonValue } from "@neuraforge/schemas";
+import { canonicalizeJson, computeSha256Digest } from "@neuraforge-ui/catalog-core";
+import type { JsonValue } from "@neuraforge-ui/schemas";
 import type { ComponentCategory } from "./types.js";
 
 // ---------------------------------------------------------------------------

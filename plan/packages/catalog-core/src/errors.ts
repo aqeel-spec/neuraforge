@@ -1,4 +1,9 @@
-import type { ErrorEnvelope, ErrorResource, FieldError, OperationError } from "@neuraforge/schemas";
+import type {
+  ErrorEnvelope,
+  ErrorResource,
+  FieldError,
+  OperationError,
+} from "@neuraforge-ui/schemas";
 
 /**
  * Shared error-envelope construction for catalog-core's pure validation functions.

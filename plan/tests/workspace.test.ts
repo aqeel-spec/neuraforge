@@ -40,9 +40,9 @@ describe("public workspace scaffold", () => {
       new Set(manifests.map(({ name }) => name)).size,
     );
     for (const manifest of manifests) {
-      expect(manifest.name).toMatch(/^@neuraforge\/[a-z-]+$/u);
+      expect(manifest.name).toMatch(/^@neuraforge-ui\/[a-z-]+$/u);
       expect(manifest.license).toBe("MIT");
-      expect(manifest.repository).toBe("https://github.com/neuraforge/ui.git");
+      expect(manifest.repository).toBe("https://github.com/aqeel-spec/neuraforge.git");
       expect(manifest.publishConfig?.access).toBe("public");
       expect(manifest.name).not.toMatch(/private|premium|paid/u);
     }

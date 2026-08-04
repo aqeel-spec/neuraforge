@@ -3,7 +3,7 @@ import {
   canonicalizeTextBytes,
   computeFileSetChecksum,
   computeSha256Digest,
-} from "@neuraforge/catalog-core";
+} from "@neuraforge-ui/catalog-core";
 import {
   buildMvpCatalog,
   getStableComponentCatalog,

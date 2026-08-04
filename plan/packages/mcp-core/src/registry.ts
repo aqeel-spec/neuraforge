@@ -14,7 +14,7 @@
  * The registry is immutable and deterministic; no duplicate IDs.
  */
 
-import type { JsonValue } from "@neuraforge/schemas";
+import type { JsonValue } from "@neuraforge-ui/schemas";
 import { SEARCH_RULE_VERSION } from "./search.js";
 
 export const MCP_SCHEMA_VERSION = "1.0.0";

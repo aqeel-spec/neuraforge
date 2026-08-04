@@ -7,12 +7,12 @@
  * All routes are backed by the verified immutable bundle.
  */
 
-import type { JsonValue } from "@neuraforge/schemas";
-import type { RegistryBundleReader } from "@neuraforge/registry-builder";
-import { toJsonValue } from "@neuraforge/registry-builder";
-import { compareSemanticVersions } from "@neuraforge/catalog-core";
-import { decodeCursor, encodeCursor } from "@neuraforge/mcp-core";
-import type { ListCursorPayload, ComponentCategory } from "@neuraforge/mcp-core";
+import type { JsonValue } from "@neuraforge-ui/schemas";
+import type { RegistryBundleReader } from "@neuraforge-ui/registry-builder";
+import { toJsonValue } from "@neuraforge-ui/registry-builder";
+import { compareSemanticVersions } from "@neuraforge-ui/catalog-core";
+import { decodeCursor, encodeCursor } from "@neuraforge-ui/mcp-core";
+import type { ListCursorPayload, ComponentCategory } from "@neuraforge-ui/mcp-core";
 import type { HttpRequest, HttpResponse } from "./types.js";
 import {
   validatePathSegment,

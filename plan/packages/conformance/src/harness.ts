@@ -5,8 +5,8 @@
  * Runs all deterministic named cases and returns a JSON-safe ConformanceReport.
  */
 
-import type { ReleaseBundle } from "@neuraforge/registry-builder";
-import { verifyReleaseBundle } from "@neuraforge/registry-builder";
+import type { ReleaseBundle } from "@neuraforge-ui/registry-builder";
+import { verifyReleaseBundle } from "@neuraforge-ui/registry-builder";
 import type { ConformanceAdapters, ConformanceReport } from "./types.js";
 import { createDefaultAdapters } from "./adapters.js";
 import { CASE_RUNNERS, CONFORMANCE_CASE_NAMES } from "./cases.js";

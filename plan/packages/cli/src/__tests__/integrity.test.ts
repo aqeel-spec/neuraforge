@@ -5,10 +5,10 @@
  */
 
 import { describe, it, expect } from "vitest";
-import { CANONICALIZATION_VERSION } from "@neuraforge/schemas";
-import type { RegistryBundleReader, RegistryArtifactEntry } from "@neuraforge/registry-builder";
-import type { NotFoundError } from "@neuraforge/registry-builder";
-import type { Result } from "@neuraforge/schemas";
+import { CANONICALIZATION_VERSION } from "@neuraforge-ui/schemas";
+import type { RegistryBundleReader, RegistryArtifactEntry } from "@neuraforge-ui/registry-builder";
+import type { NotFoundError } from "@neuraforge-ui/registry-builder";
+import type { Result } from "@neuraforge-ui/schemas";
 import { createInstaller } from "../installer.js";
 import { createMemoryReadOnlyTarget, BUTTON_SOURCE, makeChecksum } from "./fixtures.js";
 

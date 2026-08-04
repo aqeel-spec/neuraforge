@@ -5,8 +5,8 @@
  * Search uses mcp-core's deterministic ranking rule.
  */
 
-import type { RegistryBundleReader } from "@neuraforge/registry-builder";
-import { normalizeText, SEARCH_RULE_VERSION } from "@neuraforge/mcp-core";
+import type { RegistryBundleReader } from "@neuraforge-ui/registry-builder";
+import { normalizeText, SEARCH_RULE_VERSION } from "@neuraforge-ui/mcp-core";
 import type { InstallerResult, SearchResult, InspectResult } from "./types.js";
 
 /**

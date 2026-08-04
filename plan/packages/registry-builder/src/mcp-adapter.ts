@@ -1,12 +1,12 @@
 /**
  * MCP catalog provider adapter — bridges a ReleaseBundle to McpCatalogProvider.
  *
- * Implements @neuraforge/mcp-core's McpCatalogProvider interface without creating
+ * Implements @neuraforge-ui/mcp-core's McpCatalogProvider interface without creating
  * a dependency cycle (mcp-core does not depend on registry-builder; registry-builder
  * depends on mcp-core).
  */
 
-import type { ArtifactRef, Result } from "@neuraforge/schemas";
+import type { ArtifactRef, Result } from "@neuraforge-ui/schemas";
 import type {
   ComponentArtifact,
   ComponentSourceFile,
@@ -14,8 +14,8 @@ import type {
   McpCatalogProvider,
   ProviderError,
   TokenArtifact,
-} from "@neuraforge/mcp-core";
-import type { ComponentCategory } from "@neuraforge/mcp-core";
+} from "@neuraforge-ui/mcp-core";
+import type { ComponentCategory } from "@neuraforge-ui/mcp-core";
 import type { ReleaseBundle } from "./types.js";
 import { createRegistryBundleReader } from "./reader.js";
 

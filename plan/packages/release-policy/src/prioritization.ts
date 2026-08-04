@@ -1,4 +1,4 @@
-import type { FieldError } from "@neuraforge/schemas";
+import type { FieldError } from "@neuraforge-ui/schemas";
 
 import type { PublicProcessLink } from "./governance.js";
 

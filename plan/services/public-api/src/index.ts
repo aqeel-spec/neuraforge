@@ -1,5 +1,5 @@
 /**
- * @neuraforge/public-api — Framework-free, unauthenticated, read-only
+ * @neuraforge-ui/public-api — Framework-free, unauthenticated, read-only
  * exact-version HTTP surface over one verified ReleaseBundle.
  *
  * Exposes:

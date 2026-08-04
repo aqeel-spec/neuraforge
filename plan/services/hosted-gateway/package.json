@@ -1,16 +1,16 @@
 {
-  "name": "@neuraforge/hosted-gateway",
-  "version": "0.0.0",
+  "name": "@neuraforge-ui/hosted-gateway",
+  "version": "0.1.0",
   "description": "Optional managed-capacity gateway isolated from artifact access",
   "type": "module",
   "license": "MIT",
-  "repository": "https://github.com/neuraforge/ui.git",
+  "repository": "https://github.com/aqeel-spec/neuraforge.git",
   "exports": {
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@neuraforge/mcp-core": "0.0.0",
-    "@neuraforge/schemas": "0.0.0"
+    "@neuraforge-ui/mcp-core": "0.1.0",
+    "@neuraforge-ui/schemas": "0.1.0"
   },
   "publishConfig": {
     "access": "public"

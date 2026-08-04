@@ -1,4 +1,4 @@
-import type { ArtifactRef, FieldError, Result } from "@neuraforge/schemas";
+import type { ArtifactRef, FieldError, Result } from "@neuraforge-ui/schemas";
 
 import { validateAccessClassification } from "./access.js";
 import { prefixFieldErrors, type ValidationContext } from "./errors.js";

@@ -5,7 +5,7 @@
  * Rejects unknown fields, entitlement fields, and invalid values.
  */
 
-import type { FieldError } from "@neuraforge/schemas";
+import type { FieldError } from "@neuraforge-ui/schemas";
 import type {
   ConfigValidationResult,
   EnabledInterface,

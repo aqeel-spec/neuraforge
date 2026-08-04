@@ -6,10 +6,10 @@
  * Rejects unknown query fields.
  */
 
-import type { ArtifactKind, ErrorEnvelope, FieldError } from "@neuraforge/schemas";
-import { isExactSemanticVersion } from "@neuraforge/catalog-core";
-import { COMPONENT_CATEGORIES } from "@neuraforge/mcp-core";
-import type { ComponentCategory } from "@neuraforge/mcp-core";
+import type { ArtifactKind, ErrorEnvelope, FieldError } from "@neuraforge-ui/schemas";
+import { isExactSemanticVersion } from "@neuraforge-ui/catalog-core";
+import { COMPONENT_CATEGORIES } from "@neuraforge-ui/mcp-core";
+import type { ComponentCategory } from "@neuraforge-ui/mcp-core";
 
 // ---------------------------------------------------------------------------
 // Error helpers

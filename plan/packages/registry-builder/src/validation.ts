@@ -4,8 +4,8 @@
  * Accumulates all independent FieldErrors rather than failing fast.
  */
 
-import type { BuildInstruction, FieldError } from "@neuraforge/schemas";
-import type { ProjectedComponentRecord } from "@neuraforge/components";
+import type { BuildInstruction, FieldError } from "@neuraforge-ui/schemas";
+import type { ProjectedComponentRecord } from "@neuraforge-ui/components";
 import type { ReleaseBuildInput, RequiredMvpSurface } from "./types.js";
 
 const SEMVER_PATTERN =

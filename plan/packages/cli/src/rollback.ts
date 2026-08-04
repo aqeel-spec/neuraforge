@@ -8,10 +8,10 @@
  * Repeated rollback is safe (idempotent). Malformed/substituted journals fail closed.
  */
 
-import { CANONICALIZATION_VERSION } from "@neuraforge/schemas";
-import { canonicalizeTextBytes, computeSha256Digest } from "@neuraforge/catalog-core";
-import type { Checksum } from "@neuraforge/schemas";
-import { toJsonValue } from "@neuraforge/registry-builder";
+import { CANONICALIZATION_VERSION } from "@neuraforge-ui/schemas";
+import { canonicalizeTextBytes, computeSha256Digest } from "@neuraforge-ui/catalog-core";
+import type { Checksum } from "@neuraforge-ui/schemas";
+import { toJsonValue } from "@neuraforge-ui/registry-builder";
 import type { MutableTarget } from "./target.js";
 import type {
   RollbackAction,

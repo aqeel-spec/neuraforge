@@ -3,9 +3,9 @@
  */
 
 import { describe, it, expect, beforeAll } from "vitest";
-import { buildReleaseBundle } from "@neuraforge/registry-builder";
-import type { ReleaseBundle } from "@neuraforge/registry-builder";
-import { buildFixtureInput } from "@neuraforge/registry-builder/testing";
+import { buildReleaseBundle } from "@neuraforge-ui/registry-builder";
+import type { ReleaseBundle } from "@neuraforge-ui/registry-builder";
+import { buildFixtureInput } from "@neuraforge-ui/registry-builder/testing";
 import { prepareSelfHostedRuntime } from "../prepare.js";
 import { createHealthReport, healthReportToJson } from "../health.js";
 import { createBackup, restoreBackup } from "../backup.js";

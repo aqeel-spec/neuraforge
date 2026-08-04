@@ -1,16 +1,16 @@
 {
-  "name": "@neuraforge/tokens",
-  "version": "0.0.0",
+  "name": "@neuraforge-ui/tokens",
+  "version": "0.1.0",
   "description": "Public design-token and Tailwind theme engine",
   "type": "module",
   "license": "MIT",
-  "repository": "https://github.com/neuraforge/ui.git",
+  "repository": "https://github.com/aqeel-spec/neuraforge.git",
   "exports": {
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@neuraforge/catalog-core": "0.0.0",
-    "@neuraforge/schemas": "0.0.0"
+    "@neuraforge-ui/catalog-core": "0.1.0",
+    "@neuraforge-ui/schemas": "0.1.0"
   },
   "publishConfig": {
     "access": "public"

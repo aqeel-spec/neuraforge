@@ -1,4 +1,4 @@
-import type { FieldError } from "@neuraforge/schemas";
+import type { FieldError } from "@neuraforge-ui/schemas";
 
 import type { BillingCycle } from "./billing-cycle.js";
 import { HOSTED_PLAN_IDS, type HostedPlanId } from "./pricing.js";

@@ -5,7 +5,7 @@ import type {
   LicenseProvenance,
   PerformanceRecord,
   JsonValue,
-} from "@neuraforge/schemas";
+} from "@neuraforge-ui/schemas";
 
 // ---------------------------------------------------------------------------
 // Motion Control Name — closed string literal union (Requirement 5.6)

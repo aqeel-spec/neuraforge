@@ -1,4 +1,4 @@
-import { computeFileSetChecksum } from "@neuraforge/catalog-core";
+import { computeFileSetChecksum } from "@neuraforge-ui/catalog-core";
 import type { ComponentRecord } from "../contracts/types.js";
 import { buildFileRecord } from "./builders.js";
 import { createNavigationRecords } from "./records-navigation.js";

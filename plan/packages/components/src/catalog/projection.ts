@@ -5,7 +5,7 @@ import type {
   FileRecord,
   LicenseProvenance,
   PerformanceRecord,
-} from "@neuraforge/schemas";
+} from "@neuraforge-ui/schemas";
 import type {
   AccessibilityPrimitiveDeclaration,
   BehaviorMap,

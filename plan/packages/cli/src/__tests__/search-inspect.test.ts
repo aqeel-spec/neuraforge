@@ -5,8 +5,8 @@
  */
 
 import { describe, it, expect, beforeAll } from "vitest";
-import type { RegistryBundleReader } from "@neuraforge/registry-builder";
-import { SEARCH_RULE_VERSION } from "@neuraforge/mcp-core";
+import type { RegistryBundleReader } from "@neuraforge-ui/registry-builder";
+import { SEARCH_RULE_VERSION } from "@neuraforge-ui/mcp-core";
 import { createInstaller } from "../installer.js";
 import type { Installer } from "../installer.js";
 import { createMockReader } from "./fixtures.js";

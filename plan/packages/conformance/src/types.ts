@@ -3,7 +3,7 @@
  * All types are JSON-safe — no functions, no class instances, no undefined.
  */
 
-import type { JsonValue } from "@neuraforge/schemas";
+import type { JsonValue } from "@neuraforge-ui/schemas";
 
 /** Result of a single conformance case. */
 export interface ConformanceCaseResult {

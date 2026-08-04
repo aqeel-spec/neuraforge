@@ -1,4 +1,4 @@
-import type { ArtifactRef } from "@neuraforge/schemas";
+import type { ArtifactRef } from "@neuraforge-ui/schemas";
 
 import type { BrandingInvariant, CompositionManifest } from "./types.js";
 import { COMPOSITION_CATEGORIES, INVARIANT_TYPES } from "./types.js";

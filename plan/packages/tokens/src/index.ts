@@ -1,4 +1,4 @@
-import type { ErrorEnvelope, FieldError, JsonValue, Result } from "@neuraforge/schemas";
+import type { ErrorEnvelope, FieldError, JsonValue, Result } from "@neuraforge-ui/schemas";
 
 export const tokensBoundary = {
   id: "tokens",

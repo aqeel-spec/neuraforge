@@ -6,7 +6,7 @@ import type {
   JsonValue,
   LicenseProvenance,
   PerformanceRecord,
-} from "@neuraforge/schemas";
+} from "@neuraforge-ui/schemas";
 
 /**
  * Component authoring framework and accessibility contracts.

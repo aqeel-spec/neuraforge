@@ -13,7 +13,7 @@
  * Security exception/failure => rejected.
  */
 
-import type { PerformanceRecord, QualityGateResult, ReleaseApproval } from "@neuraforge/schemas";
+import type { PerformanceRecord, QualityGateResult, ReleaseApproval } from "@neuraforge-ui/schemas";
 import type { QualityClassificationResult, QualityException } from "./types.js";
 
 /** The complete required MVP check types. */

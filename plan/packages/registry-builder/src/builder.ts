@@ -5,15 +5,15 @@
  * computes all checksums/addresses, deep-freezes, and returns success or accumulated errors.
  */
 
-import type { ArtifactReleaseEntry, FieldError, ReleaseManifest } from "@neuraforge/schemas";
+import type { ArtifactReleaseEntry, FieldError, ReleaseManifest } from "@neuraforge-ui/schemas";
 import {
   canonicalizeJsonBytes,
   canonicalizeTextBytes,
   computeFileSetChecksum,
   computeSha256Digest,
-} from "@neuraforge/catalog-core";
-import type { TokenPublicationIndex } from "@neuraforge/tokens";
-import { TOKEN_SCHEMA_VERSION, SUPPORTED_TAILWIND_VERSIONS } from "@neuraforge/tokens";
+} from "@neuraforge-ui/catalog-core";
+import type { TokenPublicationIndex } from "@neuraforge-ui/tokens";
+import { TOKEN_SCHEMA_VERSION, SUPPORTED_TAILWIND_VERSIONS } from "@neuraforge-ui/tokens";
 import type {
   BuildValidationResult,
   QualityClassificationResult,

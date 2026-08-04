@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { describe, expect, it } from "vitest";
 
-import { getStableComponentCatalog, projectComponentRecord } from "@neuraforge/components";
+import { getStableComponentCatalog, projectComponentRecord } from "@neuraforge-ui/components";
 import { buildReleaseBundle } from "../builder.js";
 import { verifyReleaseBundle } from "../verify.js";
 import { buildFixtureInput } from "./fixtures.js";

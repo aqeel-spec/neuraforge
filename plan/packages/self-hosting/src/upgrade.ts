@@ -5,10 +5,10 @@
  * Returns state retaining previous verified bundle for rollback.
  */
 
-import type { Result } from "@neuraforge/schemas";
-import type { ReleaseBundle } from "@neuraforge/registry-builder";
-import { verifyReleaseBundle } from "@neuraforge/registry-builder";
-import { compareSemanticVersions } from "@neuraforge/catalog-core";
+import type { Result } from "@neuraforge-ui/schemas";
+import type { ReleaseBundle } from "@neuraforge-ui/registry-builder";
+import { verifyReleaseBundle } from "@neuraforge-ui/registry-builder";
+import { compareSemanticVersions } from "@neuraforge-ui/catalog-core";
 import type { PreparedRuntime, PrepareError } from "./prepare.js";
 import { prepareSelfHostedRuntime } from "./prepare.js";
 

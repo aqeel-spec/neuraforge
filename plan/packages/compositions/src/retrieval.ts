@@ -1,4 +1,4 @@
-import type { ArtifactRef, Checksum, FileRecord } from "@neuraforge/schemas";
+import type { ArtifactRef, Checksum, FileRecord } from "@neuraforge-ui/schemas";
 
 import type {
   AvailableElement,

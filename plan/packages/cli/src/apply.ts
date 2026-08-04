@@ -19,15 +19,15 @@
  * On failure after mutation: executes exact rollback in reverse order.
  */
 
-import type { Checksum } from "@neuraforge/schemas";
-import { CANONICALIZATION_VERSION } from "@neuraforge/schemas";
+import type { Checksum } from "@neuraforge-ui/schemas";
+import { CANONICALIZATION_VERSION } from "@neuraforge-ui/schemas";
 import {
   canonicalizeTextBytes,
   computeSha256Digest,
   computeFileSetChecksum,
-} from "@neuraforge/catalog-core";
-import { toJsonValue } from "@neuraforge/registry-builder";
-import type { RegistryBundleReader, RegistryArtifactEntry } from "@neuraforge/registry-builder";
+} from "@neuraforge-ui/catalog-core";
+import { toJsonValue } from "@neuraforge-ui/registry-builder";
+import type { RegistryBundleReader, RegistryArtifactEntry } from "@neuraforge-ui/registry-builder";
 import type { MutableTarget } from "./target.js";
 import type {
   InstallPlan,

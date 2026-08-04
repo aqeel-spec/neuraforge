@@ -1,4 +1,4 @@
-import type { JsonValue } from "@neuraforge/schemas";
+import type { JsonValue } from "@neuraforge-ui/schemas";
 
 import type {
   ApplicableControl,

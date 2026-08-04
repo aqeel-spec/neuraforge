@@ -7,15 +7,15 @@
  * Never returns unverified content.
  */
 
-import type { ArtifactRef, ErrorEnvelope, JsonValue } from "@neuraforge/schemas";
-import { computeJsonChecksum } from "@neuraforge/catalog-core";
+import type { ArtifactRef, ErrorEnvelope, JsonValue } from "@neuraforge-ui/schemas";
+import { computeJsonChecksum } from "@neuraforge-ui/catalog-core";
 import {
   validateTokenDocument,
   TOKEN_SCHEMA_VERSION,
   SUPPORTED_TAILWIND_VERSIONS,
   DEFAULT_TOKEN_PUBLICATIONS,
-} from "@neuraforge/tokens";
-import type { TokenCategory } from "@neuraforge/tokens";
+} from "@neuraforge-ui/tokens";
+import type { TokenCategory } from "@neuraforge-ui/tokens";
 import type { McpCatalogProvider } from "./provider.js";
 import type {
   GetComponentOutput,
@@ -39,7 +39,7 @@ import { decodeCursor, encodeCursor, validateListCursor, validateSearchCursor } 
 import type { ListCursorPayload, SearchCursorPayload } from "./cursor.js";
 import { normalizeText, rankComponents, SEARCH_RULE_VERSION } from "./search.js";
 import { verifyComponentIntegrity, buildIntegrityError } from "./integrity.js";
-import { compareSemanticVersions } from "@neuraforge/catalog-core";
+import { compareSemanticVersions } from "@neuraforge-ui/catalog-core";
 
 // ---------------------------------------------------------------------------
 // Error helpers
@@ -485,7 +485,7 @@ async function executeGetDesignTokens(
     return { ok: false, error: availabilityError("get_design_tokens", context.requestId) };
   }
 
-  // Validate the token document using @neuraforge/tokens
+  // Validate the token document using @neuraforge-ui/tokens
   const validationResult = validateTokenDocument(tokenArtifact.tokenDocument, context.requestId);
   if (!validationResult.ok) {
     return {

@@ -9,7 +9,7 @@ import {
   canonicalizeTextBytes,
   computeFileSetChecksum,
   computeSha256Digest,
-} from "@neuraforge/catalog-core";
+} from "@neuraforge-ui/catalog-core";
 import { toJsonValue } from "./json.js";
 import type { ReleaseBundle, VerificationMismatch, VerificationResult } from "./types.js";
 import {

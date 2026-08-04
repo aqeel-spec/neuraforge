@@ -6,9 +6,9 @@
  */
 
 import type { ConformanceAdapters, ConformanceCaseResult, ConformanceMismatch } from "./types.js";
-import { canonicalizeJson } from "@neuraforge/catalog-core";
-import { toJsonValue } from "@neuraforge/registry-builder";
-import type { ReleaseBundle } from "@neuraforge/registry-builder";
+import { canonicalizeJson } from "@neuraforge-ui/catalog-core";
+import { toJsonValue } from "@neuraforge-ui/registry-builder";
+import type { ReleaseBundle } from "@neuraforge-ui/registry-builder";
 
 export const CONFORMANCE_CASE_NAMES = [
   "snapshot_checksum_version",

@@ -5,7 +5,7 @@
  * No external network dependencies for runtime operation.
  */
 
-import type { FieldError } from "@neuraforge/schemas";
+import type { FieldError } from "@neuraforge-ui/schemas";
 
 export const CONFIG_SCHEMA_VERSION = "1.0.0";
 

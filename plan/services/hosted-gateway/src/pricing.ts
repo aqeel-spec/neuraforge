@@ -1,4 +1,4 @@
-import type { FieldError, JsonValue } from "@neuraforge/schemas";
+import type { FieldError, JsonValue } from "@neuraforge-ui/schemas";
 
 /**
  * Hosted Pricing Version model.

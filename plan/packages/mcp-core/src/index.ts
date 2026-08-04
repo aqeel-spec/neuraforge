@@ -1,5 +1,5 @@
 /**
- * @neuraforge/mcp-core — Public, side-effect-free MCP operation registry and dispatcher.
+ * @neuraforge-ui/mcp-core — Public, side-effect-free MCP operation registry and dispatcher.
  *
  * Exposes:
  * - Typed operation maps (OperationId, InputOf, OutputOf, PublicContext, OperationResult)
