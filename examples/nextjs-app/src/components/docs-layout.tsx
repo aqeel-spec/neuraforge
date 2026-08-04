@@ -126,8 +126,8 @@ export function DocsLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [activeHash, setActiveHash] = useState("");
   const [expandedCategories, setExpandedCategories] = useState<string[]>(() => {
-    // Auto-expand the active category
     const active = componentCategories.find((c) => pathname.startsWith(c.href));
     return active ? [active.title] : [];
   });
@@ -138,6 +138,19 @@ export function DocsLayout({ children }: { children: React.ReactNode }) {
     const progress = docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0;
     setScrollProgress(progress);
   }, []);
+
+  // Track hash changes
+  useEffect(() => {
+    const updateHash = () => setActiveHash(window.location.hash.replace("#", ""));
+    updateHash();
+    window.addEventListener("hashchange", updateHash);
+    return () => window.removeEventListener("hashchange", updateHash);
+  }, []);
+
+  // Also update hash on pathname change (initial load)
+  useEffect(() => {
+    setActiveHash(window.location.hash.replace("#", ""));
+  }, [pathname]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -337,17 +350,18 @@ export function DocsLayout({ children }: { children: React.ReactNode }) {
                             <div className="ml-4 mt-0.5 space-y-0.5 border-l border-[hsl(var(--border))] pl-3 py-1">
                               {category.components.map((comp) => {
                                 const compHref = `${category.href}#${comp.id}`;
-                                const isCompActive = typeof window !== "undefined" && 
-                                  pathname === category.href && 
-                                  window.location.hash === `#${comp.id}`;
+                                const isCompActive = pathname === category.href && activeHash === comp.id;
                                 
                                 return (
                                   <Link
                                     key={comp.id}
                                     href={compHref}
+                                    onClick={() => setActiveHash(comp.id)}
                                     className={cn(
                                       "block rounded-md px-2.5 py-1.5 text-[12px] font-medium transition-all duration-150",
-                                      "text-[hsl(var(--muted-foreground))] hover:bg-[hsl(var(--accent))] hover:text-[hsl(var(--foreground))]"
+                                      isCompActive
+                                        ? "bg-[hsl(var(--primary))]/10 text-[hsl(var(--primary))] ring-1 ring-[hsl(var(--primary))]/20"
+                                        : "text-[hsl(var(--muted-foreground))] hover:bg-[hsl(var(--accent))] hover:text-[hsl(var(--foreground))]"
                                     )}
                                   >
                                     {comp.title}
