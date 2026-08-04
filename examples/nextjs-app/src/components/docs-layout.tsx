@@ -8,7 +8,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   LayoutGrid, Navigation, MessageSquare, FormInput, BarChart3,
   Megaphone, Sparkles, Palette, Bot, Menu, X,
-  Package, Code2, Zap, Search, ChevronRight, ChevronDown, ExternalLink
+  Package, Code2, Zap, Search, ChevronRight, ChevronDown, ExternalLink,
+  Wand2, Layers, MousePointer, Bot as BotIcon, Blocks
 } from "lucide-react";
 
 interface ComponentItem {
@@ -166,6 +167,11 @@ const componentCategories: NavCategory[] = [
 ];
 
 const ecosystemNav = [
+  { title: "AI Components", href: "/ai", icon: Wand2 },
+  { title: "Animation & Scroll", href: "/animation", icon: Layers },
+  { title: "Interactive", href: "/interactive", icon: MousePointer },
+  { title: "Agent Visual", href: "/agent-visual", icon: BotIcon },
+  { title: "Blocks", href: "/blocks", icon: Blocks },
   { title: "Motion Presets", href: "/motion", icon: Sparkles },
   { title: "Design Tokens", href: "/tokens", icon: Palette },
   { title: "MCP Integration", href: "/mcp", icon: Bot },
