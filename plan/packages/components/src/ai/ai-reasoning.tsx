@@ -3,21 +3,21 @@
 import * as React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export interface AIReasoningStep {
+export interface AiReasoningStep {
   id: string;
   title: string;
   content: string;
   status?: 'thinking' | 'complete' | 'error';
 }
 
-export interface AIReasoningProps {
-  steps: AIReasoningStep[];
+export interface AiReasoningProps {
+  steps: AiReasoningStep[];
   collapsed?: boolean;
   onToggle?: () => void;
   className?: string;
 }
 
-function StatusIcon({ status }: { status: AIReasoningStep['status'] }) {
+function StatusIcon({ status }: { status: AiReasoningStep['status'] }) {
   switch (status) {
     case 'complete':
       return (
@@ -58,7 +58,7 @@ function StatusIcon({ status }: { status: AIReasoningStep['status'] }) {
   }
 }
 
-export function AIReasoning({ steps, collapsed = true, onToggle, className = '' }: AIReasoningProps) {
+export function AiReasoning({ steps, collapsed = true, onToggle, className = '' }: AiReasoningProps) {
   const isThinking = steps.some((s) => s.status === 'thinking');
 
   return (

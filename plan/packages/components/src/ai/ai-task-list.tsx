@@ -9,7 +9,7 @@ export interface AITaskItem {
   completed: boolean;
 }
 
-export interface AITaskListProps {
+export interface AiTaskListProps {
   tasks: AITaskItem[];
   onToggle?: (id: string) => void;
   title?: string;
@@ -17,13 +17,13 @@ export interface AITaskListProps {
   className?: string;
 }
 
-export function AITaskList({
+export function AiTaskList({
   tasks,
   onToggle,
   title = 'Tasks',
   showProgress = true,
   className = '',
-}: AITaskListProps) {
+}: AiTaskListProps) {
   const completedCount = tasks.filter((t) => t.completed).length;
   const progress = tasks.length > 0 ? (completedCount / tasks.length) * 100 : 0;
 

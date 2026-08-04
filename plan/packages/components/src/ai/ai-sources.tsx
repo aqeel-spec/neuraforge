@@ -11,7 +11,7 @@ export interface AISourceItem {
   snippet?: string;
 }
 
-export interface AISourcesProps {
+export interface AiSourcesProps {
   sources: AISourceItem[];
   className?: string;
 }
@@ -31,7 +31,7 @@ const item = {
   show: { opacity: 1, y: 0, transition: { duration: 0.3, ease: 'easeOut' } },
 };
 
-export function AISources({ sources, className = '' }: AISourcesProps) {
+export function AiSources({ sources, className = '' }: AiSourcesProps) {
   return (
     <motion.div
       variants={container}

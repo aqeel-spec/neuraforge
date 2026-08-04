@@ -4,7 +4,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export interface AIToolCallProps {
+export interface AiToolCallProps {
   name: string;
   parameters?: Record<string, unknown>;
   result?: string;
@@ -13,7 +13,7 @@ export interface AIToolCallProps {
   className?: string;
 }
 
-function ToolStatusIcon({ status }: { status: AIToolCallProps['status'] }) {
+function ToolStatusIcon({ status }: { status: AiToolCallProps['status'] }) {
   switch (status) {
     case 'success':
       return (
@@ -54,14 +54,14 @@ function ToolStatusIcon({ status }: { status: AIToolCallProps['status'] }) {
   }
 }
 
-export function AIToolCall({
+export function AiToolCall({
   name,
   parameters,
   result,
   status = 'calling',
   duration,
   className = '',
-}: AIToolCallProps) {
+}: AiToolCallProps) {
   const [paramsExpanded, setParamsExpanded] = useState(false);
   const [resultExpanded, setResultExpanded] = useState(false);
 

@@ -3,20 +3,20 @@
 import * as React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export interface AIBranchItem {
+export interface AiBranchItem {
   id: string;
   label: string;
   content: string;
   isActive?: boolean;
 }
 
-export interface AIBranchProps {
-  branches: AIBranchItem[];
+export interface AiBranchProps {
+  branches: AiBranchItem[];
   onSelect: (id: string) => void;
   className?: string;
 }
 
-export function AIBranch({ branches, onSelect, className = '' }: AIBranchProps) {
+export function AiBranch({ branches, onSelect, className = '' }: AiBranchProps) {
   const activeId = branches.find((b) => b.isActive)?.id ?? branches[0]?.id;
   const activeContent = branches.find((b) => b.id === activeId)?.content ?? '';
 

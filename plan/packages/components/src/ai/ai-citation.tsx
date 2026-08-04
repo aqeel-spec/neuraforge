@@ -10,13 +10,13 @@ export interface AIBCitationSource {
   snippet?: string;
 }
 
-export interface AICitationProps {
+export interface AiCitationProps {
   index: number;
   source: AIBCitationSource;
   className?: string;
 }
 
-export function AICitation({ index, source, className = '' }: AICitationProps) {
+export function AiCitation({ index, source, className = '' }: AiCitationProps) {
   const [isOpen, setIsOpen] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const containerRef = useRef<HTMLSpanElement>(null);
