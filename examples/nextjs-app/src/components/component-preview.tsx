@@ -171,7 +171,7 @@ export function ComponentPreview({
             {/* Preview Area */}
             <div
               className={cn(
-                "flex items-center justify-center p-8 overflow-x-auto",
+                "flex items-center justify-center p-4 overflow-x-auto",
                 expandable ? "min-h-[300px]" : "min-h-[180px]"
               )}
               style={{
@@ -185,12 +185,12 @@ export function ComponentPreview({
               >
                 <div
                   className={cn(
-                    "w-full mx-auto bg-[hsl(var(--background))] rounded-xl p-8 border border-[hsl(var(--border))]/50",
+                    "w-full mx-auto bg-[hsl(var(--background))] rounded-xl p-5 border border-[hsl(var(--border))]/50",
                     "shadow-[0_2px_8px_rgba(0,0,0,0.06),0_0_0_1px_rgba(0,0,0,0.02)]",
                     expandable && "overflow-visible"
                   )}
                 >
-                  <div className="w-full max-w-lg mx-auto">
+                  <div className="w-full">
                     {children}
                   </div>
                 </div>

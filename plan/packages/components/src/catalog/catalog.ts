@@ -12,26 +12,66 @@ import { createMarketingRecords } from "./records-marketing.js";
 // module; in that case their artifact checksum is identical because the editable source bytes
 // installed for either component are identical.
 const COMPONENT_SOURCE_PATHS: Readonly<Record<string, readonly string[]>> = {
+  // Navigation
   navbar: ["src/navigation-layout/navbar.tsx"],
   sidebar: ["src/navigation-layout/sidebar.tsx"],
   breadcrumbs: ["src/navigation-layout/breadcrumbs.tsx"],
   tabs: ["src/navigation-layout/tabs.tsx"],
+  dock: ["src/navigation-layout/dock.tsx"],
+  "context-menu": ["src/navigation-layout/context-menu.tsx"],
+  // Layout
   footer: ["src/navigation-layout/footer.tsx"],
   card: ["src/navigation-layout/card.tsx"],
   hero: ["src/navigation-layout/hero.tsx"],
+  sticky: ["src/navigation-layout/sticky.tsx"],
+  bento: ["src/navigation-layout/bento.tsx"],
+  marquee: ["src/navigation-layout/marquee.tsx"],
+  "parallax-section": ["src/navigation-layout/parallax-section.tsx"],
+  resizable: ["src/navigation-layout/resizable.tsx"],
+  // Forms
   form: ["src/forms/form.tsx"],
   "text-field": ["src/forms/text-field.tsx"],
+  "phone-input": ["src/forms/phone-input.tsx"],
+  "search-input": ["src/forms/search-input.tsx"],
+  "tag-input": ["src/forms/tag-input.tsx"],
+  "star-rating": ["src/forms/star-rating.tsx"],
+  "signature-pad": ["src/forms/signature-pad.tsx"],
+  // Feedback
   alert: ["src/feedback/alert.tsx"],
   dialog: ["src/feedback/dialog.tsx"],
   "loading-indicator": ["src/feedback/loading-indicator.tsx"],
   toast: ["src/feedback/toast.tsx"],
+  banner: ["src/feedback/banner.tsx"],
+  "notification-center": ["src/feedback/notification-center.tsx"],
+  "inline-alert": ["src/feedback/inline-alert.tsx"],
+  spotlight: ["src/feedback/spotlight.tsx"],
+  confetti: ["src/feedback/confetti.tsx"],
+  // Data Display
   "data-table": ["src/data-display.tsx"],
   stat: ["src/data-display.tsx"],
   badge: ["src/data-display.tsx"],
   avatar: ["src/data-display.tsx"],
+  chart: ["src/data-display/chart.tsx"],
+  "code-block": ["src/data-display/code-block.tsx"],
+  "copy-button": ["src/data-display/copy-button.tsx"],
+  "count-up": ["src/data-display/count-up.tsx"],
+  list: ["src/data-display/list.tsx"],
+  "tree-view": ["src/navigation-layout/tree-view.tsx"],
+  kanban: ["src/navigation-layout/kanban.tsx"],
+  "infinite-scroll": ["src/navigation-layout/infinite-scroll.tsx"],
+  "virtual-list": ["src/navigation-layout/virtual-list.tsx"],
+  // Marketing
   "call-to-action": ["src/marketing.tsx"],
   pricing: ["src/marketing.tsx"],
   faq: ["src/marketing.tsx"],
+  "logo-cloud": ["src/marketing/logo-cloud.tsx"],
+  newsletter: ["src/marketing/newsletter.tsx"],
+  "social-proof": ["src/marketing/social-proof.tsx"],
+  "comparison-table": ["src/marketing/comparison-table.tsx"],
+  "hero-with-video": ["src/marketing/hero-with-video.tsx"],
+  "team-grid": ["src/marketing/team-grid.tsx"],
+  "stats-section": ["src/marketing/stats-section.tsx"],
+  "announcement-bar": ["src/marketing/announcement-bar.tsx"],
 };
 
 async function readPublishedSource(path: string): Promise<string> {

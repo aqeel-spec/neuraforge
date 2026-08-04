@@ -27,11 +27,13 @@ const nextConfig = {
       config.resolve.extensions.push(".ts");
     }
 
-    // Map sub-path imports to actual file paths (bypasses exports field restriction)
-    const componentsBase = path.join(
+    // Map sub-path imports to actual monorepo source paths (includes all new directories)
+    const componentsBase = path.resolve(
       __dirname,
-      "node_modules",
-      "@neuraforge-ui",
+      "..",
+      "..",
+      "plan",
+      "packages",
       "components",
       "src"
     );

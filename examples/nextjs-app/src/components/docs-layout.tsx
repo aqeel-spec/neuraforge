@@ -37,6 +37,12 @@ const componentCategories: NavCategory[] = [
       { id: "pagination", title: "Pagination" },
       { id: "step-indicator", title: "StepIndicator" },
       { id: "sidebar", title: "Sidebar" },
+      { id: "bottom-nav", title: "BottomNav" },
+      { id: "table-of-contents", title: "TableOfContents" },
+      { id: "segmented-control", title: "SegmentedControl" },
+      { id: "back-to-top", title: "BackToTop" },
+      { id: "dock", title: "Dock" },
+      { id: "context-menu", title: "ContextMenu" },
     ],
   },
   {
@@ -55,6 +61,15 @@ const componentCategories: NavCategory[] = [
       { id: "aspect-ratio", title: "AspectRatio" },
       { id: "drawer", title: "Drawer" },
       { id: "split-pane", title: "SplitPane" },
+      { id: "masonry", title: "Masonry" },
+      { id: "carousel", title: "Carousel" },
+      { id: "popover", title: "Popover" },
+      { id: "sheet", title: "Sheet" },
+      { id: "sticky", title: "Sticky" },
+      { id: "bento", title: "Bento" },
+      { id: "marquee", title: "Marquee" },
+      { id: "parallax-section", title: "ParallaxSection" },
+      { id: "resizable", title: "Resizable" },
     ],
   },
   {
@@ -72,6 +87,16 @@ const componentCategories: NavCategory[] = [
       { id: "date-picker", title: "DatePicker" },
       { id: "file-upload", title: "FileUpload" },
       { id: "form", title: "Form" },
+      { id: "autocomplete", title: "Autocomplete" },
+      { id: "slider", title: "Slider" },
+      { id: "range-slider", title: "RangeSlider" },
+      { id: "color-picker", title: "ColorPicker" },
+      { id: "otp-input", title: "OTPInput" },
+      { id: "phone-input", title: "PhoneInput" },
+      { id: "search-input", title: "SearchInput" },
+      { id: "tag-input", title: "TagInput" },
+      { id: "star-rating", title: "StarRating" },
+      { id: "signature-pad", title: "SignaturePad" },
     ],
   },
   {
@@ -87,6 +112,11 @@ const componentCategories: NavCategory[] = [
       { id: "loading-indicator", title: "LoadingIndicator" },
       { id: "skeleton", title: "Skeleton" },
       { id: "empty-state", title: "EmptyState" },
+      { id: "banner", title: "Banner" },
+      { id: "notification-center", title: "NotificationCenter" },
+      { id: "inline-alert", title: "InlineAlert" },
+      { id: "spotlight", title: "Spotlight" },
+      { id: "confetti", title: "Confetti" },
     ],
   },
   {
@@ -102,6 +132,15 @@ const componentCategories: NavCategory[] = [
       { id: "tooltip", title: "Tooltip" },
       { id: "kbd", title: "KBD" },
       { id: "data-table", title: "DataTable" },
+      { id: "chart", title: "Chart" },
+      { id: "code-block", title: "CodeBlock" },
+      { id: "copy-button", title: "CopyButton" },
+      { id: "count-up", title: "CountUp" },
+      { id: "list", title: "List" },
+      { id: "tree-view", title: "TreeView" },
+      { id: "kanban", title: "Kanban" },
+      { id: "infinite-scroll", title: "InfiniteScroll" },
+      { id: "virtual-list", title: "VirtualList" },
     ],
   },
   {
@@ -112,6 +151,16 @@ const componentCategories: NavCategory[] = [
       { id: "pricing", title: "Pricing" },
       { id: "testimonial", title: "Testimonial" },
       { id: "feature-grid", title: "FeatureGrid" },
+      { id: "faq", title: "FAQ" },
+      { id: "cta", title: "CTA" },
+      { id: "logo-cloud", title: "LogoCloud" },
+      { id: "newsletter", title: "Newsletter" },
+      { id: "social-proof", title: "SocialProof" },
+      { id: "comparison-table", title: "ComparisonTable" },
+      { id: "hero-with-video", title: "HeroWithVideo" },
+      { id: "team-grid", title: "TeamGrid" },
+      { id: "stats-section", title: "StatsSection" },
+      { id: "announcement-bar", title: "AnnouncementBar" },
     ],
   },
 ];
@@ -449,7 +498,7 @@ export function DocsLayout({ children }: { children: React.ReactNode }) {
 
         {/* ─── MAIN CONTENT ─── */}
         <main className="flex-1 min-w-0">
-          <div className="mx-auto max-w-[880px] px-6 py-10 lg:px-10 lg:py-14">
+          <div className="mx-auto max-w-6xl px-4 py-8 lg:px-6 lg:py-10">
             {children}
           </div>
         </main>
