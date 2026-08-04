@@ -91,48 +91,72 @@ export function ComponentPreview({
             <p className="text-[12px] text-[hsl(var(--muted-foreground))] mt-0.5">{description}</p>
           )}
         </div>
-        {code && (
-          <div className="flex items-center rounded-lg bg-[hsl(var(--muted))]/60 p-[3px] ml-4 shrink-0 border border-[hsl(var(--border))]/40">
-            <button
-              onClick={() => setActiveTab("preview")}
-              className={cn(
-                "relative inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-[11px] font-medium transition-all duration-200",
-                activeTab === "preview"
-                  ? "text-[hsl(var(--foreground))]"
-                  : "text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))]"
-              )}
-            >
-              {activeTab === "preview" && (
-                <motion.div
-                  layoutId={`tab-${id || title}`}
-                  className="absolute inset-0 bg-white rounded-md shadow-sm border border-[hsl(var(--border))]/40"
-                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                />
-              )}
-              <Eye className="h-3 w-3 relative z-10" />
-              <span className="relative z-10">Preview</span>
-            </button>
-            <button
-              onClick={() => setActiveTab("code")}
-              className={cn(
-                "relative inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-[11px] font-medium transition-all duration-200",
-                activeTab === "code"
-                  ? "text-[hsl(var(--foreground))]"
-                  : "text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))]"
-              )}
-            >
-              {activeTab === "code" && (
-                <motion.div
-                  layoutId={`tab-${id || title}`}
-                  className="absolute inset-0 bg-white rounded-md shadow-sm border border-[hsl(var(--border))]/40"
-                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                />
-              )}
-              <Code2 className="h-3 w-3 relative z-10" />
-              <span className="relative z-10">Code</span>
-            </button>
+        <div className="flex items-center gap-2 ml-4 shrink-0">
+          {/* Responsive toggles */}
+          <div className="hidden sm:flex items-center gap-0.5 rounded-lg bg-[hsl(var(--muted))]/40 p-[2px]">
+            {(Object.keys(deviceWidths) as DeviceSize[]).map((size) => {
+              const { icon: Icon } = deviceLabels[size];
+              return (
+                <button
+                  key={size}
+                  onClick={() => setDevice(size)}
+                  className={cn(
+                    "p-1.5 rounded-md transition-all duration-150",
+                    device === size
+                      ? "bg-white dark:bg-zinc-800 shadow-sm text-[hsl(var(--foreground))]"
+                      : "text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))]"
+                  )}
+                  aria-label={`${deviceLabels[size].label} view`}
+                >
+                  <Icon className="h-3.5 w-3.5" />
+                </button>
+              );
+            })}
           </div>
-        )}
+          {/* Preview/Code toggle */}
+          {code && (
+            <div className="flex items-center rounded-lg bg-[hsl(var(--muted))]/60 p-[3px] border border-[hsl(var(--border))]/40">
+              <button
+                onClick={() => setActiveTab("preview")}
+                className={cn(
+                  "relative inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-[11px] font-medium transition-all duration-200",
+                  activeTab === "preview"
+                    ? "text-[hsl(var(--foreground))]"
+                    : "text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))]"
+                )}
+              >
+                {activeTab === "preview" && (
+                  <motion.div
+                    layoutId={`tab-${id || title}`}
+                    className="absolute inset-0 bg-white rounded-md shadow-sm border border-[hsl(var(--border))]/40"
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  />
+                )}
+                <Eye className="h-3 w-3 relative z-10" />
+                <span className="relative z-10">Preview</span>
+              </button>
+              <button
+                onClick={() => setActiveTab("code")}
+                className={cn(
+                  "relative inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-[11px] font-medium transition-all duration-200",
+                  activeTab === "code"
+                    ? "text-[hsl(var(--foreground))]"
+                    : "text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))]"
+                )}
+              >
+                {activeTab === "code" && (
+                  <motion.div
+                    layoutId={`tab-${id || title}`}
+                    className="absolute inset-0 bg-white rounded-md shadow-sm border border-[hsl(var(--border))]/40"
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  />
+                )}
+                <Code2 className="h-3 w-3 relative z-10" />
+                <span className="relative z-10">Code</span>
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Content */}
@@ -152,7 +176,9 @@ export function ComponentPreview({
                 expandable ? "min-h-[300px]" : "min-h-[120px]"
               )}
             >
-              {children}
+              <div className="mx-auto transition-all duration-300" style={{ maxWidth: deviceWidths[device] }}>
+                {children}
+              </div>
             </div>
           </motion.div>
         ) : (
