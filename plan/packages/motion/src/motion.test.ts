@@ -21,7 +21,11 @@ import {
   isNonApplicableControl,
   validateSchemaCompleteness,
 } from "./schema.js";
-import { getBreakpointSupportedControls, getSchemaDefaults, resolveMotionConfig } from "./resolution.js";
+import {
+  getBreakpointSupportedControls,
+  getSchemaDefaults,
+  resolveMotionConfig,
+} from "./resolution.js";
 import { validateMotionConfig } from "./validation.js";
 import type { SemanticState } from "./components.js";
 import {
@@ -46,7 +50,11 @@ import {
 const REDUCED_MOTION: ReducedMotionBehavior = {
   disabledDecorativeMotion: "All decorative fade/slide animations are disabled",
   essentialTransitions: [
-    { id: "state-change", description: "Opacity transition for open/close state", reducedDuration: 150 },
+    {
+      id: "state-change",
+      description: "Opacity transition for open/close state",
+      reducedDuration: 150,
+    },
   ],
 };
 
@@ -82,7 +90,15 @@ function makeControls(
 }
 
 function makeSchema(
-  applicableNames: MotionControlName[] = ["duration", "delay", "easing", "initial", "animate", "exit", "motionDisablement"],
+  applicableNames: MotionControlName[] = [
+    "duration",
+    "delay",
+    "easing",
+    "initial",
+    "animate",
+    "exit",
+    "motionDisablement",
+  ],
   customApplicable?: Partial<Record<MotionControlName, Partial<ApplicableControl>>>,
 ): MotionCustomizationSchema {
   return createMotionCustomizationSchema(
@@ -173,7 +189,6 @@ describe("Motion Schema", () => {
   });
 });
 
-
 // ---------------------------------------------------------------------------
 // Resolution Tests
 // ---------------------------------------------------------------------------
@@ -260,7 +275,6 @@ describe("Motion Resolution", () => {
   });
 });
 
-
 // ---------------------------------------------------------------------------
 // Validation Tests
 // ---------------------------------------------------------------------------
@@ -303,7 +317,9 @@ describe("Motion Validation", () => {
     const result = validateMotionConfig(schema, config);
     expect(result.valid).toBe(false);
     if (!result.valid) {
-      expect(result.faults.some((f) => f.code === "unknown_field" && f.path.includes("xxl"))).toBe(true);
+      expect(result.faults.some((f) => f.code === "unknown_field" && f.path.includes("xxl"))).toBe(
+        true,
+      );
     }
   });
 
@@ -417,7 +433,6 @@ describe("Motion Validation", () => {
   });
 });
 
-
 // ---------------------------------------------------------------------------
 // Accessibility & Reduced-Motion Tests
 // ---------------------------------------------------------------------------
@@ -500,9 +515,15 @@ describe("Motion Accessibility", () => {
     const reducedOutput = resolveAnimationOutput(schema, undefined, "reduced", SEMANTIC_STATE);
     const disabledOutput = resolveAnimationOutput(schema, undefined, "disabled", SEMANTIC_STATE);
 
-    expect(semanticStatesEquivalent(fullOutput.semanticState, reducedOutput.semanticState)).toBe(true);
-    expect(semanticStatesEquivalent(fullOutput.semanticState, disabledOutput.semanticState)).toBe(true);
-    expect(semanticStatesEquivalent(reducedOutput.semanticState, disabledOutput.semanticState)).toBe(true);
+    expect(semanticStatesEquivalent(fullOutput.semanticState, reducedOutput.semanticState)).toBe(
+      true,
+    );
+    expect(semanticStatesEquivalent(fullOutput.semanticState, disabledOutput.semanticState)).toBe(
+      true,
+    );
+    expect(
+      semanticStatesEquivalent(reducedOutput.semanticState, disabledOutput.semanticState),
+    ).toBe(true);
   });
 
   it("reduced mode caps essential transition duration", () => {
@@ -513,7 +534,7 @@ describe("Motion Accessibility", () => {
     });
     const output = resolveAnimationOutput(schema, undefined, "reduced", SEMANTIC_STATE);
     // REDUCED_MOTION has reducedDuration of 150ms = 0.15s
-    const transition = output.motionProps["transition"] as { duration: number } | undefined;
+    const transition = output.motionProps.transition as { duration: number } | undefined;
     expect(transition).toBeDefined();
     expect(transition!.duration).toBe(0.15); // 150ms / 1000
   });
@@ -523,7 +544,6 @@ describe("Motion Accessibility", () => {
     expect(semanticStatesEquivalent(SEMANTIC_STATE, altered)).toBe(false);
   });
 });
-
 
 // ---------------------------------------------------------------------------
 // Breakpoint & Responsive Tests
@@ -568,50 +588,65 @@ describe("Motion Projection", () => {
       ref: { kind: "motion-preset", stableId: "fade-in", version: "1.0.0" },
       status: "stable",
       schemaVersion: "1.0.0",
-      customizationSchema: makeSchema(["duration", "delay", "easing", "initial", "animate", "exit", "motionDisablement"], {
-        duration: { default: 0.3, range: { min: 0, max: 5 } },
-        delay: { default: 0, range: { min: 0, max: 10 } },
-        easing: { default: "easeOut", type: "easing-function" },
-        initial: { default: { opacity: 0 }, type: "variant-map" },
-        animate: { default: { opacity: 1 }, type: "variant-map" },
-        exit: { default: { opacity: 0 }, type: "variant-map" },
-        motionDisablement: { default: false, type: "boolean" },
-      }),
+      customizationSchema: makeSchema(
+        ["duration", "delay", "easing", "initial", "animate", "exit", "motionDisablement"],
+        {
+          duration: { default: 0.3, range: { min: 0, max: 5 } },
+          delay: { default: 0, range: { min: 0, max: 10 } },
+          easing: { default: "easeOut", type: "easing-function" },
+          initial: { default: { opacity: 0 }, type: "variant-map" },
+          animate: { default: { opacity: 1 }, type: "variant-map" },
+          exit: { default: { opacity: 0 }, type: "variant-map" },
+          motionDisablement: { default: false, type: "boolean" },
+        },
+      ),
       framerMotionVersion: FRAMER_MOTION_VERSION,
       framerMotionProvenance: FRAMER_MOTION_PROVENANCE,
-      sourceFiles: [{
-        path: "src/presets/fade-in.ts",
-        origin: "original",
-        mediaType: "text/typescript",
-        size: 1024,
-        checksum: { algorithm: "sha256", canonicalization: "neuraforge-canonical-v1", digest: "abc123" },
-      }],
-      dependencies: [{ name: "framer-motion", version: "11.15.0", source: "https://github.com/framer/motion" }],
-      examples: [{
-        id: "basic-fade",
-        title: "Basic fade in",
-        description: "A simple opacity fade from 0 to 1",
-        config: { overrides: { duration: 0.5 } },
-        sourcePath: "examples/basic-fade.tsx",
-        interactive: true,
-      }],
-      performanceRecords: [{
-        artifact: { kind: "motion-preset", stableId: "fade-in", version: "1.0.0" },
-        metric: "bundle-size",
-        scenario: "tree-shaken import",
-        environment: {
-          operatingSystem: "linux",
-          runtime: "node-20",
-          tools: { vite: "5.4.21" },
-          prerequisites: [],
-          fixtures: [],
+      sourceFiles: [
+        {
+          path: "src/presets/fade-in.ts",
+          origin: "original",
+          mediaType: "text/typescript",
+          size: 1024,
+          checksum: {
+            algorithm: "sha256",
+            canonicalization: "neuraforge-canonical-v1",
+            digest: "abc123",
+          },
         },
-        result: 2.1,
-        threshold: 5,
-        unit: "kB",
-        command: "npm run measure:bundle",
-        status: "passed",
-      }],
+      ],
+      dependencies: [
+        { name: "framer-motion", version: "11.15.0", source: "https://github.com/framer/motion" },
+      ],
+      examples: [
+        {
+          id: "basic-fade",
+          title: "Basic fade in",
+          description: "A simple opacity fade from 0 to 1",
+          config: { overrides: { duration: 0.5 } },
+          sourcePath: "examples/basic-fade.tsx",
+          interactive: true,
+        },
+      ],
+      performanceRecords: [
+        {
+          artifact: { kind: "motion-preset", stableId: "fade-in", version: "1.0.0" },
+          metric: "bundle-size",
+          scenario: "tree-shaken import",
+          environment: {
+            operatingSystem: "linux",
+            runtime: "node-20",
+            tools: { vite: "5.4.21" },
+            prerequisites: [],
+            fixtures: [],
+          },
+          result: 2.1,
+          threshold: 5,
+          unit: "kB",
+          command: "npm run measure:bundle",
+          status: "passed",
+        },
+      ],
       reducedMotionContract: REDUCED_MOTION,
     };
   }
@@ -675,13 +710,13 @@ describe("Motion Projection", () => {
   it("buildMotionMcpPayload returns complete MCP response structure", () => {
     const record = makePresetRecord();
     const payload = buildMotionMcpPayload(record);
-    expect(payload["kind"]).toBe("motion-preset");
-    expect(payload["stableId"]).toBe("fade-in");
-    expect(payload["version"]).toBe("1.0.0");
-    expect(payload["controls"]).toBeDefined();
-    expect(payload["reducedMotion"]).toBeDefined();
-    expect(payload["examples"]).toBeDefined();
-    expect(payload["performance"]).toBeDefined();
+    expect(payload.kind).toBe("motion-preset");
+    expect(payload.stableId).toBe("fade-in");
+    expect(payload.version).toBe("1.0.0");
+    expect(payload.controls).toBeDefined();
+    expect(payload.reducedMotion).toBeDefined();
+    expect(payload.examples).toBeDefined();
+    expect(payload.performance).toBeDefined();
   });
 
   it("buildMotionMcpPayload includes experimental warnings for experimental presets", () => {
@@ -691,8 +726,8 @@ describe("Motion Projection", () => {
       { code: "perf_fail", description: "Runtime threshold exceeded" },
     ];
     const payload = buildMotionMcpPayload(record);
-    expect(payload["experimental"]).toBeDefined();
-    const experimental = payload["experimental"] as { blockers: unknown[]; warnings: unknown[] };
+    expect(payload.experimental).toBeDefined();
+    const experimental = payload.experimental as { blockers: unknown[]; warnings: unknown[] };
     expect(experimental.blockers).toHaveLength(1);
     expect(experimental.warnings.length).toBeGreaterThan(0);
   });
@@ -700,12 +735,12 @@ describe("Motion Projection", () => {
   it("buildMotionMcpSummary returns summary with control counts", () => {
     const record = makePresetRecord();
     const summary = buildMotionMcpSummary(record);
-    expect(summary["kind"]).toBe("motion-preset");
-    expect(summary["stableId"]).toBe("fade-in");
-    expect(summary["applicableControls"]).toBe(7);
-    expect(summary["totalControls"]).toBe(22);
-    expect(summary["hasReducedMotionSupport"]).toBe(true);
-    expect(summary["performanceStatus"]).toBe("passing");
+    expect(summary.kind).toBe("motion-preset");
+    expect(summary.stableId).toBe("fade-in");
+    expect(summary.applicableControls).toBe(7);
+    expect(summary.totalControls).toBe(22);
+    expect(summary.hasReducedMotionSupport).toBe(true);
+    expect(summary.performanceStatus).toBe("passing");
   });
 });
 
@@ -722,26 +757,49 @@ describe("Motion Performance", () => {
       customizationSchema: makeSchema(["duration"]),
       framerMotionVersion: FRAMER_MOTION_VERSION,
       framerMotionProvenance: FRAMER_MOTION_PROVENANCE,
-      sourceFiles: [{
-        path: "src/presets/bounce.ts",
-        origin: "original",
-        mediaType: "text/typescript",
-        size: 512,
-        checksum: { algorithm: "sha256", canonicalization: "neuraforge-canonical-v1", digest: "def456" },
-      }],
+      sourceFiles: [
+        {
+          path: "src/presets/bounce.ts",
+          origin: "original",
+          mediaType: "text/typescript",
+          size: 512,
+          checksum: {
+            algorithm: "sha256",
+            canonicalization: "neuraforge-canonical-v1",
+            digest: "def456",
+          },
+        },
+      ],
       dependencies: [],
-      examples: [{ id: "ex1", title: "Bounce", description: "Bounce example", config: {}, sourcePath: "ex.tsx", interactive: false }],
-      performanceRecords: [{
-        artifact: { kind: "motion-preset", stableId: "bounce", version: "1.0.0" },
-        metric: "runtime-fps",
-        scenario: "60fps animation",
-        environment: { operatingSystem: "linux", runtime: "chrome-120", tools: {}, prerequisites: [], fixtures: [] },
-        result: 45,
-        threshold: 55,
-        unit: "fps",
-        command: "npm run perf:fps",
-        status: "failed",
-      }],
+      examples: [
+        {
+          id: "ex1",
+          title: "Bounce",
+          description: "Bounce example",
+          config: {},
+          sourcePath: "ex.tsx",
+          interactive: false,
+        },
+      ],
+      performanceRecords: [
+        {
+          artifact: { kind: "motion-preset", stableId: "bounce", version: "1.0.0" },
+          metric: "runtime-fps",
+          scenario: "60fps animation",
+          environment: {
+            operatingSystem: "linux",
+            runtime: "chrome-120",
+            tools: {},
+            prerequisites: [],
+            fixtures: [],
+          },
+          result: 45,
+          threshold: 55,
+          unit: "fps",
+          command: "npm run perf:fps",
+          status: "failed",
+        },
+      ],
       reducedMotionContract: REDUCED_MOTION,
     };
 
@@ -758,30 +816,53 @@ describe("Motion Performance", () => {
       customizationSchema: makeSchema(["duration"]),
       framerMotionVersion: FRAMER_MOTION_VERSION,
       framerMotionProvenance: FRAMER_MOTION_PROVENANCE,
-      sourceFiles: [{
-        path: "src/presets/slide.ts",
-        origin: "original",
-        mediaType: "text/typescript",
-        size: 768,
-        checksum: { algorithm: "sha256", canonicalization: "neuraforge-canonical-v1", digest: "ghi789" },
-      }],
+      sourceFiles: [
+        {
+          path: "src/presets/slide.ts",
+          origin: "original",
+          mediaType: "text/typescript",
+          size: 768,
+          checksum: {
+            algorithm: "sha256",
+            canonicalization: "neuraforge-canonical-v1",
+            digest: "ghi789",
+          },
+        },
+      ],
       dependencies: [],
-      examples: [{ id: "ex1", title: "Slide", description: "Slide example", config: {}, sourcePath: "ex.tsx", interactive: false }],
-      performanceRecords: [{
-        artifact: { kind: "motion-preset", stableId: "slide", version: "0.1.0" },
-        metric: "bundle-size",
-        scenario: "full import",
-        environment: { operatingSystem: "linux", runtime: "node-20", tools: {}, prerequisites: [], fixtures: [] },
-        result: 12,
-        threshold: 5,
-        unit: "kB",
-        command: "npm run measure:bundle",
-        status: "failed",
-      }],
+      examples: [
+        {
+          id: "ex1",
+          title: "Slide",
+          description: "Slide example",
+          config: {},
+          sourcePath: "ex.tsx",
+          interactive: false,
+        },
+      ],
+      performanceRecords: [
+        {
+          artifact: { kind: "motion-preset", stableId: "slide", version: "0.1.0" },
+          metric: "bundle-size",
+          scenario: "full import",
+          environment: {
+            operatingSystem: "linux",
+            runtime: "node-20",
+            tools: {},
+            prerequisites: [],
+            fixtures: [],
+          },
+          result: 12,
+          threshold: 5,
+          unit: "kB",
+          command: "npm run measure:bundle",
+          status: "failed",
+        },
+      ],
       reducedMotionContract: REDUCED_MOTION,
     };
 
     const summary = buildMotionMcpSummary(record);
-    expect(summary["performanceStatus"]).toBe("failing");
+    expect(summary.performanceStatus).toBe("failing");
   });
 });

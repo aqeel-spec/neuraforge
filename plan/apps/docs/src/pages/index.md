@@ -29,6 +29,7 @@ Configure your MCP client:
 ```
 
 Then your agent can:
+
 - `list_components` — Browse the 20-component catalog
 - `get_component` — Get exact source + install steps + checksum
 - `search_components` — Find components by intent

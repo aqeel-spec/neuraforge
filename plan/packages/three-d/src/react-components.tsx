@@ -6,7 +6,7 @@
  * Type checking is deferred to consumer projects.
  */
 
-// @ts-nocheck
+// @ts-nocheck — browser APIs (IntersectionObserver, matchMedia) not available in workspace typecheck
 
 import * as React from "react";
 
@@ -64,7 +64,7 @@ export function ThreeDContainer({
   const [runtimeState, setRuntimeState] = React.useState<ThreeDRuntimeState>(() => {
     const isAvailable = defaultCapabilityPredicate(requiredCapability);
     const initial = isAvailable ? "initializing" : "fallback";
-    return createInitialRuntimeState(initial as "initializing" | "fallback", errorBoundary);
+    return createInitialRuntimeState(initial, errorBoundary);
   });
 
   // Notify parent of state changes
@@ -112,7 +112,9 @@ export function ThreeDContainer({
     );
 
     observer.observe(el);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
   // Determine what to render
@@ -216,9 +218,13 @@ export function ReducedMotion3D({
     if (typeof window === "undefined") return;
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     setPrefersReduced(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setPrefersReduced(e.matches);
+    const handler = (e: MediaQueryListEvent) => {
+      setPrefersReduced(e.matches);
+    };
     mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
+    return () => {
+      mq.removeEventListener("change", handler);
+    };
   }, []);
 
   return React.createElement(React.Fragment, null, prefersReduced ? reducedContent : children);

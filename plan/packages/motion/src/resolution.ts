@@ -34,7 +34,10 @@ export function resolveMotionConfig(
   config?: MotionOverrideConfig,
 ): ResolvedMotionConfig {
   const values = {} as Record<MotionControlName, JsonValue | undefined>;
-  const breakpointValues = {} as Record<BreakpointId, Record<MotionControlName, JsonValue | undefined>>;
+  const breakpointValues = {} as Record<
+    BreakpointId,
+    Record<MotionControlName, JsonValue | undefined>
+  >;
   const appliedOverrides: string[] = [];
   const appliedDefaults: string[] = [];
 
@@ -51,7 +54,7 @@ export function resolveMotionConfig(
       // Non-applicable: never expose in resolved config
       values[name] = undefined;
       for (const bp of BREAKPOINT_IDS) {
-        breakpointValues[bp]![name] = undefined;
+        breakpointValues[bp][name] = undefined;
       }
       continue;
     }
@@ -74,18 +77,20 @@ export function resolveMotionConfig(
       const supportsBreakpoint = controlSupportsBreakpoint(control.breakpoints, bp);
 
       if (supportsBreakpoint && bpOverride !== undefined) {
-        breakpointValues[bp]![name] = bpOverride;
+        breakpointValues[bp][name] = bpOverride;
         appliedOverrides.push(`${bp}.${name}`);
       } else {
         // Fall through to base value (already resolved above)
-        breakpointValues[bp]![name] = values[name];
+        breakpointValues[bp][name] = values[name];
       }
     }
   }
 
   return {
     values: values as Readonly<Record<MotionControlName, JsonValue | undefined>>,
-    breakpointValues: breakpointValues as Readonly<Record<BreakpointId, Readonly<Record<MotionControlName, JsonValue | undefined>>>>,
+    breakpointValues: breakpointValues as Readonly<
+      Record<BreakpointId, Readonly<Record<MotionControlName, JsonValue | undefined>>>
+    >,
     appliedOverrides,
     appliedDefaults,
   };

@@ -135,7 +135,9 @@ export interface AdvancedValidationResult {
   readonly issues: readonly string[];
 }
 
-export function validateAdvancedSnapshot(snapshot: AdvancedArtifactSnapshot): AdvancedValidationResult {
+export function validateAdvancedSnapshot(
+  snapshot: AdvancedArtifactSnapshot,
+): AdvancedValidationResult {
   const issues: string[] = [];
 
   // Validate motion presets
@@ -149,7 +151,7 @@ export function validateAdvancedSnapshot(snapshot: AdvancedArtifactSnapshot): Ad
     if (!entry.checksum.digest) {
       issues.push(`Motion preset "${entry.ref.stableId}" missing checksum`);
     }
-    if (entry.hasReducedMotionSupport !== true) {
+    if (!entry.hasReducedMotionSupport) {
       issues.push(`Motion preset "${entry.ref.stableId}" must declare reduced-motion support`);
     }
   }
@@ -165,7 +167,7 @@ export function validateAdvancedSnapshot(snapshot: AdvancedArtifactSnapshot): Ad
     if (!entry.checksum.digest) {
       issues.push(`3D component "${entry.ref.stableId}" missing checksum`);
     }
-    if (entry.hasFallback !== true) {
+    if (!entry.hasFallback) {
       issues.push(`3D component "${entry.ref.stableId}" must have a non-3D fallback`);
     }
   }
@@ -199,13 +201,17 @@ export function enforceExperimentalGating(snapshot: AdvancedArtifactSnapshot): r
 
   for (const entry of snapshot.motionPresets) {
     if (entry.status === "stable" && entry.performanceRecords.some((r) => r.status === "failed")) {
-      violations.push(`Motion preset "${entry.ref.stableId}" is stable but has failing performance records`);
+      violations.push(
+        `Motion preset "${entry.ref.stableId}" is stable but has failing performance records`,
+      );
     }
   }
 
   for (const entry of snapshot.threeDComponents) {
     if (entry.status === "stable" && entry.performanceRecords.some((r) => r.status === "failed")) {
-      violations.push(`3D component "${entry.ref.stableId}" is stable but has failing performance records`);
+      violations.push(
+        `3D component "${entry.ref.stableId}" is stable but has failing performance records`,
+      );
     }
   }
 
@@ -225,6 +231,9 @@ export function countAdvancedArtifacts(snapshot: AdvancedArtifactSnapshot): {
     motionPresets: snapshot.motionPresets.length,
     threeDComponents: snapshot.threeDComponents.length,
     compositions: snapshot.compositions.length,
-    total: snapshot.motionPresets.length + snapshot.threeDComponents.length + snapshot.compositions.length,
+    total:
+      snapshot.motionPresets.length +
+      snapshot.threeDComponents.length +
+      snapshot.compositions.length,
   };
 }

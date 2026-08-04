@@ -15,7 +15,7 @@ import { MOTION_CONTROL_NAMES } from "./types.js";
 // ---------------------------------------------------------------------------
 
 /** The exact pinned Framer Motion version this package targets. */
-export const FRAMER_MOTION_VERSION = "11.15.0" as const;
+export const FRAMER_MOTION_VERSION = "11.15.0";
 
 /**
  * Complete license provenance record for Framer Motion, satisfying Requirements 1.4–1.6.
@@ -68,7 +68,9 @@ export interface SchemaCompletenessResult {
  * TypeScript enforces completeness at compile time; this function provides a runtime
  * equivalent for dynamic schemas (e.g., loaded from JSON) and returns structured diagnostics.
  */
-export function validateSchemaCompleteness(schema: MotionCustomizationSchema): SchemaCompletenessResult {
+export function validateSchemaCompleteness(
+  schema: MotionCustomizationSchema,
+): SchemaCompletenessResult {
   const missing: MotionControlName[] = [];
   const duplicates: MotionControlName[] = [];
   const seen = new Set<string>();
@@ -112,7 +114,9 @@ export function getApplicableControlNames(schema: MotionCustomizationSchema): Mo
  * Returns the names of all controls classified as `not_applicable` in the given schema.
  * Useful for reporting which controls are inert for a particular artifact.
  */
-export function getNonApplicableControlNames(schema: MotionCustomizationSchema): MotionControlName[] {
+export function getNonApplicableControlNames(
+  schema: MotionCustomizationSchema,
+): MotionControlName[] {
   const result: MotionControlName[] = [];
   for (const name of MOTION_CONTROL_NAMES) {
     const control = schema.controls[name];

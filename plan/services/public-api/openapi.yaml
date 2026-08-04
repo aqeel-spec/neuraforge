@@ -40,7 +40,7 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: Component list
           content:
             application/json:
@@ -50,7 +50,7 @@ paths:
                   components:
                     type: array
                     items:
-                      $ref: '#/components/schemas/ComponentSummary'
+                      $ref: "#/components/schemas/ComponentSummary"
                   total:
                     type: integer
                   nextCursor:
@@ -72,13 +72,13 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: Full component data
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ComponentDetail'
-        '404':
+                $ref: "#/components/schemas/ComponentDetail"
+        "404":
           description: Component not found
 
   /tokens:
@@ -93,7 +93,7 @@ paths:
             enum: [tailwind, css-variables, json]
             default: json
       responses:
-        '200':
+        "200":
           description: Token set
 
   /health:
@@ -101,7 +101,7 @@ paths:
       operationId: healthCheck
       summary: Service health
       responses:
-        '200':
+        "200":
           description: Healthy
 
 components:

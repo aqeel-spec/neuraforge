@@ -184,10 +184,13 @@ function validateSemanticHierarchy(
   if (!rule || typeof rule !== "object") return violations;
 
   // Check "required" rule: constrained elements must have non-empty values
-  if (Array.isArray(rule["required"])) {
+  if (Array.isArray(rule.required)) {
     for (const elementId of invariant.constrainedElements) {
       const input = manifest.customizationInputs.find((i) => i.id === elementId);
-      if (input?.required && (values[elementId] === undefined || values[elementId] === "" || values[elementId] === null)) {
+      if (
+        input?.required &&
+        (values[elementId] === undefined || values[elementId] === "" || values[elementId] === null)
+      ) {
         violations.push({
           invariantId: invariant.id,
           invariantType: "semantic-hierarchy",
@@ -216,7 +219,7 @@ function validateResponsiveBehavior(
 
   // Check that constrained elements haven't been set to values that break responsive
   // (e.g., fixed pixel widths that override responsive layout)
-  if (rule["noFixedWidth"]) {
+  if (rule.noFixedWidth) {
     for (const elementId of invariant.constrainedElements) {
       const value = values[elementId];
       if (typeof value === "string" && /^\d+px$/.test(value)) {
@@ -247,7 +250,7 @@ function validateAccessibilityBehavior(
   if (!rule || typeof rule !== "object") return violations;
 
   // Check requireAlt: if image inputs exist, they must have alt text sibling
-  if (rule["requireAlt"]) {
+  if (rule.requireAlt) {
     for (const elementId of invariant.constrainedElements) {
       const altId = `${elementId}_alt`;
       const altValue = values[altId];
@@ -280,8 +283,8 @@ function validateRequiredRelationship(
 
   if (!rule || typeof rule !== "object") return violations;
 
-  const ifPresent = rule["ifPresent"] as string | undefined;
-  const thenRequired = rule["thenRequired"] as string[] | undefined;
+  const ifPresent = rule.ifPresent as string | undefined;
+  const thenRequired = rule.thenRequired as string[] | undefined;
 
   if (ifPresent && thenRequired) {
     const presentValue = values[ifPresent];

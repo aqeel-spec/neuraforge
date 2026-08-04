@@ -23,23 +23,19 @@ const ERROR_BOUNDARY = { initTimeoutMs: 5000, retryOnContextRestored: true, maxR
 describe("Property 15: 3D suspension and resumption preserve valid state", () => {
   it("suspend captures state and resume returns the exact same state", () => {
     fc.assert(
-      fc.property(
-        fc.json(),
-        fc.integer({ min: 1000, max: 9999999 }),
-        (sceneState, timestamp) => {
-          const parsed = JSON.parse(sceneState) as JsonValue;
-          let state = createInitialRuntimeState("initializing", ERROR_BOUNDARY);
-          state = activate(state);
-          state = suspendAt(state, parsed, timestamp);
-          expect(state.resumeState).toBeDefined();
-          expect(state.resumeState!.state).toEqual(parsed);
-          expect(state.resumeState!.suspendedAt).toBe(timestamp);
-          const { state: resumed, resumedFrom } = resume(state);
-          expect(resumed.lifecycle).toBe("active");
-          expect(resumedFrom).toBeDefined();
-          expect(resumedFrom!.state).toEqual(parsed);
-        },
-      ),
+      fc.property(fc.json(), fc.integer({ min: 1000, max: 9999999 }), (sceneState, timestamp) => {
+        const parsed = JSON.parse(sceneState) as JsonValue;
+        let state = createInitialRuntimeState("initializing", ERROR_BOUNDARY);
+        state = activate(state);
+        state = suspendAt(state, parsed, timestamp);
+        expect(state.resumeState).toBeDefined();
+        expect(state.resumeState!.state).toEqual(parsed);
+        expect(state.resumeState!.suspendedAt).toBe(timestamp);
+        const { state: resumed, resumedFrom } = resume(state);
+        expect(resumed.lifecycle).toBe("active");
+        expect(resumedFrom).toBeDefined();
+        expect(resumedFrom!.state).toEqual(parsed);
+      }),
       { numRuns: 100 },
     );
   });

@@ -6,7 +6,7 @@
  * Type checking is deferred to consumer projects that install the peer dep.
  */
 
-// @ts-nocheck
+// @ts-nocheck — framer-motion is a peer dependency not installed in workspace
 
 import * as React from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
@@ -104,7 +104,9 @@ export function AnimatedContainer({
       motionProps.animate = resolved.values.animate;
     }
     if (schema.reducedMotion.essentialTransitions.length > 0) {
-      const maxDuration = Math.max(...schema.reducedMotion.essentialTransitions.map((t) => t.reducedDuration));
+      const maxDuration = Math.max(
+        ...schema.reducedMotion.essentialTransitions.map((t) => t.reducedDuration),
+      );
       motionProps.transition = { duration: maxDuration / 1000 };
     } else {
       motionProps.transition = { duration: 0 };
@@ -156,12 +158,14 @@ export function AnimatedList({
     return React.createElement(
       "div",
       { className },
-      children.map((child, i) => React.createElement("div", { key: i, className: itemClassName }, child)),
+      children.map((child, i) =>
+        React.createElement("div", { key: i, className: itemClassName }, child),
+      ),
     );
   }
 
   const staggerDelay = isApplicableControl(schema.controls.stagger)
-    ? (resolved.values.stagger as number ?? 0.1)
+    ? ((resolved.values.stagger as number) ?? 0.1)
     : 0.1;
 
   const containerVariants = {
@@ -169,21 +173,26 @@ export function AnimatedList({
     visible: { transition: { staggerChildren: staggerDelay } },
   };
 
-  const itemVariants = mode === "full"
-    ? {
-        hidden: resolved.values.initial ?? { opacity: 0, y: 20 },
-        visible: resolved.values.animate ?? { opacity: 1, y: 0 },
-      }
-    : {
-        hidden: {},
-        visible: {},
-      };
+  const itemVariants =
+    mode === "full"
+      ? {
+          hidden: resolved.values.initial ?? { opacity: 0, y: 20 },
+          visible: resolved.values.animate ?? { opacity: 1, y: 0 },
+        }
+      : {
+          hidden: {},
+          visible: {},
+        };
 
   return React.createElement(
     motion.div,
     { className, variants: containerVariants, initial: "hidden", animate: "visible" },
     children.map((child, i) =>
-      React.createElement(motion.div, { key: i, className: itemClassName, variants: itemVariants }, child),
+      React.createElement(
+        motion.div,
+        { key: i, className: itemClassName, variants: itemVariants },
+        child,
+      ),
     ),
   );
 }

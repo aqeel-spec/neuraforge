@@ -147,9 +147,10 @@ export function projectThreeDComponent(record: ThreeDComponentRecord): Projected
 /**
  * Determines stable/experimental classification based on completeness and evidence.
  */
-export function classifyThreeDStatus(
-  record: ThreeDComponentRecord,
-): { status: "stable" | "experimental"; blockers: ThreeDBlockingCondition[] } {
+export function classifyThreeDStatus(record: ThreeDComponentRecord): {
+  status: "stable" | "experimental";
+  blockers: ThreeDBlockingCondition[];
+} {
   const blockers: ThreeDBlockingCondition[] = [];
 
   const validation = validateComponentRecord(record);

@@ -200,7 +200,7 @@ function buildMotionProps(
     const framerPropMapping = mapControlToFramerProp(name, value);
     if (framerPropMapping) {
       for (const [propName, propValue] of Object.entries(framerPropMapping)) {
-        props[propName] = propValue as JsonValue;
+        props[propName] = propValue;
       }
     }
   }
@@ -237,10 +237,10 @@ function buildReducedMotionProps(
   const animateValue = resolved.values.animate;
 
   if (initialValue !== undefined) {
-    props["initial"] = initialValue;
+    props.initial = initialValue;
   }
   if (animateValue !== undefined) {
-    props["animate"] = animateValue;
+    props.animate = animateValue;
   }
 
   return props;
@@ -333,7 +333,7 @@ export function getBreakpointMotionProps(
 
     // Use breakpoint value if available, otherwise base value
     const bpValues = resolved.breakpointValues[breakpoint];
-    const value = bpValues?.[name] ?? resolved.values[name];
+    const value = bpValues[name] ?? resolved.values[name];
     if (value === undefined) continue;
 
     if (mode === "reduced") {
@@ -354,7 +354,7 @@ export function getBreakpointMotionProps(
     const maxDuration = Math.max(
       ...schema.reducedMotion.essentialTransitions.map((t) => t.reducedDuration),
     );
-    props["transition"] = { duration: maxDuration / 1000 };
+    props.transition = { duration: maxDuration / 1000 };
   }
 
   return props;

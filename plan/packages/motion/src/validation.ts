@@ -75,7 +75,7 @@ export function validateMotionConfig(
         if (value === undefined) continue;
         validateBreakpointOverrideEntry(
           schema,
-          bpKey as BreakpointId,
+          bpKey,
           controlKey,
           value,
           `breakpointOverrides.${bpKey}.${controlKey}`,
@@ -122,7 +122,7 @@ function validateOverrideEntry(
     return;
   }
 
-  const name = key as MotionControlName;
+  const name = key;
   const control = schema.controls[name];
 
   // Check if control is non-applicable
@@ -159,7 +159,7 @@ function validateBreakpointOverrideEntry(
     return;
   }
 
-  const name = key as MotionControlName;
+  const name = key;
   const control = schema.controls[name];
 
   // Check if control is non-applicable
@@ -341,7 +341,7 @@ function getTypeHint(type: string): string {
     case "spring":
       return ' Provide an object like { "stiffness": 100, "damping": 10 }.';
     case "easing-function":
-      return ' Provide a named easing string or a [x1, y1, x2, y2] bezier array.';
+      return " Provide a named easing string or a [x1, y1, x2, y2] bezier array.";
     case "variant-map":
       return " Provide an object mapping state names to animation values.";
     case "keyframe-array":

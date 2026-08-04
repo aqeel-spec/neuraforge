@@ -15,6 +15,7 @@ docker compose up -d
 ```
 
 The container exposes:
+
 - Port 3000: Registry + Public API + Docs
 - Health check: `GET /health`
 

@@ -91,13 +91,14 @@ export function determineInitialState(
  * Valid transitions in the 3D component lifecycle state machine.
  * Enforces the documented transition graph.
  */
-const VALID_TRANSITIONS: ReadonlyMap<ThreeDLifecycleState, readonly ThreeDLifecycleState[]> = new Map([
-  ["fallback", []],
-  ["initializing", ["active", "failed"]],
-  ["active", ["suspended", "failed"]],
-  ["suspended", ["active", "failed"]],
-  ["failed", ["fallback"]],
-]);
+const VALID_TRANSITIONS: ReadonlyMap<ThreeDLifecycleState, readonly ThreeDLifecycleState[]> =
+  new Map([
+    ["fallback", []],
+    ["initializing", ["active", "failed"]],
+    ["active", ["suspended", "failed"]],
+    ["suspended", ["active", "failed"]],
+    ["failed", ["fallback"]],
+  ]);
 
 /**
  * Checks whether a lifecycle state transition is valid.
@@ -200,13 +201,13 @@ export function validateFallbackContract(fallback: ThreeDFallbackContract): {
   if (!fallback.fallbackSourcePath) {
     issues.push("Fallback must have a source path (first-class source, not generated)");
   }
-  if (fallback.preservesContent !== true) {
+  if (!fallback.preservesContent) {
     issues.push("Fallback must preserve content");
   }
-  if (fallback.preservesStatus !== true) {
+  if (!fallback.preservesStatus) {
     issues.push("Fallback must preserve status");
   }
-  if (fallback.preservesPrimaryActions !== true) {
+  if (!fallback.preservesPrimaryActions) {
     issues.push("Fallback must preserve primary actions");
   }
 

@@ -93,7 +93,13 @@ export function generateNavigation(pages: readonly DocPage[]): DocNavigation {
 
 /** Generates component documentation pages from the catalog. */
 export function generateComponentPages(
-  components: readonly { stableId: string; version: string; name: string; category: string; description: string }[],
+  components: readonly {
+    stableId: string;
+    version: string;
+    name: string;
+    category: string;
+    description: string;
+  }[],
   releaseVersion: string,
 ): DocPage[] {
   return components.map((c) => ({
@@ -141,7 +147,13 @@ export function generateThreeDPages(
 
 /** Generates composition documentation pages. */
 export function generateCompositionPages(
-  compositions: readonly { stableId: string; version: string; name: string; description: string; category: string }[],
+  compositions: readonly {
+    stableId: string;
+    version: string;
+    name: string;
+    description: string;
+    category: string;
+  }[],
   releaseVersion: string,
 ): DocPage[] {
   return compositions.map((c) => ({
@@ -159,11 +171,59 @@ export function generateCompositionPages(
 export function generateStaticPages(releaseVersion: string): DocPage[] {
   const today = new Date().toISOString().split("T")[0]!;
   return [
-    { slug: "api/overview", title: "API Overview", description: "Public REST API reference", category: "api", version: releaseVersion, lastUpdated: today, sourceLink: "services/public-api/src/router.ts" },
-    { slug: "cli/getting-started", title: "CLI Getting Started", description: "Install, search, preview, and apply components", category: "cli", version: releaseVersion, lastUpdated: today, sourceLink: "packages/cli/src/cli.ts" },
-    { slug: "mcp/operations", title: "MCP Operations", description: "list_components, get_component, search_components, get_design_tokens", category: "mcp", version: releaseVersion, lastUpdated: today, sourceLink: "packages/mcp-core/src/dispatcher.ts" },
-    { slug: "self-hosting/setup", title: "Self-Hosting Setup", description: "Run the full stack yourself, offline", category: "self-hosting", version: releaseVersion, lastUpdated: today, sourceLink: "packages/self-hosting/src/start.ts" },
-    { slug: "tokens/overview", title: "Design Tokens", description: "Color, typography, spacing, and Tailwind theme generation", category: "tokens", version: releaseVersion, lastUpdated: today, sourceLink: "packages/tokens/src/index.ts" },
-    { slug: "guides/contributing", title: "Contributing", description: "How to contribute to NeuraForge UI", category: "guides", version: releaseVersion, lastUpdated: today, sourceLink: "CONTRIBUTING.md" },
+    {
+      slug: "api/overview",
+      title: "API Overview",
+      description: "Public REST API reference",
+      category: "api",
+      version: releaseVersion,
+      lastUpdated: today,
+      sourceLink: "services/public-api/src/router.ts",
+    },
+    {
+      slug: "cli/getting-started",
+      title: "CLI Getting Started",
+      description: "Install, search, preview, and apply components",
+      category: "cli",
+      version: releaseVersion,
+      lastUpdated: today,
+      sourceLink: "packages/cli/src/cli.ts",
+    },
+    {
+      slug: "mcp/operations",
+      title: "MCP Operations",
+      description: "list_components, get_component, search_components, get_design_tokens",
+      category: "mcp",
+      version: releaseVersion,
+      lastUpdated: today,
+      sourceLink: "packages/mcp-core/src/dispatcher.ts",
+    },
+    {
+      slug: "self-hosting/setup",
+      title: "Self-Hosting Setup",
+      description: "Run the full stack yourself, offline",
+      category: "self-hosting",
+      version: releaseVersion,
+      lastUpdated: today,
+      sourceLink: "packages/self-hosting/src/start.ts",
+    },
+    {
+      slug: "tokens/overview",
+      title: "Design Tokens",
+      description: "Color, typography, spacing, and Tailwind theme generation",
+      category: "tokens",
+      version: releaseVersion,
+      lastUpdated: today,
+      sourceLink: "packages/tokens/src/index.ts",
+    },
+    {
+      slug: "guides/contributing",
+      title: "Contributing",
+      description: "How to contribute to NeuraForge UI",
+      category: "guides",
+      version: releaseVersion,
+      lastUpdated: today,
+      sourceLink: "CONTRIBUTING.md",
+    },
   ];
 }

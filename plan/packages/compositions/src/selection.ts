@@ -60,9 +60,8 @@ export function selectCompositions(
   const results = scored.slice(0, request.limit);
 
   // 6. Compute alternatives (top results from all manifests if no exact matches)
-  const alternatives = results.length === 0
-    ? computeAlternatives(manifests, normalizedIntent, request, rules)
-    : [];
+  const alternatives =
+    results.length === 0 ? computeAlternatives(manifests, normalizedIntent, request, rules) : [];
 
   return {
     registryVersion: registryVersion,
@@ -81,10 +80,7 @@ export function selectCompositions(
  * Normalizes an intent string using the published normalization steps.
  * Steps are applied in declared order for determinism.
  */
-export function normalizeIntent(
-  intent: string,
-  steps: readonly NormalizationStep[],
-): string {
+export function normalizeIntent(intent: string, steps: readonly NormalizationStep[]): string {
   let normalized = intent;
 
   for (const step of steps) {
@@ -113,10 +109,38 @@ export function normalizeIntent(
 }
 
 const STOP_WORDS = new Set([
-  "a", "an", "the", "is", "are", "was", "were", "be", "been",
-  "being", "have", "has", "had", "do", "does", "did", "will",
-  "would", "could", "should", "may", "might", "can", "for",
-  "of", "to", "in", "on", "at", "by", "with", "from",
+  "a",
+  "an",
+  "the",
+  "is",
+  "are",
+  "was",
+  "were",
+  "be",
+  "been",
+  "being",
+  "have",
+  "has",
+  "had",
+  "do",
+  "does",
+  "did",
+  "will",
+  "would",
+  "could",
+  "should",
+  "may",
+  "might",
+  "can",
+  "for",
+  "of",
+  "to",
+  "in",
+  "on",
+  "at",
+  "by",
+  "with",
+  "from",
 ]);
 
 function removeStopWords(text: string): string {
@@ -231,7 +255,10 @@ function evaluateFilter(manifest: CompositionManifest, filter: EligibilityFilter
   }
 }
 
-function evaluateRequestConstraint(manifest: CompositionManifest, constraint: RequestConstraint): boolean {
+function evaluateRequestConstraint(
+  manifest: CompositionManifest,
+  constraint: RequestConstraint,
+): boolean {
   const value = getManifestField(manifest, constraint.field);
 
   switch (constraint.operator) {
@@ -251,20 +278,34 @@ function evaluateRequestConstraint(manifest: CompositionManifest, constraint: Re
       }
       return false;
     case "gte":
-      return typeof value === "number" && typeof constraint.value === "number" && value >= constraint.value;
+      return (
+        typeof value === "number" &&
+        typeof constraint.value === "number" &&
+        value >= constraint.value
+      );
     case "lte":
-      return typeof value === "number" && typeof constraint.value === "number" && value <= constraint.value;
+      return (
+        typeof value === "number" &&
+        typeof constraint.value === "number" &&
+        value <= constraint.value
+      );
   }
 }
 
 function getManifestField(manifest: CompositionManifest, field: string): JsonValue | undefined {
   switch (field) {
-    case "category": return manifest.category;
-    case "name": return manifest.name;
-    case "description": return manifest.description;
-    case "tags": return manifest.tags as unknown as JsonValue;
-    case "schemaVersion": return manifest.schemaVersion;
-    default: return undefined;
+    case "category":
+      return manifest.category;
+    case "name":
+      return manifest.name;
+    case "description":
+      return manifest.description;
+    case "tags":
+      return manifest.tags as unknown as JsonValue;
+    case "schemaVersion":
+      return manifest.schemaVersion;
+    default:
+      return undefined;
   }
 }
 
@@ -390,9 +431,7 @@ function computeAlternatives(
   rules: SelectionRuleSet,
 ): ScoredComposition[] {
   // Score all manifests regardless of constraints, return top 3
-  const scored = manifests.map((m) =>
-    scoreComposition(m, normalizedIntent, request, rules),
-  );
+  const scored = manifests.map((m) => scoreComposition(m, normalizedIntent, request, rules));
   scored.sort((a, b) => {
     if (b.score !== a.score) return b.score - a.score;
     return a.ref.stableId.localeCompare(b.ref.stableId);

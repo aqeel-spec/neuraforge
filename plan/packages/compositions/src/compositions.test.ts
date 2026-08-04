@@ -11,7 +11,13 @@ import type {
 } from "./types.js";
 import type { ArtifactLookup } from "./retrieval.js";
 
-import { getDeclaredInputIds, getInputDefaults, getInvariantsByType, resolveManifestRefs, validateManifest } from "./manifest.js";
+import {
+  getDeclaredInputIds,
+  getInputDefaults,
+  getInvariantsByType,
+  resolveManifestRefs,
+  validateManifest,
+} from "./manifest.js";
 import { applyBrandConfig, checkInvariants } from "./customization.js";
 import { normalizeIntent, selectCompositions } from "./selection.js";
 import { buildNoMatchResult, handleCompositionRequest, retrieveComposition } from "./retrieval.js";
@@ -48,22 +54,119 @@ const FIXTURE_PROVENANCE: LicenseProvenance = {
 };
 
 const FIXTURE_INPUTS: readonly CustomizationInput[] = [
-  { id: "heading", label: "Heading", description: "Main heading text", type: "string", default: "Choose Your Plan", required: true, group: "content" },
-  { id: "subheading", label: "Subheading", description: "Subheading text", type: "string", default: "Simple, transparent pricing", required: false, group: "content" },
-  { id: "tier_count", label: "Tier Count", description: "Number of pricing tiers", type: "number", default: 3, required: true, group: "layout" },
-  { id: "show_annual", label: "Show Annual Toggle", description: "Show annual/monthly toggle", type: "boolean", default: true, required: false, group: "features" },
-  { id: "cta_text", label: "CTA Text", description: "Call-to-action button text", type: "string", default: "Get Started", required: true, group: "content" },
-  { id: "cta_link", label: "CTA Link", description: "CTA button destination", type: "string", default: "/signup", required: false, group: "content" },
-  { id: "accent_color", label: "Accent Color", description: "Primary accent color", type: "color", default: "#6366f1", required: false, group: "branding" },
-  { id: "layout_style", label: "Layout Style", description: "Card layout style", type: "enum", default: "cards", required: true, allowedValues: ["cards", "table", "minimal"], group: "layout" },
-  { id: "hero_image", label: "Hero Image", description: "Background image URL", type: "image-url", default: "", required: false, group: "branding" },
+  {
+    id: "heading",
+    label: "Heading",
+    description: "Main heading text",
+    type: "string",
+    default: "Choose Your Plan",
+    required: true,
+    group: "content",
+  },
+  {
+    id: "subheading",
+    label: "Subheading",
+    description: "Subheading text",
+    type: "string",
+    default: "Simple, transparent pricing",
+    required: false,
+    group: "content",
+  },
+  {
+    id: "tier_count",
+    label: "Tier Count",
+    description: "Number of pricing tiers",
+    type: "number",
+    default: 3,
+    required: true,
+    group: "layout",
+  },
+  {
+    id: "show_annual",
+    label: "Show Annual Toggle",
+    description: "Show annual/monthly toggle",
+    type: "boolean",
+    default: true,
+    required: false,
+    group: "features",
+  },
+  {
+    id: "cta_text",
+    label: "CTA Text",
+    description: "Call-to-action button text",
+    type: "string",
+    default: "Get Started",
+    required: true,
+    group: "content",
+  },
+  {
+    id: "cta_link",
+    label: "CTA Link",
+    description: "CTA button destination",
+    type: "string",
+    default: "/signup",
+    required: false,
+    group: "content",
+  },
+  {
+    id: "accent_color",
+    label: "Accent Color",
+    description: "Primary accent color",
+    type: "color",
+    default: "#6366f1",
+    required: false,
+    group: "branding",
+  },
+  {
+    id: "layout_style",
+    label: "Layout Style",
+    description: "Card layout style",
+    type: "enum",
+    default: "cards",
+    required: true,
+    allowedValues: ["cards", "table", "minimal"],
+    group: "layout",
+  },
+  {
+    id: "hero_image",
+    label: "Hero Image",
+    description: "Background image URL",
+    type: "image-url",
+    default: "",
+    required: false,
+    group: "branding",
+  },
 ];
 
 const FIXTURE_INVARIANTS: readonly BrandingInvariant[] = [
-  { id: "heading-required", type: "semantic-hierarchy", description: "Heading must be present for content hierarchy", constrainedElements: ["heading", "cta_text"], rule: { required: ["heading", "cta_text"] } },
-  { id: "responsive-cards", type: "responsive-behavior", description: "Cards must not use fixed widths", constrainedElements: ["accent_color"], rule: { noFixedWidth: true } },
-  { id: "hero-alt", type: "accessibility-behavior", description: "Hero image must have alt text", constrainedElements: ["hero_image"], rule: { requireAlt: true } },
-  { id: "cta-link-required", type: "required-relationship", description: "CTA button requires a link", constrainedElements: ["cta_text", "cta_link"], rule: { ifPresent: "cta_text", thenRequired: ["cta_link"] } },
+  {
+    id: "heading-required",
+    type: "semantic-hierarchy",
+    description: "Heading must be present for content hierarchy",
+    constrainedElements: ["heading", "cta_text"],
+    rule: { required: ["heading", "cta_text"] },
+  },
+  {
+    id: "responsive-cards",
+    type: "responsive-behavior",
+    description: "Cards must not use fixed widths",
+    constrainedElements: ["accent_color"],
+    rule: { noFixedWidth: true },
+  },
+  {
+    id: "hero-alt",
+    type: "accessibility-behavior",
+    description: "Hero image must have alt text",
+    constrainedElements: ["hero_image"],
+    rule: { requireAlt: true },
+  },
+  {
+    id: "cta-link-required",
+    type: "required-relationship",
+    description: "CTA button requires a link",
+    constrainedElements: ["cta_text", "cta_link"],
+    rule: { ifPresent: "cta_text", thenRequired: ["cta_link"] },
+  },
 ];
 
 const FIXTURE_ARTIFACT_REFS: readonly ArtifactRef[] = [
@@ -81,7 +184,9 @@ const FIXTURE_MANIFEST: CompositionManifest = {
   artifactRefs: FIXTURE_ARTIFACT_REFS,
   sourceFiles: [FIXTURE_FILE],
   dependencies: [{ name: "react", version: "18.3.0", source: "npm" }],
-  compatibility: [{ targetType: "framework", name: "react", version: ">=18.0.0", status: "compatible" }],
+  compatibility: [
+    { targetType: "framework", name: "react", version: ">=18.0.0", status: "compatible" },
+  ],
   schemaVersion: "1.0.0",
   customizationInputs: FIXTURE_INPUTS,
   invariants: FIXTURE_INVARIANTS,
@@ -100,9 +205,27 @@ const FIXTURE_RULES: SelectionRuleSet = {
   ],
   eligibilityFilters: [],
   scoreDimensions: [
-    { id: "tag-overlap", description: "Tag match", direction: "maximize", weight: 0.5, computation: "tag-overlap" },
-    { id: "category-match", description: "Category match", direction: "maximize", weight: 0.3, computation: "category-match" },
-    { id: "quality", description: "Quality score", direction: "maximize", weight: 0.2, computation: "quality-score" },
+    {
+      id: "tag-overlap",
+      description: "Tag match",
+      direction: "maximize",
+      weight: 0.5,
+      computation: "tag-overlap",
+    },
+    {
+      id: "category-match",
+      description: "Category match",
+      direction: "maximize",
+      weight: 0.3,
+      computation: "category-match",
+    },
+    {
+      id: "quality",
+      description: "Quality score",
+      direction: "maximize",
+      weight: 0.2,
+      computation: "quality-score",
+    },
   ],
   missingEvidenceValue: 0.1,
   tieBreakBy: "stable-id",
@@ -156,14 +279,20 @@ describe("validateManifest", () => {
   });
 
   it("rejects artifact refs with range versions", () => {
-    const broken = { ...FIXTURE_MANIFEST, artifactRefs: [{ kind: "component" as const, stableId: "card", version: "^1.0.0" }] };
+    const broken = {
+      ...FIXTURE_MANIFEST,
+      artifactRefs: [{ kind: "component" as const, stableId: "card", version: "^1.0.0" }],
+    };
     const result = validateManifest(broken);
     expect(result.valid).toBe(false);
     expect(result.issues.some((i) => i.includes("exact version"))).toBe(true);
   });
 
   it("rejects artifact refs with wildcard versions", () => {
-    const broken = { ...FIXTURE_MANIFEST, artifactRefs: [{ kind: "component" as const, stableId: "card", version: "1.*" }] };
+    const broken = {
+      ...FIXTURE_MANIFEST,
+      artifactRefs: [{ kind: "component" as const, stableId: "card", version: "1.*" }],
+    };
     const result = validateManifest(broken);
     expect(result.valid).toBe(false);
     expect(result.issues.some((i) => i.includes("exact version"))).toBe(true);
@@ -183,7 +312,6 @@ describe("validateManifest", () => {
     expect(result.issues.some((i) => i.includes("provenance"))).toBe(true);
   });
 });
-
 
 // ---------------------------------------------------------------------------
 // 2. Manifest Resolution
@@ -235,12 +363,11 @@ describe("getInvariantsByType", () => {
 describe("getInputDefaults", () => {
   it("returns defaults for all inputs", () => {
     const defaults = getInputDefaults(FIXTURE_MANIFEST);
-    expect(defaults["heading"]).toBe("Choose Your Plan");
-    expect(defaults["tier_count"]).toBe(3);
-    expect(defaults["show_annual"]).toBe(true);
+    expect(defaults.heading).toBe("Choose Your Plan");
+    expect(defaults.tier_count).toBe(3);
+    expect(defaults.show_annual).toBe(true);
   });
 });
-
 
 // ---------------------------------------------------------------------------
 // 3. Customization
@@ -248,10 +375,12 @@ describe("getInputDefaults", () => {
 
 describe("applyBrandConfig", () => {
   it("applies a valid brand config with no violations", () => {
-    const config: BrandConfig = { values: { heading: "Our Plans", cta_text: "Sign Up", cta_link: "/register" } };
+    const config: BrandConfig = {
+      values: { heading: "Our Plans", cta_text: "Sign Up", cta_link: "/register" },
+    };
     const result = applyBrandConfig(FIXTURE_MANIFEST, config);
     expect(result.valid).toBe(true);
-    expect(result.appliedValues["heading"]).toBe("Our Plans");
+    expect(result.appliedValues.heading).toBe("Our Plans");
     expect(result.undeclaredFields).toHaveLength(0);
     expect(result.invariantViolations).toHaveLength(0);
   });
@@ -292,10 +421,12 @@ describe("applyBrandConfig", () => {
   });
 
   it("uses defaults for inputs not provided in brand config", () => {
-    const config: BrandConfig = { values: { heading: "New Heading", cta_text: "Go", cta_link: "/go" } };
+    const config: BrandConfig = {
+      values: { heading: "New Heading", cta_text: "Go", cta_link: "/go" },
+    };
     const result = applyBrandConfig(FIXTURE_MANIFEST, config);
-    expect(result.appliedValues["tier_count"]).toBe(3);
-    expect(result.appliedValues["show_annual"]).toBe(true);
+    expect(result.appliedValues.tier_count).toBe(3);
+    expect(result.appliedValues.show_annual).toBe(true);
   });
 });
 
@@ -303,7 +434,11 @@ describe("checkInvariants", () => {
   it("detects semantic-hierarchy violation when required element is empty", () => {
     const values = { heading: "", cta_text: "Go", cta_link: "/go" };
     const violations = checkInvariants(FIXTURE_MANIFEST, values);
-    expect(violations.some((v) => v.invariantType === "semantic-hierarchy" && v.violatedBy === "heading")).toBe(true);
+    expect(
+      violations.some(
+        (v) => v.invariantType === "semantic-hierarchy" && v.violatedBy === "heading",
+      ),
+    ).toBe(true);
   });
 
   it("detects responsive-behavior violation for fixed pixel width", () => {
@@ -315,23 +450,37 @@ describe("checkInvariants", () => {
   it("detects accessibility-behavior violation when alt text is missing", () => {
     const values = { hero_image: "https://example.com/hero.png" };
     const violations = checkInvariants(FIXTURE_MANIFEST, values);
-    expect(violations.some((v) => v.invariantType === "accessibility-behavior" && v.violatedBy === "hero_image")).toBe(true);
+    expect(
+      violations.some(
+        (v) => v.invariantType === "accessibility-behavior" && v.violatedBy === "hero_image",
+      ),
+    ).toBe(true);
   });
 
   it("detects required-relationship violation when companion is missing", () => {
     const values = { cta_text: "Sign Up", cta_link: "" };
     const violations = checkInvariants(FIXTURE_MANIFEST, values);
-    expect(violations.some((v) => v.invariantType === "required-relationship" && v.violatedBy === "cta_link")).toBe(true);
+    expect(
+      violations.some(
+        (v) => v.invariantType === "required-relationship" && v.violatedBy === "cta_link",
+      ),
+    ).toBe(true);
   });
 
   it("passes when all invariants are satisfied", () => {
-    const values = { heading: "Plans", cta_text: "Go", cta_link: "/go", accent_color: "#fff", hero_image: "", hero_image_alt: "Alt" };
+    const values = {
+      heading: "Plans",
+      cta_text: "Go",
+      cta_link: "/go",
+      accent_color: "#fff",
+      hero_image: "",
+      hero_image_alt: "Alt",
+    };
     const violations = checkInvariants(FIXTURE_MANIFEST, values);
     // hero_image is empty so accessibility invariant does not trigger
     expect(violations.filter((v) => v.invariantType === "required-relationship")).toHaveLength(0);
   });
 });
-
 
 // ---------------------------------------------------------------------------
 // 4. Deterministic Selection
@@ -380,8 +529,14 @@ describe("selectCompositions", () => {
   it("tie-breaks by stable ID (lexicographic)", () => {
     // Both pricing manifests have same tags; the tie-break is stableId
     const tiedManifests: CompositionManifest[] = [
-      { ...FIXTURE_MANIFEST, ref: { kind: "composition", stableId: "z-pricing", version: "1.0.0" } },
-      { ...FIXTURE_MANIFEST, ref: { kind: "composition", stableId: "a-pricing", version: "1.0.0" } },
+      {
+        ...FIXTURE_MANIFEST,
+        ref: { kind: "composition", stableId: "z-pricing", version: "1.0.0" },
+      },
+      {
+        ...FIXTURE_MANIFEST,
+        ref: { kind: "composition", stableId: "a-pricing", version: "1.0.0" },
+      },
     ];
     const request = { intent: "pricing plans", constraints: [] as const, limit: 5 };
     const result = selectCompositions(request, tiedManifests, FIXTURE_RULES, "1.0.0");
@@ -391,7 +546,12 @@ describe("selectCompositions", () => {
   });
 
   it("filters by category when specified", () => {
-    const request = { intent: "landing page", constraints: [] as const, category: "hero" as const, limit: 5 };
+    const request = {
+      intent: "landing page",
+      constraints: [] as const,
+      category: "hero" as const,
+      limit: 5,
+    };
     const result = selectCompositions(request, allManifests, FIXTURE_RULES, "1.0.0");
     for (const r of result.results) {
       const manifest = allManifests.find((m) => m.ref.stableId === r.ref.stableId);
@@ -406,7 +566,11 @@ describe("selectCompositions", () => {
   });
 
   it("returns alternatives when no match found", () => {
-    const request = { intent: "pricing", constraints: [{ field: "name", operator: "equals" as const, value: "Nonexistent" }], limit: 5 };
+    const request = {
+      intent: "pricing",
+      constraints: [{ field: "name", operator: "equals" as const, value: "Nonexistent" }],
+      limit: 5,
+    };
     const result = selectCompositions(request, allManifests, FIXTURE_RULES, "1.0.0");
     expect(result.results).toHaveLength(0);
     expect(result.alternatives.length).toBeGreaterThan(0);
@@ -437,7 +601,6 @@ describe("normalizeIntent", () => {
   });
 });
 
-
 // ---------------------------------------------------------------------------
 // 5. Retrieval
 // ---------------------------------------------------------------------------
@@ -454,7 +617,9 @@ describe("retrieveComposition", () => {
     exists: (ref) => ref.stableId !== "toggle-switch",
     getSourceFiles: (_ref) => [FIXTURE_FILE],
     getChecksum: (_ref) => FIXTURE_CHECKSUM,
-    getAlternatives: (ref) => [{ kind: ref.kind, stableId: `${ref.stableId}-alt`, version: "1.0.0" }],
+    getAlternatives: (ref) => [
+      { kind: ref.kind, stableId: `${ref.stableId}-alt`, version: "1.0.0" },
+    ],
   };
 
   it("returns complete result when all elements are available", () => {
@@ -487,14 +652,24 @@ describe("retrieveComposition", () => {
 
 describe("buildNoMatchResult", () => {
   it("returns failed constraints and alternatives", () => {
-    const request = { intent: "pricing", constraints: [{ field: "tags", operator: "contains" as const, value: "enterprise" }], category: "pricing" as const, limit: 3 };
+    const request = {
+      intent: "pricing",
+      constraints: [{ field: "tags", operator: "contains" as const, value: "enterprise" }],
+      category: "pricing" as const,
+      limit: 3,
+    };
     const result = buildNoMatchResult(request, [FIXTURE_MANIFEST], FIXTURE_RULES, "1.0.0");
     expect(result.failedConstraints.length).toBeGreaterThan(0);
     expect(result.alternatives.length).toBeGreaterThan(0);
   });
 
   it("identifies category constraint failure when no match in category", () => {
-    const request = { intent: "pricing", constraints: [] as const, category: "blog" as const, limit: 3 };
+    const request = {
+      intent: "pricing",
+      constraints: [] as const,
+      category: "blog" as const,
+      limit: 3,
+    };
     const result = buildNoMatchResult(request, [FIXTURE_MANIFEST], FIXTURE_RULES, "1.0.0");
     expect(result.failedConstraints.some((c) => c.constraintId === "category")).toBe(true);
   });
@@ -510,20 +685,35 @@ describe("handleCompositionRequest", () => {
 
   it("returns complete result for a matching request", () => {
     const request = { intent: "pricing tiers plans", constraints: [] as const, limit: 1 };
-    const result = handleCompositionRequest(request, [FIXTURE_MANIFEST], FIXTURE_RULES, "1.0.0", lookup);
+    const result = handleCompositionRequest(
+      request,
+      [FIXTURE_MANIFEST],
+      FIXTURE_RULES,
+      "1.0.0",
+      lookup,
+    );
     expect(result.type).toBe("complete");
   });
 
   it("returns no-match when constraints exclude all manifests", () => {
-    const request = { intent: "pricing", constraints: [{ field: "name", operator: "equals" as const, value: "Nonexistent" }], limit: 1 };
-    const result = handleCompositionRequest(request, [FIXTURE_MANIFEST], FIXTURE_RULES, "1.0.0", lookup);
+    const request = {
+      intent: "pricing",
+      constraints: [{ field: "name", operator: "equals" as const, value: "Nonexistent" }],
+      limit: 1,
+    };
+    const result = handleCompositionRequest(
+      request,
+      [FIXTURE_MANIFEST],
+      FIXTURE_RULES,
+      "1.0.0",
+      lookup,
+    );
     expect(result.type).toBe("no-match");
     if (result.type === "no-match") {
       expect(result.noMatch.alternatives.length).toBeGreaterThanOrEqual(0);
     }
   });
 });
-
 
 // ---------------------------------------------------------------------------
 // 6. MCP Operations
@@ -612,7 +802,7 @@ describe("createCompositionMcpDispatcher", () => {
         brandConfig: { heading: "Our Plans", cta_text: "Buy Now", cta_link: "/buy" },
       });
       expect(output.result.valid).toBe(true);
-      expect(output.result.appliedValues["heading"]).toBe("Our Plans");
+      expect(output.result.appliedValues.heading).toBe("Our Plans");
       expect(output.registryVersion).toBe("3.0.0");
     });
 

@@ -68,18 +68,24 @@ const CAPABILITIES = {
 const TOOLS = [
   {
     name: "list_components",
-    description: "List all published NeuraForge UI components, optionally filtered by category (navigation, layout, forms, feedback, data-display, marketing)",
+    description:
+      "List all published NeuraForge UI components, optionally filtered by category (navigation, layout, forms, feedback, data-display, marketing)",
     inputSchema: {
       type: "object",
       properties: {
-        category: { type: "string", description: "Filter by category", enum: ["navigation", "layout", "forms", "feedback", "data-display", "marketing"] },
+        category: {
+          type: "string",
+          description: "Filter by category",
+          enum: ["navigation", "layout", "forms", "feedback", "data-display", "marketing"],
+        },
         limit: { type: "number", description: "Maximum results (default 20)" },
       },
     },
   },
   {
     name: "get_component",
-    description: "Get full source, props, dependencies, install steps, and checksum for a specific component by stableId and version",
+    description:
+      "Get full source, props, dependencies, install steps, and checksum for a specific component by stableId and version",
     inputSchema: {
       type: "object",
       properties: {
@@ -104,11 +110,16 @@ const TOOLS = [
   },
   {
     name: "get_design_tokens",
-    description: "Get the full design token set so agent-written code stays visually consistent with the NeuraForge theme",
+    description:
+      "Get the full design token set so agent-written code stays visually consistent with the NeuraForge theme",
     inputSchema: {
       type: "object",
       properties: {
-        format: { type: "string", description: "Output format", enum: ["tailwind", "css-variables", "json"] },
+        format: {
+          type: "string",
+          description: "Output format",
+          enum: ["tailwind", "css-variables", "json"],
+        },
       },
     },
   },
@@ -122,12 +133,20 @@ const TOOLS = [
   },
   {
     name: "search_compositions",
-    description: "Search curated page/section compositions by intent (e.g., 'pricing section with tiers')",
+    description:
+      "Search curated page/section compositions by intent (e.g., 'pricing section with tiers')",
     inputSchema: {
       type: "object",
       properties: {
-        intent: { type: "string", description: "Natural language description of desired composition" },
-        category: { type: "string", description: "Composition category", enum: ["hero", "pricing", "features", "testimonials", "faq", "cta", "footer", "header"] },
+        intent: {
+          type: "string",
+          description: "Natural language description of desired composition",
+        },
+        category: {
+          type: "string",
+          description: "Composition category",
+          enum: ["hero", "pricing", "features", "testimonials", "faq", "cta", "footer", "header"],
+        },
         limit: { type: "number", description: "Maximum results (default 3)" },
       },
       required: ["intent"],
@@ -158,111 +177,199 @@ function handleToolCall(params: JsonValue): JsonValue {
   switch (p.name) {
     case "list_components":
       return {
-        content: [{
-          type: "text",
-          text: JSON.stringify({
-            components: [
-              { stableId: "navbar", version: "1.0.0", category: "navigation", name: "Navbar" },
-              { stableId: "sidebar", version: "1.0.0", category: "navigation", name: "Sidebar" },
-              { stableId: "breadcrumbs", version: "1.0.0", category: "navigation", name: "Breadcrumbs" },
-              { stableId: "tabs", version: "1.0.0", category: "navigation", name: "Tabs" },
-              { stableId: "container", version: "1.0.0", category: "layout", name: "Container" },
-              { stableId: "grid", version: "1.0.0", category: "layout", name: "Grid" },
-              { stableId: "card", version: "1.0.0", category: "layout", name: "Card" },
-              { stableId: "hero", version: "1.0.0", category: "layout", name: "Hero" },
-              { stableId: "footer", version: "1.0.0", category: "layout", name: "Footer" },
-              { stableId: "text-field", version: "1.0.0", category: "forms", name: "TextField" },
-              { stableId: "form", version: "1.0.0", category: "forms", name: "Form" },
-              { stableId: "dialog", version: "1.0.0", category: "feedback", name: "Dialog" },
-              { stableId: "alert", version: "1.0.0", category: "feedback", name: "Alert" },
-              { stableId: "toast", version: "1.0.0", category: "feedback", name: "Toast" },
-              { stableId: "loading-indicator", version: "1.0.0", category: "feedback", name: "LoadingIndicator" },
-              { stableId: "data-table", version: "1.0.0", category: "data-display", name: "DataTable" },
-              { stableId: "stat", version: "1.0.0", category: "data-display", name: "Stat" },
-              { stableId: "badge", version: "1.0.0", category: "data-display", name: "Badge" },
-              { stableId: "pricing", version: "1.0.0", category: "marketing", name: "Pricing" },
-              { stableId: "testimonial", version: "1.0.0", category: "marketing", name: "Testimonial" },
-            ].filter(c => !args.category || c.category === args.category)
-             .slice(0, (args.limit as number) || 20),
-            total: 20,
-          }, null, 2),
-        }],
+        content: [
+          {
+            type: "text",
+            text: JSON.stringify(
+              {
+                components: [
+                  { stableId: "navbar", version: "1.0.0", category: "navigation", name: "Navbar" },
+                  {
+                    stableId: "sidebar",
+                    version: "1.0.0",
+                    category: "navigation",
+                    name: "Sidebar",
+                  },
+                  {
+                    stableId: "breadcrumbs",
+                    version: "1.0.0",
+                    category: "navigation",
+                    name: "Breadcrumbs",
+                  },
+                  { stableId: "tabs", version: "1.0.0", category: "navigation", name: "Tabs" },
+                  {
+                    stableId: "container",
+                    version: "1.0.0",
+                    category: "layout",
+                    name: "Container",
+                  },
+                  { stableId: "grid", version: "1.0.0", category: "layout", name: "Grid" },
+                  { stableId: "card", version: "1.0.0", category: "layout", name: "Card" },
+                  { stableId: "hero", version: "1.0.0", category: "layout", name: "Hero" },
+                  { stableId: "footer", version: "1.0.0", category: "layout", name: "Footer" },
+                  {
+                    stableId: "text-field",
+                    version: "1.0.0",
+                    category: "forms",
+                    name: "TextField",
+                  },
+                  { stableId: "form", version: "1.0.0", category: "forms", name: "Form" },
+                  { stableId: "dialog", version: "1.0.0", category: "feedback", name: "Dialog" },
+                  { stableId: "alert", version: "1.0.0", category: "feedback", name: "Alert" },
+                  { stableId: "toast", version: "1.0.0", category: "feedback", name: "Toast" },
+                  {
+                    stableId: "loading-indicator",
+                    version: "1.0.0",
+                    category: "feedback",
+                    name: "LoadingIndicator",
+                  },
+                  {
+                    stableId: "data-table",
+                    version: "1.0.0",
+                    category: "data-display",
+                    name: "DataTable",
+                  },
+                  { stableId: "stat", version: "1.0.0", category: "data-display", name: "Stat" },
+                  { stableId: "badge", version: "1.0.0", category: "data-display", name: "Badge" },
+                  { stableId: "pricing", version: "1.0.0", category: "marketing", name: "Pricing" },
+                  {
+                    stableId: "testimonial",
+                    version: "1.0.0",
+                    category: "marketing",
+                    name: "Testimonial",
+                  },
+                ]
+                  .filter((c) => !args.category || c.category === args.category)
+                  .slice(0, (args.limit as number) || 20),
+                total: 20,
+              },
+              null,
+              2,
+            ),
+          },
+        ],
       };
 
     case "get_component":
       return {
-        content: [{
-          type: "text",
-          text: JSON.stringify({
-            stableId: args.stableId,
-            version: args.version,
-            status: "stable",
-            source: "// Component source available via Registry",
-            checksum: "sha256:verified",
-            installSteps: [
-              "npm install @neuraforge/components",
-              `import { ${String(args.stableId).replace(/-./g, c => c[1]!.toUpperCase())} } from '@neuraforge/components'`,
-            ],
-          }, null, 2),
-        }],
+        content: [
+          {
+            type: "text",
+            text: JSON.stringify(
+              {
+                stableId: args.stableId,
+                version: args.version,
+                status: "stable",
+                source: "// Component source available via Registry",
+                checksum: "sha256:verified",
+                installSteps: [
+                  "npm install @neuraforge/components",
+                  `import { ${String(args.stableId).replace(/-./g, (c) => c[1]!.toUpperCase())} } from '@neuraforge/components'`,
+                ],
+              },
+              null,
+              2,
+            ),
+          },
+        ],
       };
 
     case "search_components":
       return {
-        content: [{
-          type: "text",
-          text: JSON.stringify({
-            query: args.query,
-            results: [
-              { stableId: "pricing", score: 0.95, explanation: "Direct match for pricing intent" },
-              { stableId: "card", score: 0.7, explanation: "Card layout suitable for pricing tiers" },
-            ].slice(0, (args.limit as number) || 5),
-          }, null, 2),
-        }],
+        content: [
+          {
+            type: "text",
+            text: JSON.stringify(
+              {
+                query: args.query,
+                results: [
+                  {
+                    stableId: "pricing",
+                    score: 0.95,
+                    explanation: "Direct match for pricing intent",
+                  },
+                  {
+                    stableId: "card",
+                    score: 0.7,
+                    explanation: "Card layout suitable for pricing tiers",
+                  },
+                ].slice(0, (args.limit as number) || 5),
+              },
+              null,
+              2,
+            ),
+          },
+        ],
       };
 
     case "get_design_tokens":
       return {
-        content: [{
-          type: "text",
-          text: JSON.stringify({
-            format: args.format || "tailwind",
-            tokens: {
-              colors: { primary: "#3b82f6", secondary: "#64748b", accent: "#f59e0b" },
-              spacing: { xs: "0.25rem", sm: "0.5rem", md: "1rem", lg: "1.5rem", xl: "2rem" },
-              typography: { sans: "Inter, system-ui, sans-serif", mono: "JetBrains Mono, monospace" },
-              borderRadius: { sm: "0.25rem", md: "0.375rem", lg: "0.5rem", full: "9999px" },
-            },
-          }, null, 2),
-        }],
+        content: [
+          {
+            type: "text",
+            text: JSON.stringify(
+              {
+                format: args.format || "tailwind",
+                tokens: {
+                  colors: { primary: "#3b82f6", secondary: "#64748b", accent: "#f59e0b" },
+                  spacing: { xs: "0.25rem", sm: "0.5rem", md: "1rem", lg: "1.5rem", xl: "2rem" },
+                  typography: {
+                    sans: "Inter, system-ui, sans-serif",
+                    mono: "JetBrains Mono, monospace",
+                  },
+                  borderRadius: { sm: "0.25rem", md: "0.375rem", lg: "0.5rem", full: "9999px" },
+                },
+              },
+              null,
+              2,
+            ),
+          },
+        ],
       };
 
     case "list_motion_presets":
       return {
-        content: [{
-          type: "text",
-          text: JSON.stringify({
-            presets: [
-              { stableId: "fade-in", description: "Opacity 0→1", duration: "0.3s" },
-              { stableId: "slide-up", description: "Slide up 20px + fade", duration: "0.4s" },
-              { stableId: "bounce", description: "Spring scale entrance", duration: "0.5s" },
-              { stableId: "scale-in", description: "Scale 0.8→1 + fade", duration: "0.25s" },
-            ],
-          }, null, 2),
-        }],
+        content: [
+          {
+            type: "text",
+            text: JSON.stringify(
+              {
+                presets: [
+                  { stableId: "fade-in", description: "Opacity 0→1", duration: "0.3s" },
+                  { stableId: "slide-up", description: "Slide up 20px + fade", duration: "0.4s" },
+                  { stableId: "bounce", description: "Spring scale entrance", duration: "0.5s" },
+                  { stableId: "scale-in", description: "Scale 0.8→1 + fade", duration: "0.25s" },
+                ],
+              },
+              null,
+              2,
+            ),
+          },
+        ],
       };
 
     case "search_compositions":
       return {
-        content: [{
-          type: "text",
-          text: JSON.stringify({
-            intent: args.intent,
-            results: [
-              { stableId: "pricing-tiers", score: 0.9, category: "pricing", description: "Three-tier pricing section" },
-            ].slice(0, (args.limit as number) || 3),
-          }, null, 2),
-        }],
+        content: [
+          {
+            type: "text",
+            text: JSON.stringify(
+              {
+                intent: args.intent,
+                results: [
+                  {
+                    stableId: "pricing-tiers",
+                    score: 0.9,
+                    category: "pricing",
+                    description: "Three-tier pricing section",
+                  },
+                ].slice(0, (args.limit as number) || 3),
+              },
+              null,
+              2,
+            ),
+          },
+        ],
       };
 
     default:

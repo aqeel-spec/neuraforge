@@ -14,7 +14,11 @@ import { createMotionCustomizationSchema, isApplicableControl } from "./schema.j
 import { resolveMotionConfig } from "./resolution.js";
 import { validateMotionConfig } from "./validation.js";
 import type { SemanticState } from "./components.js";
-import { resolveAnimationOutput, determineMotionMode, semanticStatesEquivalent } from "./components.js";
+import {
+  resolveAnimationOutput,
+  determineMotionMode,
+  semanticStatesEquivalent,
+} from "./components.js";
 
 // ---------------------------------------------------------------------------
 // Arbitraries — reusable generators for property tests
@@ -63,10 +67,7 @@ function buildControlsRecord(
 
 /** Arbitrary that generates a valid MotionCustomizationSchema with random applicability. */
 const arbSchema: fc.Arbitrary<MotionCustomizationSchema> = fc
-  .tuple(
-    fc.array(fc.boolean(), { minLength: 22, maxLength: 22 }),
-    arbReducedMotion,
-  )
+  .tuple(fc.array(fc.boolean(), { minLength: 22, maxLength: 22 }), arbReducedMotion)
   .map(([flags, reducedMotion]) => {
     const controls = buildControlsRecord(flags);
     return createMotionCustomizationSchema(
@@ -82,11 +83,13 @@ const arbSemanticState: fc.Arbitrary<SemanticState> = fc.record({
   content: fc.string({ minLength: 1, maxLength: 100 }),
   status: fc.constantFrom("open", "closed", "loading", "idle", "error"),
   focusOrder: fc.array(fc.string({ minLength: 1, maxLength: 15 }), { minLength: 0, maxLength: 5 }),
-  primaryActions: fc.array(fc.string({ minLength: 1, maxLength: 20 }), { minLength: 0, maxLength: 4 }),
+  primaryActions: fc.array(fc.string({ minLength: 1, maxLength: 20 }), {
+    minLength: 0,
+    maxLength: 4,
+  }),
   keyboardAccessible: fc.constant(true as const),
   assistiveTechnologyPreserved: fc.constant(true as const),
 });
-
 
 // ===========================================================================
 // Property 10: Motion control classification is closed and exclusive
@@ -175,7 +178,6 @@ describe("Property 10: Motion control classification is closed and exclusive", (
   });
 });
 
-
 // ===========================================================================
 // Property 11: Valid motion overrides resolve exactly
 // ===========================================================================
@@ -196,7 +198,10 @@ describe("Property 11: Valid motion overrides resolve exactly", () => {
           }
 
           if (applicable.length === 0) {
-            return fc.constant({ schema, overrides: {} as Partial<Record<MotionControlName, number>> });
+            return fc.constant({
+              schema,
+              overrides: {} as Partial<Record<MotionControlName, number>>,
+            });
           }
 
           // Generate random valid overrides for a subset of applicable controls
@@ -222,7 +227,7 @@ describe("Property 11: Valid motion overrides resolve exactly", () => {
         }),
         ({ schema, overrides }) => {
           const config: MotionOverrideConfig = {
-            overrides: overrides as Partial<Record<MotionControlName, number>>,
+            overrides: overrides,
           };
           const resolved = resolveMotionConfig(schema, config);
 
@@ -283,7 +288,6 @@ describe("Property 11: Valid motion overrides resolve exactly", () => {
   });
 });
 
-
 // ===========================================================================
 // Property 12: Invalid motion configurations report all faults
 // ===========================================================================
@@ -308,7 +312,9 @@ describe("Property 12: Invalid motion configurations report all faults", () => {
           })!;
 
           const config: MotionOverrideConfig = {
-            overrides: { [numericControl]: "not-a-number" } as Partial<Record<MotionControlName, string>>,
+            overrides: { [numericControl]: "not-a-number" } as Partial<
+              Record<MotionControlName, string>
+            >,
           };
 
           const result = validateMotionConfig(schema, config);
@@ -331,13 +337,15 @@ describe("Property 12: Invalid motion configurations report all faults", () => {
       fc.property(
         fc.tuple(
           arbSchema,
-          fc.string({ minLength: 10, maxLength: 30 }).filter(
-            (s) => !(MOTION_CONTROL_NAMES as readonly string[]).includes(s),
-          ),
+          fc
+            .string({ minLength: 10, maxLength: 30 })
+            .filter((s) => !(MOTION_CONTROL_NAMES as readonly string[]).includes(s)),
         ),
         ([schema, unknownField]) => {
           const config: MotionOverrideConfig = {
-            overrides: { [unknownField]: 42 } as unknown as Partial<Record<MotionControlName, number>>,
+            overrides: { [unknownField]: 42 } as unknown as Partial<
+              Record<MotionControlName, number>
+            >,
           };
 
           const result = validateMotionConfig(schema, config);
@@ -403,7 +411,9 @@ describe("Property 12: Invalid motion configurations report all faults", () => {
           const outOfRange = control.range!.max + 1000;
 
           const config: MotionOverrideConfig = {
-            overrides: { [rangedControl]: outOfRange } as Partial<Record<MotionControlName, number>>,
+            overrides: { [rangedControl]: outOfRange } as Partial<
+              Record<MotionControlName, number>
+            >,
           };
 
           const result = validateMotionConfig(schema, config);
@@ -426,13 +436,10 @@ describe("Property 12: Invalid motion configurations report all faults", () => {
       fc.property(
         fc.tuple(
           arbSchema,
-          fc.array(
-            fc.oneof(
-              fc.constant("__unknown_field__"),
-              fc.constant("__another_unknown__"),
-            ),
-            { minLength: 1, maxLength: 3 },
-          ),
+          fc.array(fc.oneof(fc.constant("__unknown_field__"), fc.constant("__another_unknown__")), {
+            minLength: 1,
+            maxLength: 3,
+          }),
         ),
         ([schema, invalidEntries]) => {
           // Build an override config with multiple invalid entries
@@ -465,7 +472,6 @@ describe("Property 12: Invalid motion configurations report all faults", () => {
   });
 });
 
-
 // ===========================================================================
 // Property 13: Motion reduction preserves the semantic interaction model
 // ===========================================================================
@@ -474,10 +480,7 @@ describe("Property 12: Invalid motion configurations report all faults", () => {
 describe("Property 13: Motion reduction preserves the semantic interaction model", () => {
   /** Schema with animate/initial controls always applicable for this property. */
   const arbSchemaWithAnimateInitial: fc.Arbitrary<MotionCustomizationSchema> = fc
-    .tuple(
-      fc.array(fc.boolean(), { minLength: 22, maxLength: 22 }),
-      arbReducedMotion,
-    )
+    .tuple(fc.array(fc.boolean(), { minLength: 22, maxLength: 22 }), arbReducedMotion)
     .map(([flags, reducedMotion]) => {
       const controls = buildControlsRecord(flags);
       // Force initial and animate to be applicable with variant-map type
@@ -520,8 +523,12 @@ describe("Property 13: Motion reduction preserves the semantic interaction model
           expect(semanticStatesEquivalent(disabledOutput.semanticState, semanticState)).toBe(true);
 
           // Cross-mode equivalence
-          expect(semanticStatesEquivalent(fullOutput.semanticState, reducedOutput.semanticState)).toBe(true);
-          expect(semanticStatesEquivalent(reducedOutput.semanticState, disabledOutput.semanticState)).toBe(true);
+          expect(
+            semanticStatesEquivalent(fullOutput.semanticState, reducedOutput.semanticState),
+          ).toBe(true);
+          expect(
+            semanticStatesEquivalent(reducedOutput.semanticState, disabledOutput.semanticState),
+          ).toBe(true);
         },
       ),
       { numRuns: 100 },

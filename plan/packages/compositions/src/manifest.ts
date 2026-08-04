@@ -1,9 +1,6 @@
 import type { ArtifactRef } from "@neuraforge/schemas";
 
-import type {
-  BrandingInvariant,
-  CompositionManifest,
-} from "./types.js";
+import type { BrandingInvariant, CompositionManifest } from "./types.js";
 import { COMPOSITION_CATEGORIES, INVARIANT_TYPES } from "./types.js";
 
 // ---------------------------------------------------------------------------
@@ -35,7 +32,8 @@ export function validateManifest(manifest: CompositionManifest): ManifestValidat
   // Identity
   if (!manifest.ref.stableId) issues.push("Missing ref.stableId");
   if (!manifest.ref.version) issues.push("Missing ref.version");
-  if (manifest.ref.kind !== "composition") issues.push(`Invalid ref.kind: expected "composition", got "${manifest.ref.kind}"`);
+  if (manifest.ref.kind !== "composition")
+    issues.push(`Invalid ref.kind: expected "composition", got "${manifest.ref.kind}"`);
   if (!manifest.name) issues.push("Missing name");
   if (!manifest.description) issues.push("Missing description");
   if (!manifest.schemaVersion) issues.push("Missing schemaVersion");
@@ -54,7 +52,9 @@ export function validateManifest(manifest: CompositionManifest): ManifestValidat
       issues.push(`Artifact ref missing stableId or version: ${JSON.stringify(ref)}`);
     }
     if (ref.version.includes("*") || ref.version.includes("^") || ref.version.includes("~")) {
-      issues.push(`Artifact ref must use exact version (no ranges): ${ref.stableId}@${ref.version}`);
+      issues.push(
+        `Artifact ref must use exact version (no ranges): ${ref.stableId}@${ref.version}`,
+      );
     }
   }
 
@@ -143,9 +143,7 @@ export function getInvariantsByType(
 /**
  * Returns the default values for all customization inputs in a manifest.
  */
-export function getInputDefaults(
-  manifest: CompositionManifest,
-): Readonly<Record<string, unknown>> {
+export function getInputDefaults(manifest: CompositionManifest): Readonly<Record<string, unknown>> {
   const defaults: Record<string, unknown> = {};
   for (const input of manifest.customizationInputs) {
     defaults[input.id] = input.default;

@@ -29,12 +29,7 @@ import type {
  *
  * Requirements: 5.17, 5.18, 5.19
  */
-export type ThreeDLifecycleState =
-  | "fallback"
-  | "initializing"
-  | "active"
-  | "suspended"
-  | "failed";
+export type ThreeDLifecycleState = "fallback" | "initializing" | "active" | "suspended" | "failed";
 
 /** Runtime-accessible array of all lifecycle states. */
 export const THREE_D_LIFECYCLE_STATES: readonly ThreeDLifecycleState[] = [
@@ -131,7 +126,15 @@ export interface ThreeDErrorBoundary {
  */
 export interface ThreeDParameter {
   readonly name: string;
-  readonly type: "number" | "boolean" | "string" | "color" | "vector3" | "euler" | "enum" | "object";
+  readonly type:
+    | "number"
+    | "boolean"
+    | "string"
+    | "color"
+    | "vector3"
+    | "euler"
+    | "enum"
+    | "object";
   readonly description: string;
   readonly default: JsonValue;
   readonly required: boolean;

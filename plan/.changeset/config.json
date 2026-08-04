@@ -4,7 +4,22 @@
   "commit": false,
   "fixed": [],
   "linked": [
-    ["@neuraforge/schemas", "@neuraforge/catalog-core", "@neuraforge/tokens", "@neuraforge/components", "@neuraforge/motion", "@neuraforge/three-d", "@neuraforge/compositions", "@neuraforge/registry-builder", "@neuraforge/mcp-core", "@neuraforge/cli", "@neuraforge/conformance", "@neuraforge/telemetry", "@neuraforge/self-hosting", "@neuraforge/release-policy"]
+    [
+      "@neuraforge/schemas",
+      "@neuraforge/catalog-core",
+      "@neuraforge/tokens",
+      "@neuraforge/components",
+      "@neuraforge/motion",
+      "@neuraforge/three-d",
+      "@neuraforge/compositions",
+      "@neuraforge/registry-builder",
+      "@neuraforge/mcp-core",
+      "@neuraforge/cli",
+      "@neuraforge/conformance",
+      "@neuraforge/telemetry",
+      "@neuraforge/self-hosting",
+      "@neuraforge/release-policy"
+    ]
   ],
   "access": "public",
   "baseBranch": "main",

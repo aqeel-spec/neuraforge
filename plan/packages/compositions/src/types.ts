@@ -74,8 +74,19 @@ export type CompositionCategory =
 
 /** Runtime-accessible array. */
 export const COMPOSITION_CATEGORIES: readonly CompositionCategory[] = [
-  "hero", "pricing", "features", "testimonials", "faq", "cta",
-  "footer", "header", "stats", "contact", "blog", "team", "page",
+  "hero",
+  "pricing",
+  "features",
+  "testimonials",
+  "faq",
+  "cta",
+  "footer",
+  "header",
+  "stats",
+  "contact",
+  "blog",
+  "team",
+  "page",
 ] as const;
 
 // ---------------------------------------------------------------------------
@@ -201,7 +212,12 @@ export interface ScoreDimension {
   /** Weight multiplier for this dimension's contribution to total score. */
   readonly weight: number;
   /** How to compute the raw score for this dimension. */
-  readonly computation: "tag-overlap" | "category-match" | "recency" | "quality-score" | "usage-evidence";
+  readonly computation:
+    | "tag-overlap"
+    | "category-match"
+    | "recency"
+    | "quality-score"
+    | "usage-evidence";
 }
 
 // ---------------------------------------------------------------------------

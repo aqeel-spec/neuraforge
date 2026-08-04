@@ -169,10 +169,7 @@ function dispatchList(
   };
 }
 
-function dispatchGet(
-  ctx: CompositionMcpContext,
-  input: GetCompositionInput,
-): GetCompositionOutput {
+function dispatchGet(ctx: CompositionMcpContext, input: GetCompositionInput): GetCompositionOutput {
   const manifest = ctx.manifests.find(
     (m) => m.ref.stableId === input.stableId && m.ref.version === input.version,
   );
@@ -182,11 +179,13 @@ function dispatchGet(
       result: {
         type: "no-match",
         noMatch: {
-          failedConstraints: [{
-            constraintId: "not-found",
-            description: `Composition ${input.stableId}@${input.version} not found`,
-            reason: "No composition with this stableId and version exists",
-          }],
+          failedConstraints: [
+            {
+              constraintId: "not-found",
+              description: `Composition ${input.stableId}@${input.version} not found`,
+              reason: "No composition with this stableId and version exists",
+            },
+          ],
           alternatives: [],
         },
       },
@@ -221,16 +220,10 @@ function dispatchSearch(
   };
 
   const cat = input.category;
-  const request: CompositionRequest = cat !== undefined
-    ? { ...baseRequest, category: cat as CompositionCategory }
-    : baseRequest;
+  const request: CompositionRequest =
+    cat !== undefined ? { ...baseRequest, category: cat as CompositionCategory } : baseRequest;
 
-  const selection = selectCompositions(
-    request,
-    ctx.manifests,
-    ctx.rules,
-    ctx.registryVersion,
-  );
+  const selection = selectCompositions(request, ctx.manifests, ctx.rules, ctx.registryVersion);
 
   return {
     results: selection.results.map((r) => {
@@ -248,9 +241,10 @@ function dispatchSearch(
     }),
     ruleSetVersion: ctx.rules.version,
     registryVersion: ctx.registryVersion,
-    explanation: selection.results.length > 0
-      ? `Found ${selection.results.length} composition(s) matching intent "${input.intent}"`
-      : `No compositions match intent "${input.intent}" with the given constraints`,
+    explanation:
+      selection.results.length > 0
+        ? `Found ${selection.results.length} composition(s) matching intent "${input.intent}"`
+        : `No compositions match intent "${input.intent}" with the given constraints`,
   };
 }
 
@@ -268,12 +262,14 @@ function dispatchCustomize(
         valid: false,
         compositionRef: { kind: "composition", stableId: input.stableId, version: input.version },
         appliedValues: {},
-        invariantViolations: [{
-          invariantId: "not-found",
-          invariantType: "semantic-hierarchy",
-          description: `Composition ${input.stableId}@${input.version} not found`,
-          violatedBy: "ref",
-        }],
+        invariantViolations: [
+          {
+            invariantId: "not-found",
+            invariantType: "semantic-hierarchy",
+            description: `Composition ${input.stableId}@${input.version} not found`,
+            violatedBy: "ref",
+          },
+        ],
         undeclaredFields: [],
       },
       registryVersion: ctx.registryVersion,

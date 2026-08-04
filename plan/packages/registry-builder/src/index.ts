@@ -69,7 +69,6 @@ export { toJsonValue } from "./json.js";
 // Deep freeze (exported for testing)
 export { deepFreeze } from "./freeze.js";
 
-
 // Advanced artifacts (post-MVP: motion, 3D, compositions)
 export {
   countAdvancedArtifacts,

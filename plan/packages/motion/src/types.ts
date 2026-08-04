@@ -101,7 +101,13 @@ export type MotionControlType =
 export type BreakpointId = "sm" | "md" | "lg" | "xl" | "2xl";
 
 /** Runtime-accessible array of every `BreakpointId` value. */
-export const BREAKPOINT_IDS = ["sm", "md", "lg", "xl", "2xl"] as const satisfies readonly BreakpointId[];
+export const BREAKPOINT_IDS = [
+  "sm",
+  "md",
+  "lg",
+  "xl",
+  "2xl",
+] as const satisfies readonly BreakpointId[];
 
 // ---------------------------------------------------------------------------
 // Constraints
@@ -197,7 +203,9 @@ export interface MotionCustomizationSchema {
  */
 export interface MotionOverrideConfig {
   readonly overrides?: Partial<Record<MotionControlName, JsonValue>>;
-  readonly breakpointOverrides?: Partial<Record<BreakpointId, Partial<Record<MotionControlName, JsonValue>>>>;
+  readonly breakpointOverrides?: Partial<
+    Record<BreakpointId, Partial<Record<MotionControlName, JsonValue>>>
+  >;
 }
 
 /**
@@ -206,7 +214,9 @@ export interface MotionOverrideConfig {
  */
 export interface ResolvedMotionConfig {
   readonly values: Readonly<Record<MotionControlName, JsonValue | undefined>>;
-  readonly breakpointValues: Readonly<Record<BreakpointId, Readonly<Record<MotionControlName, JsonValue | undefined>>>>;
+  readonly breakpointValues: Readonly<
+    Record<BreakpointId, Readonly<Record<MotionControlName, JsonValue | undefined>>>
+  >;
   readonly appliedOverrides: readonly string[];
   readonly appliedDefaults: readonly string[];
 }
@@ -221,7 +231,12 @@ export interface ResolvedMotionConfig {
  * reporting.
  */
 export interface MotionValidationFault {
-  readonly code: "unknown_field" | "wrong_type" | "non_applicable" | "out_of_range" | "invalid_combination";
+  readonly code:
+    | "unknown_field"
+    | "wrong_type"
+    | "non_applicable"
+    | "out_of_range"
+    | "invalid_combination";
   readonly path: string;
   readonly constraint: string;
   readonly guidance: string;

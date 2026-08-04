@@ -89,11 +89,16 @@ interface AdvancedCompositionEntry {
  * Runs the advanced conformance cases against the provided input.
  * Returns deterministic results.
  */
-export function runAdvancedConformance(input: AdvancedConformanceInput): readonly ConformanceCaseResult[] {
+export function runAdvancedConformance(
+  input: AdvancedConformanceInput,
+): readonly ConformanceCaseResult[] {
   return ADVANCED_CONFORMANCE_CASE_NAMES.map((caseName) => runCase(caseName, input));
 }
 
-function runCase(caseName: AdvancedConformanceCaseName, input: AdvancedConformanceInput): ConformanceCaseResult {
+function runCase(
+  caseName: AdvancedConformanceCaseName,
+  input: AdvancedConformanceInput,
+): ConformanceCaseResult {
   const mismatches: ConformanceMismatch[] = [];
 
   switch (caseName) {
@@ -147,7 +152,10 @@ function runCase(caseName: AdvancedConformanceCaseName, input: AdvancedConforman
 // Case Implementations
 // ---------------------------------------------------------------------------
 
-function checkSnapshotPresent(input: AdvancedConformanceInput, mismatches: ConformanceMismatch[]): void {
+function checkSnapshotPresent(
+  input: AdvancedConformanceInput,
+  mismatches: ConformanceMismatch[],
+): void {
   // At least check that the input was provided (arrays exist)
   if (!Array.isArray(input.motionPresets)) {
     mismatches.push({ path: "motionPresets", expected: "array", actual: "missing" });
@@ -160,7 +168,10 @@ function checkSnapshotPresent(input: AdvancedConformanceInput, mismatches: Confo
   }
 }
 
-function checkMotionClassification(input: AdvancedConformanceInput, mismatches: ConformanceMismatch[]): void {
+function checkMotionClassification(
+  input: AdvancedConformanceInput,
+  mismatches: ConformanceMismatch[],
+): void {
   for (const entry of input.motionPresets) {
     if (entry.status === "stable" && !entry.performancePassing) {
       mismatches.push({
@@ -172,7 +183,10 @@ function checkMotionClassification(input: AdvancedConformanceInput, mismatches: 
   }
 }
 
-function checkMotionProvenance(input: AdvancedConformanceInput, mismatches: ConformanceMismatch[]): void {
+function checkMotionProvenance(
+  input: AdvancedConformanceInput,
+  mismatches: ConformanceMismatch[],
+): void {
   for (const entry of input.motionPresets) {
     if (!entry.hasProvenance) {
       mismatches.push({
@@ -191,7 +205,10 @@ function checkMotionProvenance(input: AdvancedConformanceInput, mismatches: Conf
   }
 }
 
-function checkMotionReducedMotion(input: AdvancedConformanceInput, mismatches: ConformanceMismatch[]): void {
+function checkMotionReducedMotion(
+  input: AdvancedConformanceInput,
+  mismatches: ConformanceMismatch[],
+): void {
   for (const entry of input.motionPresets) {
     if (!entry.hasReducedMotionSupport) {
       mismatches.push({
@@ -203,7 +220,10 @@ function checkMotionReducedMotion(input: AdvancedConformanceInput, mismatches: C
   }
 }
 
-function checkThreeDFallback(input: AdvancedConformanceInput, mismatches: ConformanceMismatch[]): void {
+function checkThreeDFallback(
+  input: AdvancedConformanceInput,
+  mismatches: ConformanceMismatch[],
+): void {
   for (const entry of input.threeDComponents) {
     if (!entry.hasFallback) {
       mismatches.push({
@@ -215,7 +235,10 @@ function checkThreeDFallback(input: AdvancedConformanceInput, mismatches: Confor
   }
 }
 
-function checkThreeDCapability(input: AdvancedConformanceInput, mismatches: ConformanceMismatch[]): void {
+function checkThreeDCapability(
+  input: AdvancedConformanceInput,
+  mismatches: ConformanceMismatch[],
+): void {
   const validCapabilities = ["webgl", "webgl2", "webgpu"];
   for (const entry of input.threeDComponents) {
     if (!validCapabilities.includes(entry.requiredCapability)) {
@@ -228,7 +251,10 @@ function checkThreeDCapability(input: AdvancedConformanceInput, mismatches: Conf
   }
 }
 
-function checkThreeDProvenance(input: AdvancedConformanceInput, mismatches: ConformanceMismatch[]): void {
+function checkThreeDProvenance(
+  input: AdvancedConformanceInput,
+  mismatches: ConformanceMismatch[],
+): void {
   for (const entry of input.threeDComponents) {
     if (!entry.hasProvenance) {
       mismatches.push({
@@ -240,7 +266,10 @@ function checkThreeDProvenance(input: AdvancedConformanceInput, mismatches: Conf
   }
 }
 
-function checkCompositionManifest(input: AdvancedConformanceInput, mismatches: ConformanceMismatch[]): void {
+function checkCompositionManifest(
+  input: AdvancedConformanceInput,
+  mismatches: ConformanceMismatch[],
+): void {
   for (const entry of input.compositions) {
     if (!entry.hasManifest) {
       mismatches.push({
@@ -259,7 +288,10 @@ function checkCompositionManifest(input: AdvancedConformanceInput, mismatches: C
   }
 }
 
-function checkCompositionDeterminism(input: AdvancedConformanceInput, mismatches: ConformanceMismatch[]): void {
+function checkCompositionDeterminism(
+  input: AdvancedConformanceInput,
+  mismatches: ConformanceMismatch[],
+): void {
   // Verify compositions have stable IDs and versions (deterministic references)
   for (const entry of input.compositions) {
     if (!entry.stableId || !entry.version) {
@@ -272,13 +304,19 @@ function checkCompositionDeterminism(input: AdvancedConformanceInput, mismatches
   }
 }
 
-function checkNoEntitlement(_input: AdvancedConformanceInput, _mismatches: ConformanceMismatch[]): void {
+function checkNoEntitlement(
+  _input: AdvancedConformanceInput,
+  _mismatches: ConformanceMismatch[],
+): void {
   // All advanced artifacts are public and entitlement-free by construction.
   // This case passes if the snapshot exists (no entitlement fields).
   // Structural enforcement happens at the type level — no entitlement fields exist.
 }
 
-function checkChecksumIntegrity(input: AdvancedConformanceInput, mismatches: ConformanceMismatch[]): void {
+function checkChecksumIntegrity(
+  input: AdvancedConformanceInput,
+  mismatches: ConformanceMismatch[],
+): void {
   for (const entry of input.motionPresets) {
     if (!entry.hasChecksum) {
       mismatches.push({
@@ -308,7 +346,10 @@ function checkChecksumIntegrity(input: AdvancedConformanceInput, mismatches: Con
   }
 }
 
-function checkSelfHostParity(_input: AdvancedConformanceInput, _mismatches: ConformanceMismatch[]): void {
+function checkSelfHostParity(
+  _input: AdvancedConformanceInput,
+  _mismatches: ConformanceMismatch[],
+): void {
   // Self-host parity: all artifacts are in the snapshot, no hosted-only artifacts.
   // By construction, all entries in the snapshot are available for self-hosting.
   // If an entry exists in the snapshot, it's self-hostable.

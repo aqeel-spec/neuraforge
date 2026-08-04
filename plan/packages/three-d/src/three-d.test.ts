@@ -65,64 +65,101 @@ function makeRecord(overrides: Partial<ThreeDComponentRecord> = {}): ThreeDCompo
     fallback: FALLBACK,
     errorBoundary: ERROR_BOUNDARY,
     parameters: [
-      { name: "autoRotate", type: "boolean", description: "Auto rotate model", default: true, required: false, group: "interaction" },
-      { name: "cameraDistance", type: "number", description: "Camera distance", default: 5, required: false, range: { min: 1, max: 20 }, group: "camera" },
+      {
+        name: "autoRotate",
+        type: "boolean",
+        description: "Auto rotate model",
+        default: true,
+        required: false,
+        group: "interaction",
+      },
+      {
+        name: "cameraDistance",
+        type: "number",
+        description: "Camera distance",
+        default: 5,
+        required: false,
+        range: { min: 1, max: 20 },
+        group: "camera",
+      },
     ],
     resumeStateDescription: "Camera position, rotation state, and selected material",
-    sourceFiles: [{
-      path: "src/components/product-viewer.tsx",
-      origin: "original",
-      mediaType: "text/typescript",
-      size: 4096,
-      checksum: { algorithm: "sha256", canonicalization: "neuraforge-canonical-v1", digest: "abc123" },
-    }],
-    dependencies: [{ name: "three", version: "0.160.0", source: "https://github.com/mrdoob/three.js" }],
-    assets: [{
-      path: "assets/product-model.glb",
-      mediaType: "model/gltf-binary",
-      size: 512000,
-      provenance: {
-        name: "product-model",
-        version: "1.0.0",
-        source: "https://example.com/models",
-        copyright: "Copyright 2026 Example Corp",
-        spdxIdentifier: "CC-BY-4.0",
-        licenseTextPath: "licenses/cc-by-4.0.txt",
-        attribution: "Example Corp",
-        redistributionObligations: ["attribution"],
+    sourceFiles: [
+      {
+        path: "src/components/product-viewer.tsx",
+        origin: "original",
+        mediaType: "text/typescript",
+        size: 4096,
+        checksum: {
+          algorithm: "sha256",
+          canonicalization: "neuraforge-canonical-v1",
+          digest: "abc123",
+        },
+      },
+    ],
+    dependencies: [
+      { name: "three", version: "0.160.0", source: "https://github.com/mrdoob/three.js" },
+    ],
+    assets: [
+      {
+        path: "assets/product-model.glb",
+        mediaType: "model/gltf-binary",
+        size: 512000,
+        provenance: {
+          name: "product-model",
+          version: "1.0.0",
+          source: "https://example.com/models",
+          copyright: "Copyright 2026 Example Corp",
+          spdxIdentifier: "CC-BY-4.0",
+          licenseTextPath: "licenses/cc-by-4.0.txt",
+          attribution: "Example Corp",
+          redistributionObligations: ["attribution"],
+          reviewStatus: "approved",
+        },
+      },
+    ],
+    provenance: [
+      {
+        name: "three",
+        version: "0.160.0",
+        source: "https://github.com/mrdoob/three.js",
+        copyright: "Copyright 2010-2026 Three.js Authors",
+        spdxIdentifier: "MIT",
+        licenseTextPath: "licenses/three-MIT.txt",
+        attribution: "Three.js Authors",
+        redistributionObligations: ["include-license-text"],
         reviewStatus: "approved",
       },
-    }],
-    provenance: [{
-      name: "three",
-      version: "0.160.0",
-      source: "https://github.com/mrdoob/three.js",
-      copyright: "Copyright 2010-2026 Three.js Authors",
-      spdxIdentifier: "MIT",
-      licenseTextPath: "licenses/three-MIT.txt",
-      attribution: "Three.js Authors",
-      redistributionObligations: ["include-license-text"],
-      reviewStatus: "approved",
-    }],
-    examples: [{
-      id: "basic-viewer",
-      title: "Basic product viewer",
-      description: "Displays a 3D product model with orbit controls",
-      parameters: { autoRotate: true, cameraDistance: 5 },
-      sourcePath: "examples/basic-viewer.tsx",
-      interactive: true,
-    }],
-    performanceRecords: [{
-      artifact: { kind: "three-d-component", stableId: "product-viewer", version: "1.0.0" },
-      metric: "first-render-ms",
-      scenario: "cold start on mid-range GPU",
-      environment: { operatingSystem: "linux", runtime: "chrome-120", tools: {}, prerequisites: [], fixtures: [] },
-      result: 120,
-      threshold: 500,
-      unit: "ms",
-      command: "npm run perf:3d",
-      status: "passed",
-    }],
+    ],
+    examples: [
+      {
+        id: "basic-viewer",
+        title: "Basic product viewer",
+        description: "Displays a 3D product model with orbit controls",
+        parameters: { autoRotate: true, cameraDistance: 5 },
+        sourcePath: "examples/basic-viewer.tsx",
+        interactive: true,
+      },
+    ],
+    performanceRecords: [
+      {
+        artifact: { kind: "three-d-component", stableId: "product-viewer", version: "1.0.0" },
+        metric: "first-render-ms",
+        scenario: "cold start on mid-range GPU",
+        environment: {
+          operatingSystem: "linux",
+          runtime: "chrome-120",
+          tools: {},
+          prerequisites: [],
+          fixtures: [],
+        },
+        result: 120,
+        threshold: 500,
+        unit: "ms",
+        command: "npm run perf:3d",
+        status: "passed",
+      },
+    ],
     ...overrides,
   };
 }
@@ -189,7 +226,6 @@ describe("3D Capability Guard", () => {
     expect(result.issues.length).toBeGreaterThan(0);
   });
 });
-
 
 // ---------------------------------------------------------------------------
 // Lifecycle State Machine Tests
@@ -345,7 +381,6 @@ describe("3D Action Journal", () => {
   });
 });
 
-
 // ---------------------------------------------------------------------------
 // Render Loop & Frame Counter Tests
 // ---------------------------------------------------------------------------
@@ -390,7 +425,7 @@ describe("3D Error Boundary", () => {
   });
 
   it("recordFailure increments attempts", () => {
-    let ebState = createErrorBoundaryState(ERROR_BOUNDARY);
+    const ebState = createErrorBoundaryState(ERROR_BOUNDARY);
     const result = recordFailure(ebState, "WebGL context lost");
     expect(result.state.attempts).toBe(1);
     expect(result.state.lastError).toBe("WebGL context lost");
@@ -398,7 +433,7 @@ describe("3D Error Boundary", () => {
   });
 
   it("recordFailure marks permanently failed after maxRetries", () => {
-    let ebState = createErrorBoundaryState(ERROR_BOUNDARY);
+    const ebState = createErrorBoundaryState(ERROR_BOUNDARY);
     let result = recordFailure(ebState, "Error 1");
     result = recordFailure(result.state, "Error 2");
     result = recordFailure(result.state, "Error 3");
@@ -498,17 +533,25 @@ describe("3D Projection", () => {
 
   it("classifyThreeDStatus catches failing performance", () => {
     const record = makeRecord({
-      performanceRecords: [{
-        artifact: { kind: "three-d-component", stableId: "product-viewer", version: "1.0.0" },
-        metric: "fps",
-        scenario: "animation loop",
-        environment: { operatingSystem: "linux", runtime: "chrome-120", tools: {}, prerequisites: [], fixtures: [] },
-        result: 20,
-        threshold: 30,
-        unit: "fps",
-        command: "npm run perf:fps",
-        status: "failed",
-      }],
+      performanceRecords: [
+        {
+          artifact: { kind: "three-d-component", stableId: "product-viewer", version: "1.0.0" },
+          metric: "fps",
+          scenario: "animation loop",
+          environment: {
+            operatingSystem: "linux",
+            runtime: "chrome-120",
+            tools: {},
+            prerequisites: [],
+            fixtures: [],
+          },
+          result: 20,
+          threshold: 30,
+          unit: "fps",
+          command: "npm run perf:fps",
+          status: "failed",
+        },
+      ],
     });
     const result = classifyThreeDStatus(record);
     expect(result.status).toBe("experimental");
@@ -518,12 +561,12 @@ describe("3D Projection", () => {
   it("buildThreeDMcpPayload returns complete MCP structure", () => {
     const record = makeRecord();
     const payload = buildThreeDMcpPayload(record);
-    expect(payload["kind"]).toBe("three-d-component");
-    expect(payload["stableId"]).toBe("product-viewer");
-    expect(payload["capability"]).toBeDefined();
-    expect(payload["parameters"]).toBeDefined();
-    expect(payload["performance"]).toBeDefined();
-    expect(payload["examples"]).toBeDefined();
+    expect(payload.kind).toBe("three-d-component");
+    expect(payload.stableId).toBe("product-viewer");
+    expect(payload.capability).toBeDefined();
+    expect(payload.parameters).toBeDefined();
+    expect(payload.performance).toBeDefined();
+    expect(payload.examples).toBeDefined();
   });
 
   it("buildThreeDMcpPayload includes experimental warnings when applicable", () => {
@@ -532,8 +575,8 @@ describe("3D Projection", () => {
       blockers: [{ code: "asset_review", description: "Pending asset review" }],
     });
     const payload = buildThreeDMcpPayload(record);
-    expect(payload["experimental"]).toBeDefined();
-    const experimental = payload["experimental"] as { blockers: unknown[]; warnings: string[] };
+    expect(payload.experimental).toBeDefined();
+    const experimental = payload.experimental as { blockers: unknown[]; warnings: string[] };
     expect(experimental.blockers).toHaveLength(1);
     expect(experimental.warnings.length).toBeGreaterThan(0);
   });
@@ -541,12 +584,12 @@ describe("3D Projection", () => {
   it("buildThreeDMcpSummary returns summary with key fields", () => {
     const record = makeRecord();
     const summary = buildThreeDMcpSummary(record);
-    expect(summary["kind"]).toBe("three-d-component");
-    expect(summary["stableId"]).toBe("product-viewer");
-    expect(summary["requiredCapability"]).toBe("webgl2");
-    expect(summary["hasFallback"]).toBe(true);
-    expect(summary["parameterCount"]).toBe(2);
-    expect(summary["performanceStatus"]).toBe("passing");
+    expect(summary.kind).toBe("three-d-component");
+    expect(summary.stableId).toBe("product-viewer");
+    expect(summary.requiredCapability).toBe("webgl2");
+    expect(summary.hasFallback).toBe(true);
+    expect(summary.parameterCount).toBe(2);
+    expect(summary.performanceStatus).toBe("passing");
   });
 });
 

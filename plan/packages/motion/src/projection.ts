@@ -160,8 +160,10 @@ export function validateProjectionCompleteness(record: MotionPresetRecord): read
   if (!record.ref.version) missing.push("ref.version");
   if (!record.schemaVersion) missing.push("schemaVersion");
   if (!record.framerMotionVersion) missing.push("framerMotionVersion");
-  if (!record.framerMotionProvenance.spdxIdentifier) missing.push("framerMotionProvenance.spdxIdentifier");
-  if (record.framerMotionProvenance.reviewStatus !== "approved") missing.push("framerMotionProvenance.reviewStatus");
+  if (!record.framerMotionProvenance.spdxIdentifier)
+    missing.push("framerMotionProvenance.spdxIdentifier");
+  if (record.framerMotionProvenance.reviewStatus !== "approved")
+    missing.push("framerMotionProvenance.reviewStatus");
   if (record.sourceFiles.length === 0) missing.push("sourceFiles");
   if (record.examples.length === 0) missing.push("examples");
   if (record.performanceRecords.length === 0) missing.push("performanceRecords");
@@ -187,9 +189,10 @@ export function validateProjectionCompleteness(record: MotionPresetRecord): read
  *
  * Requirements: 5.15, 5.20
  */
-export function classifyMotionPresetStatus(
-  record: MotionPresetRecord,
-): { status: "stable" | "experimental"; blockers: MotionBlockingCondition[] } {
+export function classifyMotionPresetStatus(record: MotionPresetRecord): {
+  status: "stable" | "experimental";
+  blockers: MotionBlockingCondition[];
+} {
   const completenessIssues = validateProjectionCompleteness(record);
   const blockers: MotionBlockingCondition[] = [];
 
@@ -325,9 +328,10 @@ function projectApplicabilityMap(schema: MotionCustomizationSchema): ProjectedAp
           description: c.description,
           relatedControls: c.relatedControls ? [...c.relatedControls] : [],
         })),
-        breakpointSupport: control.breakpoints === "all" || control.breakpoints === "none"
-          ? control.breakpoints
-          : [...control.breakpoints],
+        breakpointSupport:
+          control.breakpoints === "all" || control.breakpoints === "none"
+            ? control.breakpoints
+            : [...control.breakpoints],
       };
       applicable.push(projected);
     } else {
@@ -341,7 +345,9 @@ function projectApplicabilityMap(schema: MotionCustomizationSchema): ProjectedAp
   return { applicable, nonApplicable };
 }
 
-function projectReducedMotionContract(behavior: ReducedMotionBehavior): ProjectedReducedMotionContract {
+function projectReducedMotionContract(
+  behavior: ReducedMotionBehavior,
+): ProjectedReducedMotionContract {
   return {
     disabledDecorativeMotion: behavior.disabledDecorativeMotion,
     essentialTransitions: behavior.essentialTransitions.map((t) => ({
@@ -382,11 +388,15 @@ function generateExperimentalWarnings(record: MotionPresetRecord): string[] {
   }
 
   if (record.examples.length === 0) {
-    warnings.push("No usage examples are published. Configuration may require manual reference to source.");
+    warnings.push(
+      "No usage examples are published. Configuration may require manual reference to source.",
+    );
   }
 
   if (record.performanceRecords.length === 0) {
-    warnings.push("No performance records are published. Runtime and bundle-size impact is undocumented.");
+    warnings.push(
+      "No performance records are published. Runtime and bundle-size impact is undocumented.",
+    );
   }
 
   return warnings;

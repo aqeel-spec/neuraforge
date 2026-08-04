@@ -7,11 +7,7 @@ import type {
   ThreeDErrorBoundary,
   ThreeDLifecycleState,
 } from "./types.js";
-import {
-  createErrorBoundaryState,
-  recordFailure,
-  transition,
-} from "./capability.js";
+import { createErrorBoundaryState, recordFailure, transition } from "./capability.js";
 import type { ErrorBoundaryState } from "./capability.js";
 
 // ---------------------------------------------------------------------------
@@ -104,10 +100,7 @@ export function fail(state: ThreeDRuntimeState, error: string): ThreeDRuntimeSta
  *
  * Requirement 5.18
  */
-export function suspend(
-  state: ThreeDRuntimeState,
-  currentState: JsonValue,
-): ThreeDRuntimeState {
+export function suspend(state: ThreeDRuntimeState, currentState: JsonValue): ThreeDRuntimeState {
   const result = transition(state.lifecycle, "suspended");
   if (!result.transitioned) return state;
 

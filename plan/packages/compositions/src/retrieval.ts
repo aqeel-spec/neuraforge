@@ -23,7 +23,11 @@ import { selectCompositions } from "./selection.js";
  * - `no-match` — no composition satisfies all constraints.
  */
 export type RetrievalResult =
-  | { readonly type: "complete"; readonly manifest: CompositionManifest; readonly elements: readonly AvailableElement[] }
+  | {
+      readonly type: "complete";
+      readonly manifest: CompositionManifest;
+      readonly elements: readonly AvailableElement[];
+    }
   | { readonly type: "partial"; readonly partial: PartialResult }
   | { readonly type: "no-match"; readonly noMatch: NoMatchResult };
 
@@ -174,11 +178,13 @@ export function handleCompositionRequest(
     return {
       type: "no-match",
       noMatch: {
-        failedConstraints: [{
-          constraintId: "internal",
-          description: "Selected composition not found in manifest list",
-          reason: "Internal consistency error",
-        }],
+        failedConstraints: [
+          {
+            constraintId: "internal",
+            description: "Selected composition not found in manifest list",
+            reason: "Internal consistency error",
+          },
+        ],
         alternatives: [],
       },
     };
